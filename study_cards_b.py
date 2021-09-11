@@ -19,6 +19,7 @@ import random
 import tkinter as tk
 import pathlib
 import sys
+import os
 from fileinput import FileInput
 from collections import namedtuple
 from enum import Enum
@@ -30,12 +31,11 @@ config_object.read("config.ini")
 PROJINFO = config_object["PROJINFO"]
 language1 = PROJINFO["language1"]
 language2 = PROJINFO["language2"]
-filepath = PROJINFO["filepath"]
 number_of_sets = PROJINFO["number_of_sets"]
 import_file_name = PROJINFO["import_file_name"]
 set_title = PROJINFO["set_title"]  # The title of the study set
-#print("Study set title is {}".format(PROJINFO["set_title"]))
 
+filepath = os.path.join('.', 'data', '')  # a relative path in any OS
 import_word_file = True  # import a file per user demand.
 f_separator = ";"  # field separator in import file and in work file
 w_file = import_file_name.removesuffix(".txt")+"_dat"+".txt"
