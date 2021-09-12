@@ -268,8 +268,8 @@ def nxt_back_button_clicked(nxt, start_over = False):
         set_act_line(line_number)
         card_text = [term_list[act_ln][lang1_idx].rstrip(), term_list[act_ln][lang2_idx].strip()]
 
-        shown_l_word.configure(text=card_text[first_side])
-        card_side = first_side
+        shown_l_word.configure(text=card_text[front_side])
+        card_side = front_side
         set_tag_rb(act_ln)
 
         label1_txt = "Card number " + str(line_number + 1) + " of " + str(filtered_list_size) + " cards"
@@ -297,13 +297,13 @@ def enable_disable_tag_radio_buttons(enable):
 
 def flip_button_clicked():
     global card_side
-    if card_side == first_side:
-        shown_l_word.configure(text=card_text[second_side])
-        card_side = second_side
+    if card_side == front_side:
+        shown_l_word.configure(text=card_text[back_side])
+        card_side = back_side
         enable_disable_tag_radio_buttons(False)
     else:
-        shown_l_word.configure(text=card_text[first_side])
-        card_side = first_side
+        shown_l_word.configure(text=card_text[front_side])
+        card_side = front_side
         enable_disable_tag_radio_buttons(True)
 
 
@@ -332,9 +332,9 @@ def config_button_clicked():
 def item_tagging():
     global term_list
     tag_val = tagging_var.get()
-    if first_side == 0:
+    if front_side == 0:
         lang_idx = lang1_idx
-    elif first_side == 1:
+    elif front_side == 1:
         lang_idx = lang2_idx
     else:
         lang_idx = -1  # !!! this whole section needs to be improved !!!
@@ -344,10 +344,10 @@ def item_tagging():
     term_list[act_ln][lang_idx+2] = languages[lang_idx]+" "+d_txt
 
 def change_lang_order():
-    global first_side
-    global second_side
-    first_side = lang1_var.get()
-    second_side = 1 - first_side
+    global front_side
+    global back_side
+    front_side = lang1_var.get()
+    back_side = 1 - front_side
 
 def update_filter():
     pass
