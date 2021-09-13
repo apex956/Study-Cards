@@ -434,17 +434,17 @@ filter_rad6 = tk.Radiobutton(filter_cards_frame, text=UNTAGGED_FILTER[TXT], vari
 filter_cards.set(0)  # set the default radio button
 
 
-first_language_frame = tk.LabelFrame(config_frame, text="First language shown", font="Helvetica 14",
+front_side_frame = tk.LabelFrame(config_frame, text="Front side", font="Helvetica 14",
                                      width=200, height=120, bg="white smoke",  bd=1, relief=tk.SOLID)
-first_language_frame.place(relx=0.1, rely=0.5)
+front_side_frame.place(relx=0.1, rely=0.5)
 
 lang1_var = tk.IntVar()
 
-frst_lang_rad1 = tk.Radiobutton(first_language_frame, text=language1, variable=lang1_var,
+front_side_rad1 = tk.Radiobutton(front_side_frame, text=language1, variable=lang1_var,
                                 value=0, command=change_lang_order,
                                 font=RADIO_BUTTON_FONT, bg=RB_BG).place(relx=0.0, rely=0.05)
 
-frst_lang_rad2 = tk.Radiobutton(first_language_frame, text=language2, variable=lang1_var,
+front_side_rad2 = tk.Radiobutton(front_side_frame, text=language2, variable=lang1_var,
                                 value=1, command=change_lang_order,
                                 font=RADIO_BUTTON_FONT, bg=RB_BG).place(relx=0.0, rely=0.4)
 
