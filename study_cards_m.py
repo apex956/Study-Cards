@@ -36,17 +36,25 @@ def word_list_import(in_f_path, in_f_name):
     """
     in_file_path = in_f_path + in_f_name
     in_line_list = []
-
+    p_line = -1
     try:
         in_file_ref = open(in_file_path, "r")
     except OSError as e:
         print(e)
         print("couldn't open the imported file")
         return
-    for in_line in in_file_ref:
-        in_line_list.append(in_line.split(f_separator))
-    #print("The 1st line from the imported file: ", in_line_list[0])
-    in_file_ref.close()
+    try:
+        for t_idx, in_line in enumerate(in_file_ref):
+            if in_line.count(f_separator) > 1:
+                p_line = t_idx
+                raise ValueError
+            in_line_list.append(in_line.split(f_separator))
+    except ValueError:
+        print("Found an unexpected separator {} character in line {}. "
+              "No file import performed".format(f_separator, p_line))
+        return
+    finally:
+        in_file_ref.close()
     print("There are {} terms in the imported file".format(len(in_line_list)))
 
     w_file_path = pathlib.Path(filepath+w_file)
