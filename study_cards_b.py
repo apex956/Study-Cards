@@ -5,9 +5,6 @@ Created: August 2021
 Authors: Amir Bar-Sever
 Programming language: Python 3
 Status: work in progress
-File Version: 0.1
-History:
-
 """
 # ==============================================================
 # This file includes: Configuration variables, enums and types as well as global variables

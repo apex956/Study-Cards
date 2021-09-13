@@ -20,9 +20,6 @@ Created: August 2021
 Authors: Amir Bar-Sever
 Programming language: Python 3
 Status: work in progress
-File Version: 0.1
-History:
-
 """
 
 from study_cards_b import *
