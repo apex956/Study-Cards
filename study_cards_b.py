@@ -97,4 +97,7 @@ tdtv_dir = {NoTag.d_txt: NoTag.val,
           HighTag.d_txt: HighTag.val,
           GenTag.d_txt: GenTag.val}
 
-
+class PopUpType:
+    Info = 0
+    Warning = 1
+    Error = 2

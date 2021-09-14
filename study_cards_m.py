@@ -24,6 +24,17 @@ Status: work in progress
 
 from study_cards_b import *
 
+def display_pop_up(pu_type, txt):
+    msg = tk.Tk()
+    msg.withdraw()
+    if pu_type == PopUpType.Warning:
+        tk.messagebox.showwarning(title="Warning", message=txt)
+    elif pu_type == PopUpType.Error:
+        tk.messagebox.showwarning(title="Error", message=txt)
+    elif pu_type == PopUpType.Info:
+        tk.messagebox.showinfo(title="Info", message=txt)
+    msg.destroy()
+
 def word_list_import(in_f_path, in_f_name):
     """
     Description: This function opens and reads the text file imported from the Quizlet application
@@ -40,8 +51,9 @@ def word_list_import(in_f_path, in_f_name):
     try:
         in_file_ref = open(in_file_path, "r")
     except OSError as e:
-        print(e)
-        print("couldn't open the imported file")
+        wrn_txt = "Couldn't open a file to be imported"
+        print(e, wrn_txt)
+        display_pop_up(PopUpType.Warning, wrn_txt)
         return
     try:
         for t_idx, in_line in enumerate(in_file_ref):
@@ -50,14 +62,11 @@ def word_list_import(in_f_path, in_f_name):
                 raise ValueError
             in_line_list.append(in_line.split(f_separator))
     except ValueError:
-        print("Found an unexpected separator {} character in line {}. "
-              "No file import performed".format(f_separator, p_line))
-        msg = tk.Tk()
-        msg.withdraw()
-        warning_txt = "Found an unexpected separator " + f_separator + \
-                      " character in line " + str(p_line) +\
-                      " of the imported file \n" + "The file was not imported"
-        msg = tk.messagebox.showwarning(title="Warning", message=warning_txt)
+        warning_txt = "Found an unexpected separator character '" + f_separator + \
+                      "' in line " + str(p_line) +\
+                      " of the imported file. " + "The file was not imported."
+        print(warning_txt)
+        display_pop_up(PopUpType.Warning, warning_txt)
         return
     finally:
         in_file_ref.close()
@@ -73,8 +82,9 @@ def word_list_import(in_f_path, in_f_name):
         try:
             w_file_ref = open(w_file_path, "w")
         except OSError as e:
-            print(e)
-            print("couldn't open the work file for writing")
+            err_txt = "couldn't open the work file for writing"
+            print(e, err_txt)
+            display_pop_up(PopUpType.Error, err_txt)
             sys.exit()
 
     for d_line in in_line_list:
@@ -82,6 +92,7 @@ def word_list_import(in_f_path, in_f_name):
                      d_line[lang2_idx].strip() + f_separator +
                      language1 + " " + NoTag.d_txt + f_separator +
                      language2 + " " + NoTag.d_txt + "\n")
+    display_pop_up(PopUpType.Info, "File was imported")
     w_file_ref.close()
 
 if import_word_file:
@@ -380,6 +391,7 @@ title1.place(relx=0.3, rely=0.0)
 title2 = tk.Label(window, text="Study Set: " + set_title, font="Helvetica 16 bold")
 title2.place(relx=0.4, rely=0.05)
 
+window.attributes('-topmost', 'true')
 
 '''---Configuration Frame---'''
 config_frame = tk.LabelFrame(window, text="Configuration", font="Helvetica 14",
