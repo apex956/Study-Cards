@@ -1,2 +1,7 @@
 # Study-Cards
-The Study Cards application provides a simple way to study subjects such as languages through flash-cards. 
+## General Description
+The Study Cards application provides a simple way to study subjects such as languages using flash-cards. 
+## Status
+Work in progress
+## Comments
+The repository includes examples of config.ini file, import file, and work file
