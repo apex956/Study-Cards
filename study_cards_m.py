@@ -52,6 +52,12 @@ def word_list_import(in_f_path, in_f_name):
     except ValueError:
         print("Found an unexpected separator {} character in line {}. "
               "No file import performed".format(f_separator, p_line))
+        msg = tk.Tk()
+        msg.withdraw()
+        warning_txt = "Found an unexpected separator " + f_separator + \
+                      " character in line " + str(p_line) +\
+                      " of the imported file \n" + "The file was not imported"
+        msg = tk.messagebox.showwarning(title="Warning", message=warning_txt)
         return
     finally:
         in_file_ref.close()

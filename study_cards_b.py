@@ -14,6 +14,7 @@ Status: work in progress
 
 import random
 import tkinter as tk
+import tkinter.messagebox
 import pathlib
 import sys
 import os
