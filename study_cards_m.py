@@ -25,28 +25,41 @@ Status: work in progress
 from study_cards_b import *
 
 def display_pop_up(pu_type, txt):
+    """
+    Function displays three types of pop-up messages without showing the root window.
+    The root window has to be destroyed each time.
+    Function has side effect: the main window of the app created later goes to
+    background. This problem is fixed with the command: window.attributes('-topmost', 'true')
+    The argument 'pu_type' is the type of the pop-up (a.k.a. messagebox)
+    The argument 'txt' is the displayed text
+    """
     msg = tk.Tk()
     msg.withdraw()
+    pu_title = pu_type
     if pu_type == PopUpType.Warning:
-        tk.messagebox.showwarning(title="Warning", message=txt)
+        tk.messagebox.showwarning(title=pu_title, message=txt)
     elif pu_type == PopUpType.Error:
-        tk.messagebox.showwarning(title="Error", message=txt)
+        tk.messagebox.showerror(title=pu_title, message=txt)
     elif pu_type == PopUpType.Info:
-        tk.messagebox.showinfo(title="Info", message=txt)
+        tk.messagebox.showinfo(title=pu_title, message=txt)
+    else:
+        print("Unexpected value of pu_type argument:", pu_type)
     msg.destroy()
 
-def word_list_import(in_f_path, in_f_name):
+def word_list_import(in_f_path, in_f_name, w_file_name):
     """
-    Description: This function opens and reads the text file imported from the Quizlet application
-    It writes the content to a work file and adds default meta data
-    Note that running this function erases the meta data replacing it with default values
+    Description: This function creates a work file and copies the content of
+    the imported file to a work file. It also adds default tagging.
+    This is done only if the work file cannot be found.
+    Note: This function will be used for merging the two files
 
-    :param f_path: the path to the directory where the imported file and the work file are
-    :param f_name: the name of the text file to be imported
-    :return:
+    :param in_f_path: the path to the directory of the imported file and the work file
+    :param in_f_name: the name of the imported file
+    :param in_f_name: the name of the work file
+    :return: None
     """
     in_file_path = in_f_path + in_f_name
-    in_line_list = []
+    in_line_list = []  # list of lines read from the import file
     p_line = -1
     try:
         in_file_ref = open(in_file_path, "r")
@@ -70,12 +83,11 @@ def word_list_import(in_f_path, in_f_name):
         return
     finally:
         in_file_ref.close()
-    print("There are {} terms in the imported file".format(len(in_line_list)))
 
-    w_file_path = pathlib.Path(filepath+w_file)
+    w_file_path = pathlib.Path(filepath+w_file_name)
     if w_file_path.is_file():
         # work file exists - add here the ability to merge with an imported file
-        print("Work file found. No import performed")
+        print("Work file found. No file importing was performed")
         return
     else:
         print("Work file not found. Import is attempted")
@@ -95,8 +107,8 @@ def word_list_import(in_f_path, in_f_name):
     display_pop_up(PopUpType.Info, "File was imported")
     w_file_ref.close()
 
-if import_word_file:
-    word_list_import(filepath, import_file_name)
+if import_file_request:
+    word_list_import(filepath, import_file_name, w_file)
 
 def read_work_file():
     global term_list
@@ -152,8 +164,8 @@ def get_tag_dt_txt(line):
         raise ValueError
     return data_text
 
-
-def create_filtered_index_list():
+def create_filtered_index_lists():
+    """"""
     global filtered_ab_sort_lst
     global filtered_shuffled_list
     global filtered_term_list
@@ -199,7 +211,6 @@ def create_filtered_index_list():
                 if get_tag_dt_txt(a_idx) == expected_tag_dt_txt:
                     filtered_term_list.append(a_idx)
             filtered_list_size = len(filtered_term_list)
-
 
 def set_tag_rb(line):
     """
@@ -344,7 +355,7 @@ def original_selected():
 def flash_cards_button_clicked():
     config_frame.place_forget()
     presentation_frame.place(relx=0.1, rely=0.1)
-    create_filtered_index_list()
+    create_filtered_index_lists()
     nxt_back_button_clicked(nxt=True, start_over=True)
 
 def config_button_clicked():

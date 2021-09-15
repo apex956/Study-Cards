@@ -34,7 +34,7 @@ import_file_name = PROJINFO["import_file_name"]
 set_title = PROJINFO["set_title"]  # The title of the study set
 
 filepath = os.path.join('.', 'data', '')  # a relative path in any OS
-import_word_file = True  # import a file per user demand.
+import_file_request = True  # import a file per user demand.
 f_separator = ";"  # field separator in import file and in work file
 w_file = import_file_name.removesuffix(".txt")+"_dat"+".txt"
 
@@ -98,6 +98,6 @@ tdtv_dir = {NoTag.d_txt: NoTag.val,
           GenTag.d_txt: GenTag.val}
 
 class PopUpType:
-    Info = 0
-    Warning = 1
-    Error = 2
+    Info = "Info"
+    Warning = "Warning"
+    Error = "Error"
