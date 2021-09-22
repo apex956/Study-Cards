@@ -22,12 +22,12 @@ class Conf_Frame:
         config_frame = tk.LabelFrame(window, text="Configuration", font="Helvetica 14",
                                      width=900, height=600, bg="gray99", bd=1, relief=tk.SOLID)
         config_frame.place(relx=0.1, rely=0.1)
-        self._config_frame = config_frame
+        self.config_frame_obj = config_frame
 
         card_order_frame = tk.Frame(config_frame, width=150, height=160, bg="white smoke",  bd=1, relief=tk.SOLID)
         card_order_frame.place(relx=0.1, rely=0.05)
         tk.Label(card_order_frame, text="Card Order:", font="Helvetica 16", bg="white smoke")\
-        .place(relx=0.0, rely=0.0)
+            .place(relx=0.0, rely=0.0)
 
         card_order = tk.IntVar()
 
@@ -53,8 +53,8 @@ class Conf_Frame:
         filter_cards_frame.place(relx=0.5, rely=0.05)
 
         tk.Radiobutton(filter_cards_frame, text=self.NO_FLTR[self.TXT], variable=filter_cards,
-                     value=self.NO_FLTR[self.VAL], command=self.update_filter,
-                     font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.05)
+                       value=self.NO_FLTR[self.VAL], command=self.update_filter,
+                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.05)
 
         tk.Radiobutton(filter_cards_frame, text=self.LOW_FLTR[self.TXT], variable=filter_cards,
                      value=self.LOW_FLTR[self.VAL], command=self.update_filter,
@@ -104,14 +104,12 @@ class Conf_Frame:
     def original_selected(self):
         self._app.mode = "original"
 
-
     def update_filter(self):
         pass
 
     def change_lang_order(self):
-        self.front_side = self.lang1_var.get()
-        self.back_side = 1 - self.front_side
-
+        self._app.front_side = self.lang1_var.get()
+        self._app.back_side = 1 - self._app.front_side
 
     def create_filtered_index_lists(self, app):
         app.filtered_ab_sort_lst.clear()
@@ -151,7 +149,7 @@ class Conf_Frame:
                         app.filtered_shuffled_list.append(m_idx)
                 app.filtered_list_size = len(app.filtered_shuffled_list)
             elif app.mode == "original":
-                for a_idx in range(len(term_list)):
+                for a_idx in range(len(app.term_list)):
                     if app.get_tag_dt_txt(a_idx) == expected_tag_dt_txt:
                         app.filtered_term_list.append(a_idx)
                 app.filtered_list_size = len(app.filtered_term_list)

@@ -243,9 +243,9 @@ class StudyCardsApp:
             if lang_idx == self.lang1_idx:
                 lang_tag_idx = self.lang1_tag_idx
                 language = self.language1
-            elif lang_idx == lang2_idx:
-                lang_tag_idx = lang2_tag_idx
-                language = language2
+            elif lang_idx == self.lang2_idx:
+                lang_tag_idx = self.lang2_tag_idx
+                language = self.language2
             else:
                 return  # need to raise exception
             for idx, line in enumerate(wf):
@@ -257,8 +257,11 @@ class StudyCardsApp:
                 print(line)
 
 
-
 class MainWin:
+    BUTTON_FONT = "Helvetica 16"
+    RADIO_BUTTON_FONT = "Helvetica 14"
+    RB_BG = "white smoke"  # Radio Button Background color
+
     def __init__(self, window, app):
         window.title("Study Cards")
         window.geometry('1100x700')
@@ -274,23 +277,15 @@ class MainWin:
         self._app = app
 
 
-    BUTTON_FONT = "Helvetica 16"
-    RADIO_BUTTON_FONT = "Helvetica 14"
-    RB_BG = "white smoke"  # Radio Button Background color
-
-
     def flash_cards_button_clicked(self):
-        self._conf_frame._config_frame.place_forget()
-        self._prsnt_frame._pres_frame.place(relx=0.1, rely=0.1)
+        self._conf_frame.config_frame_obj.place_forget()
+        self._prsnt_frame.presentation_frame_obj.place(relx=0.1, rely=0.1)
         self._conf_frame.create_filtered_index_lists(self._app)
         self._prsnt_frame.nxt_back_button_clicked(nxt=True, start_over=True)
 
-
     def config_button_clicked(self):
-        self._conf_frame._config_frame.place(relx=0.1, rely=0.1)
-        self._prsnt_frame._pres_frame.place_forget()
-
-
+        self._conf_frame.config_frame_obj.place(relx=0.1, rely=0.1)
+        self._prsnt_frame.presentation_frame_obj.place_forget()
 
 
 def main():

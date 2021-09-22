@@ -3,20 +3,18 @@ import study_cards_app
 
 class Presentation_Frame:
     def __init__(self, main_win, window, app):
-        R_B_FONT = study_cards_app.MainWin.RADIO_BUTTON_FONT
-        R_B_BG = study_cards_app.MainWin.RB_BG
-        BUTTON_FONT = study_cards_app.MainWin.BUTTON_FONT
+        R_B_FONT = main_win.RADIO_BUTTON_FONT
+        R_B_BG = main_win.RB_BG
+        BUTTON_FONT = main_win.BUTTON_FONT
 
         self._app = app
         self.card_text = []  # The text of both sides of the current card
 
-
         presentation_frame = tk.LabelFrame(window, text="Flashcards", font="Helvetica 14", width=900,
                                            height=600, bg="gray99",  bd=1, relief=tk.SOLID)
 
-        self._pres_frame = presentation_frame
+        self.presentation_frame_obj = presentation_frame
 
-        
         tagging_frame = tk.LabelFrame(presentation_frame, text="Tagging", font="Helvetica 14", width=170,
                                       height=300, bg="white smoke", bd=1, relief=tk.SOLID)
         tagging_frame.place(relx=0.75, rely=0.2)
@@ -27,8 +25,7 @@ class Presentation_Frame:
                                   value=app.NoTag.val, command=self.item_tagging,
                                   font=R_B_FONT, bg=R_B_BG)
         tag_rad1.place(relx=0.1, rely=0.1)
-        
-        
+
         tag_rad2 = tk.Radiobutton(tagging_frame, text=app.LowTag.rb_txt, variable=self.tagging_var,
                                   value=app.LowTag.val, command=self.item_tagging,
                                   font=R_B_FONT, bg=R_B_BG)
@@ -38,8 +35,7 @@ class Presentation_Frame:
                                   value=app.MedTag.val, command=self.item_tagging,
                                   font=R_B_FONT, bg=R_B_BG)
         tag_rad3.place(relx=0.1, rely=0.3)
-        
-        
+
         tag_rad4 = tk.Radiobutton(tagging_frame, text=app.HighTag.rb_txt, variable=self.tagging_var,
                                   value=app.HighTag.val, command=self.item_tagging,
                                   font=R_B_FONT, bg=R_B_BG)
@@ -54,7 +50,6 @@ class Presentation_Frame:
                                     height=300, bg="gray99",  bd=1, relief=tk.SOLID)
         cards_frame.place(relx=0.05, rely=0.2)
 
-
         tk.Button(presentation_frame, text="Next card", font=BUTTON_FONT,
                   command=self.nxt_button_clicked).place(relx=0.05, rely=0.1)
         
@@ -63,8 +58,7 @@ class Presentation_Frame:
         
         tk.Button(presentation_frame, text="Flip side", font=BUTTON_FONT,
                   command=self.flip_button_clicked).place(relx=0.4, rely=0.1)
-        
-        
+
         tk.Button(presentation_frame, text="Go to Config", font=BUTTON_FONT,
                   command=main_win.config_button_clicked).place(relx=0.1, rely=0.8)
         
@@ -72,11 +66,26 @@ class Presentation_Frame:
         self.label1 = tk.Label(presentation_frame, text="", font="Helvetica 16")
         self.label1.place(relx=0.65, rely=0.1)
         
-        
         self.shown_l_word = tk.Label(cards_frame, font="Helvetica 18 ", justify=tk.CENTER,
                                 wraplength=450, width=35, height=9)
         self.shown_l_word.place(relx=0.05, rely=0.05)  # width and height in characters not pixels
 
+        window.bind("<space>", self.space_bar_key)
+        window.bind("<Right>", self.right_arrow_key)
+        window.bind("<Left>", self.left_arrow_key)
+        window.bind("<Down>", self.down_arrow_key)
+
+    def space_bar_key(self, event):
+        self.flip_button_clicked()
+
+    def down_arrow_key(self, event):
+        self.flip_button_clicked()
+
+    def right_arrow_key(self, event):
+        self.nxt_button_clicked()
+
+    def left_arrow_key(self, event):
+        self.back_button_clicked()
 
     def item_tagging(self):
         app = self._app
@@ -94,7 +103,6 @@ class Presentation_Frame:
         app.update_tag_in_w_file(app.act_ln, lang_idx, d_txt)  # use act_line
         app.term_list[app.act_ln][lang_idx+2] = app.languages[lang_idx]+" "+d_txt
 
-
     def nxt_button_clicked(self):
         nxt = True
         self.nxt_back_button_clicked(nxt)
@@ -103,11 +111,8 @@ class Presentation_Frame:
         nxt = False
         self.nxt_back_button_clicked(nxt)
 
-
-
     def nxt_back_button_clicked(self, nxt, start_over = False):
         app = self._app
-
         if app.filtered_list_size <= 0:
             label1_txt = "Card number " + str(0) + " of " + str(0) + " cards"
             self.shown_l_word.configure(text="")
@@ -139,7 +144,6 @@ class Presentation_Frame:
             #enable_disable_tag_radio_buttons(True)
         self.label1.configure(text=label1_txt)
 
-
     def flip_button_clicked(self):
         app = self._app
         if app.card_side == app.front_side:
@@ -151,8 +155,6 @@ class Presentation_Frame:
             app.card_side = app.front_side
             #enable_disable_tag_radio_buttons(True)
 
-
-
     def set_tag_rb(self, line):
         """
         Set tagging radio buttons to values in the data structure!
@@ -161,18 +163,11 @@ class Presentation_Frame:
         :param line: the current actual line
         :return: none
         """
-        #global tagging_var
         data_text = self._app.get_tag_dt_txt(line)
         val = self._app.tdtv_dir[data_text]
         self.tagging_var.set(val)
 
-
     def enable_disable_tag_radio_buttons(self, enable):
-        #global tag_rad1
-        #global tag_rad2
-        #global tag_rad3
-        #global tag_rad4
-        #global tag_rad5
 
         '''
         if enable:
