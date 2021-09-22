@@ -5,6 +5,16 @@ class Conf_Frame:
     def __init__(self, main_win, window, app):
         self._app = app
 
+        # The filter does not change with 1st language
+        self.VAL = 0  # index for value
+        self.TXT = 1  # index for radio button text
+        self.NO_FLTR = [0, "Show all"]
+        self.LOW_FLTR = [1, "Show low"]  # level of knowledge of studied terms
+        self.MED_FLTR = [2, "Show medium"]
+        self.HIGH_FLTR = [3, "Show high"]
+        self.GEN_FLTR = [4, "Show generic"]  # for example: spelling problems
+        self.UNTAGGED_FLTR = [5, "Show untagged"]
+
         R_B_FONT = study_cards_app.MainWin.RADIO_BUTTON_FONT
         R_B_BG = study_cards_app.MainWin.RB_BG
         BUTTON_FONT = study_cards_app.MainWin.BUTTON_FONT
@@ -36,33 +46,34 @@ class Conf_Frame:
         card_order.set(1)  # set the default radio button
 
         filter_cards = tk.IntVar()
+        self._filter_cards = filter_cards
 
         filter_cards_frame = tk.LabelFrame(config_frame, text="Filter", font="Helvetica 14",
                                            width=250, height=220, bg="white smoke", bd=1, relief=tk.SOLID)
         filter_cards_frame.place(relx=0.5, rely=0.05)
 
-        tk.Radiobutton(filter_cards_frame, text=app.NO_FLTR[app.TXT], variable=filter_cards,
-                     value=app.NO_FLTR[app.VAL], command=self.update_filter,
+        tk.Radiobutton(filter_cards_frame, text=self.NO_FLTR[self.TXT], variable=filter_cards,
+                     value=self.NO_FLTR[self.VAL], command=self.update_filter,
                      font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.05)
 
-        tk.Radiobutton(filter_cards_frame, text=app.LOW_FLTR[app.TXT], variable=filter_cards,
-                     value=app.LOW_FLTR[app.VAL], command=self.update_filter,
+        tk.Radiobutton(filter_cards_frame, text=self.LOW_FLTR[self.TXT], variable=filter_cards,
+                     value=self.LOW_FLTR[self.VAL], command=self.update_filter,
                      font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.2)
 
-        tk.Radiobutton(filter_cards_frame, text=app.MED_FLTR[app.TXT], variable=filter_cards,
-                     value=app.MED_FLTR[app.VAL], command=self.update_filter,
+        tk.Radiobutton(filter_cards_frame, text=self.MED_FLTR[self.TXT], variable=filter_cards,
+                     value=self.MED_FLTR[self.VAL], command=self.update_filter,
                      font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.35)
 
-        tk.Radiobutton(filter_cards_frame, text=app.HIGH_FLTR[app.TXT], variable=filter_cards,
-                     value=app.HIGH_FLTR[app.VAL], command=self.update_filter,
+        tk.Radiobutton(filter_cards_frame, text=self.HIGH_FLTR[self.TXT], variable=filter_cards,
+                     value=self.HIGH_FLTR[self.VAL], command=self.update_filter,
                      font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.5)
 
-        tk.Radiobutton(filter_cards_frame, text=app.GEN_FLTR[app.TXT], variable=filter_cards,
-                     value=app.GEN_FLTR[app.VAL], command=self.update_filter,
+        tk.Radiobutton(filter_cards_frame, text=self.GEN_FLTR[self.TXT], variable=filter_cards,
+                     value=self.GEN_FLTR[self.VAL], command=self.update_filter,
                      font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.65)
 
-        tk.Radiobutton(filter_cards_frame, text=app.UNTAGGED_FLTR[app.TXT], variable=filter_cards,
-                       value=app.UNTAGGED_FLTR[app.VAL], command=self.update_filter,
+        tk.Radiobutton(filter_cards_frame, text=self.UNTAGGED_FLTR[self.TXT], variable=filter_cards,
+                       value=self.UNTAGGED_FLTR[self.VAL], command=self.update_filter,
                        font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.8)
 
         filter_cards.set(0)  # set the default radio button
@@ -100,4 +111,49 @@ class Conf_Frame:
     def change_lang_order(self):
         self.front_side = self.lang1_var.get()
         self.back_side = 1 - self.front_side
+
+
+    def create_filtered_index_lists(self, app):
+        app.filtered_ab_sort_lst.clear()
+        app.filtered_shuffled_list.clear()
+        app.filtered_term_list.clear()
+
+        filter_val = self._filter_cards.get()
+        if filter_val == self.NO_FLTR[self.VAL]:
+            app.filtered_ab_sort_lst = app.ab_sort_lst[:]
+            app.filtered_shuffled_list = app.shuffled_list[:]
+            app.filtered_term_list = list(range(len(app.term_list)))
+            app.filtered_list_size = len(app.term_list)
+            return
+        else:
+            if filter_val == self.UNTAGGED_FLTR[self.VAL]:
+                expected_tag_dt_txt = app.NoTag.d_txt
+            elif filter_val == self.LOW_FLTR[self.VAL]:
+                expected_tag_dt_txt = app.LowTag.d_txt
+            elif filter_val == self.MED_FLTR[self.VAL]:
+                expected_tag_dt_txt = app.MedTag.d_txt
+            elif filter_val == self.HIGH_FLTR[self.VAL]:
+                expected_tag_dt_txt = app.HighTag.d_txt
+            elif filter_val == self.GEN_FLTR[self.VAL]:
+                expected_tag_dt_txt = app.GenTag.d_txt
+            else:
+                expected_tag_dt_txt = ""  # Need to handle
+                print("Filter not found!")
+
+            if app.mode == "alphabetical":
+                for m_idx in app.ab_sort_lst:
+                    if app.get_tag_dt_txt(m_idx) == expected_tag_dt_txt:
+                        app.filtered_ab_sort_lst.append(m_idx)
+                app.filtered_list_size = len(app.filtered_ab_sort_lst)
+            elif app.mode == "random":
+                for m_idx in app.shuffled_list:
+                    if app.get_tag_dt_txt(m_idx) == expected_tag_dt_txt:
+                        app.filtered_shuffled_list.append(m_idx)
+                app.filtered_list_size = len(app.filtered_shuffled_list)
+            elif app.mode == "original":
+                for a_idx in range(len(term_list)):
+                    if app.get_tag_dt_txt(a_idx) == expected_tag_dt_txt:
+                        app.filtered_term_list.append(a_idx)
+                app.filtered_list_size = len(app.filtered_term_list)
+
 

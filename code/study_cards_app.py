@@ -10,6 +10,7 @@ from enum import Enum
 from configparser import ConfigParser
 
 import config_frame
+import presnt_frame
 
 class PopUpType:
     Info = "Info"
@@ -43,7 +44,6 @@ class StudyCardsApp:
         self.line_number = 0  # The running index of the lines in the file and in the list of terms
         self.act_ln = 0  # The index of the displayed line
         self.card_side = self.front_side
-        self.card_text = []  # The text of both sides of the current card
         self.filtered_ab_sort_lst = []
         self.filtered_shuffled_list = []
         self.filtered_term_list = []
@@ -59,16 +59,6 @@ class StudyCardsApp:
         self.languages = [self.language1, self.language2]
         self.l_dir = {self.language1: 0,
                       self.language2: 1}
-
-        # The filter does not change with 1st language
-        self.VAL = 0  # index for value
-        self.TXT = 1  # index for radio button text
-        self.NO_FLTR = [0, "Show all"]
-        self.LOW_FLTR = [1, "Show low"]  # level of knowledge of studied terms
-        self.MED_FLTR = [2, "Show medium"]
-        self.HIGH_FLTR = [3, "Show high"]
-        self.GEN_FLTR = [4, "Show generic"]  # for example: spelling problems
-        self.UNTAGGED_FLTR = [5, "Show untagged"]
 
         TagInfo = namedtuple("TagInfo", ["d_txt", "val", "rb_txt"])
         self.NoTag = TagInfo("not tagged", 0, "No tags")
@@ -213,6 +203,61 @@ class StudyCardsApp:
         random.shuffle(self.shuffled_list)
 
 
+    def get_tag_dt_txt(self, line):
+        """Returns the tag value for a line of data and the shown language  """
+        lang_idx = self.card_side
+        data_text1 = self.term_list[line][lang_idx + 2]
+        # parse the text to remove the language
+        if data_text1.startswith(self.language1):
+            data_text = data_text1.removeprefix(self.language1 + " ")
+        elif data_text1.startswith(self.language2):
+            data_text = data_text1.removeprefix(self.language2 + " ").rstrip()
+        else:
+            raise ValueError
+        return data_text
+
+    def set_act_line(self,line):
+        """
+        Set the global parameter act_ln (actual line) depending on the mode
+        :param line:  line_number
+        """
+        #global act_ln
+        if self.mode == "original":
+            self.act_ln = self.filtered_term_list[self.line_number]
+        elif self.mode == "alphabetical":
+            self.act_ln = self.filtered_ab_sort_lst[self.line_number]
+        elif self.mode == "random":
+            self.act_ln = self.filtered_shuffled_list[self.line_number]
+
+
+    def update_tag_in_w_file(self, line_num, lang_idx, tag):
+        """
+        Write the tagging string into the work file
+        This is done when the tagging radio button is changed
+        :param line_num:
+        :param lang_idx:
+        :param tag:
+        :return:
+        """
+        with FileInput(files=[self.filepath+self.w_file], inplace=True) as wf:
+            if lang_idx == self.lang1_idx:
+                lang_tag_idx = self.lang1_tag_idx
+                language = self.language1
+            elif lang_idx == lang2_idx:
+                lang_tag_idx = lang2_tag_idx
+                language = language2
+            else:
+                return  # need to raise exception
+            for idx, line in enumerate(wf):
+                line = line.rstrip()
+                info = line.split(self.f_separator)
+                if idx == line_num:
+                    info[lang_tag_idx] = language + " " + tag
+                line = self.f_separator.join(str(x) for x in info)
+                print(line)
+
+
+
 class MainWin:
     def __init__(self, window, app):
         window.title("Study Cards")
@@ -225,6 +270,9 @@ class MainWin:
 
         window.attributes('-topmost', 'true')
         self._conf_frame = config_frame.Conf_Frame(self, window, app)
+        self._prsnt_frame = presnt_frame.Presentation_Frame(self, window, app)
+        self._app = app
+
 
     BUTTON_FONT = "Helvetica 16"
     RADIO_BUTTON_FONT = "Helvetica 14"
@@ -233,11 +281,16 @@ class MainWin:
 
     def flash_cards_button_clicked(self):
         self._conf_frame._config_frame.place_forget()
-        '''
-        presentation_frame.place(relx=0.1, rely=0.1)
-        create_filtered_index_lists()
-        nxt_back_button_clicked(nxt=True, start_over=True)
-        '''
+        self._prsnt_frame._pres_frame.place(relx=0.1, rely=0.1)
+        self._conf_frame.create_filtered_index_lists(self._app)
+        self._prsnt_frame.nxt_back_button_clicked(nxt=True, start_over=True)
+
+
+    def config_button_clicked(self):
+        self._conf_frame._config_frame.place(relx=0.1, rely=0.1)
+        self._prsnt_frame._pres_frame.place_forget()
+
+
 
 
 def main():
