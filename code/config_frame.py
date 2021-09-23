@@ -1,11 +1,11 @@
 import tkinter as tk
 import study_cards_app
 
-class Conf_Frame:
+
+class ConfFrame:
     def __init__(self, main_win, window, app):
         self._app = app
 
-        # The filter does not change with 1st language
         self.VAL = 0  # index for value
         self.TXT = 1  # index for radio button text
         self.NO_FLTR = [0, "Show all"]
@@ -15,9 +15,9 @@ class Conf_Frame:
         self.GEN_FLTR = [4, "Show generic"]  # for example: spelling problems
         self.UNTAGGED_FLTR = [5, "Show untagged"]
 
-        R_B_FONT = study_cards_app.MainWin.RADIO_BUTTON_FONT
-        R_B_BG = study_cards_app.MainWin.RB_BG
-        BUTTON_FONT = study_cards_app.MainWin.BUTTON_FONT
+        R_B_FONT = main_win.RADIO_BUTTON_FONT
+        R_B_BG = main_win.RB_BG
+        BUTTON_FONT = main_win.BUTTON_FONT
 
         config_frame = tk.LabelFrame(window, text="Configuration", font="Helvetica 14",
                                      width=900, height=600, bg="gray99", bd=1, relief=tk.SOLID)
@@ -29,21 +29,20 @@ class Conf_Frame:
         tk.Label(card_order_frame, text="Card Order:", font="Helvetica 16", bg="white smoke")\
             .place(relx=0.0, rely=0.0)
 
-        card_order = tk.IntVar()
+        self.card_order_v = tk.IntVar()
+        self.card_order_v.set(app.Alphabetical.val)  # set the default radio button
 
-        rad1 = tk.Radiobutton(card_order_frame, text='Alphabetical', variable=card_order, value=1,
-                              command=self.alphabetical_selected,
-                              font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.2)
+        tk.Radiobutton(card_order_frame, text=app.Alphabetical.txt, variable=self.card_order_v,
+                       value=app.Alphabetical.val, command=self.update_card_order,
+                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.2)
 
-        rad2 = tk.Radiobutton(card_order_frame, text='Random', variable=card_order, value=2,
-                              command=self.random_selected,
-                              font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.4)
+        tk.Radiobutton(card_order_frame, text=app.Random.txt, variable=self.card_order_v,
+                       value=app.Random.val, command=self.update_card_order,
+                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.4)
 
-        rad3 = tk.Radiobutton(card_order_frame, text='Original', variable=card_order, value=3,
-                              command=self.original_selected,
-                              font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.6)
-
-        card_order.set(1)  # set the default radio button
+        tk.Radiobutton(card_order_frame, text=app.Original.txt, variable=self.card_order_v,
+                       value=app.Original.val, command=self.update_card_order,
+                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.6)
 
         filter_cards = tk.IntVar()
         self._filter_cards = filter_cards
@@ -92,17 +91,13 @@ class Conf_Frame:
                                          value=1, command=self.change_lang_order,
                                          font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.4)
 
+        self.lang1_var.set(0)
+
         tk.Button(config_frame, text="Show Flash Cards", font=BUTTON_FONT,
                   command=main_win.flash_cards_button_clicked).place(relx=0.7, rely=0.8)
 
-    def alphabetical_selected(self):
-        self._app.mode = "alphabetical"
-
-    def random_selected(self):
-        self._app.mode = "random"
-
-    def original_selected(self):
-        self._app.mode = "original"
+    def update_card_order(self):
+        self._app.card_order = self.card_order_v.get()
 
     def update_filter(self):
         pass
@@ -135,23 +130,25 @@ class Conf_Frame:
             elif filter_val == self.GEN_FLTR[self.VAL]:
                 expected_tag_dt_txt = app.GenTag.d_txt
             else:
-                expected_tag_dt_txt = ""  # Need to handle
                 print("Filter not found!")
+                raise ValueError
 
-            if app.mode == "alphabetical":
+            if app.card_order == app.Alphabetical.val:
                 for m_idx in app.ab_sort_lst:
                     if app.get_tag_dt_txt(m_idx) == expected_tag_dt_txt:
                         app.filtered_ab_sort_lst.append(m_idx)
                 app.filtered_list_size = len(app.filtered_ab_sort_lst)
-            elif app.mode == "random":
+            elif app.card_order == app.Random.val:
                 for m_idx in app.shuffled_list:
                     if app.get_tag_dt_txt(m_idx) == expected_tag_dt_txt:
                         app.filtered_shuffled_list.append(m_idx)
                 app.filtered_list_size = len(app.filtered_shuffled_list)
-            elif app.mode == "original":
+            elif app.card_order == app.Original.val:
                 for a_idx in range(len(app.term_list)):
                     if app.get_tag_dt_txt(a_idx) == expected_tag_dt_txt:
                         app.filtered_term_list.append(a_idx)
                 app.filtered_list_size = len(app.filtered_term_list)
+            else:
+                raise ValueError
 
 

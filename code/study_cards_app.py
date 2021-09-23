@@ -8,9 +8,9 @@ from fileinput import FileInput
 from collections import namedtuple
 from enum import Enum
 from configparser import ConfigParser
-
 import config_frame
 import presnt_frame
+
 
 class PopUpType:
     Info = "Info"
@@ -22,20 +22,16 @@ class StudyCardsApp:
     def __init__(self):
         config_object = ConfigParser()
         config_object.read("config.ini")
-
         proj_info = config_object["PROJINFO"]
         self.language1 = proj_info["language1"]
         self.language2 = proj_info["language2"]
         self.number_of_sets = proj_info["number_of_sets"]
         self.import_file_name = proj_info["import_file_name"]
         self.set_title = proj_info["set_title"]  # The title of the study set
-
         self.filepath = os.path.join('..', 'data', '')  # a relative path in any OS
         self.import_file_request = True  # import a file per user demand.
         self.f_separator = ";"  # field separator in import file and in work file
         self.w_file = self.import_file_name.removesuffix(".txt") + "_dat" + ".txt"
-        self.mode = "alphabetical"  # Terms are arranged alphabetically based on the 1st side only
-
         self.term_list = []  # list of terms and answers taken from the work file
         self.ab_sort_lst = []  # list of indexes of the alphabetically sorted term list
         self.shuffled_list = []  # list of indexes of the shuffled term list
@@ -81,6 +77,13 @@ class StudyCardsApp:
                          self.HighTag.d_txt: self.HighTag.val,
                          self.GenTag.d_txt: self.GenTag.val}
 
+        CardOrder = namedtuple("CardOrder", ["val", "txt"])
+        self.Alphabetical = CardOrder(11, "Alphabetical")
+        self.Random = CardOrder(22, "Random")
+        self.Original = CardOrder(33, "Original")
+
+        self.card_order = self.Alphabetical.val  # Terms are arranged alphabetically based on the 1st side only
+
         if self.import_file_request:
             self.import_term_file(self.filepath, self.import_file_name, self.w_file)
 
@@ -88,7 +91,8 @@ class StudyCardsApp:
 
         self.sort_and_shuffle_term_list()
 
-    def display_pop_up(self, pu_type, txt):
+    @staticmethod
+    def display_pop_up(pu_type, txt):
         """
         Function displays three types of pop-up messages without showing the root window.
         The root window has to be destroyed each time.
@@ -171,7 +175,6 @@ class StudyCardsApp:
         self.display_pop_up(PopUpType.Info, "File was imported")
         w_file_ref.close()
 
-
     def read_work_file(self):
         # read the vocabulary list from the work-file
         try:
@@ -187,7 +190,8 @@ class StudyCardsApp:
         print("The 1st line from the work file: ", self.term_list[0])
         w_fl_ref.close()
 
-    def use_1st_str(self, lst1):
+    @staticmethod
+    def use_1st_str(lst1):
         return lst1[0].capitalize()
 
     def sort_and_shuffle_term_list(self):
@@ -202,7 +206,6 @@ class StudyCardsApp:
         self.shuffled_list = list(range(len(self.term_list)))
         random.shuffle(self.shuffled_list)
 
-
     def get_tag_dt_txt(self, line):
         """Returns the tag value for a line of data and the shown language  """
         lang_idx = self.card_side
@@ -216,19 +219,18 @@ class StudyCardsApp:
             raise ValueError
         return data_text
 
-    def set_act_line(self,line):
+    def set_act_line(self):
         """
-        Set the global parameter act_ln (actual line) depending on the mode
-        :param line:  line_number
+        Set the global parameter act_ln (actual line) depending on the card order
         """
-        #global act_ln
-        if self.mode == "original":
+        if self.card_order == self.Original.val:
             self.act_ln = self.filtered_term_list[self.line_number]
-        elif self.mode == "alphabetical":
+        elif self.card_order == self.Alphabetical.val:
             self.act_ln = self.filtered_ab_sort_lst[self.line_number]
-        elif self.mode == "random":
+        elif self.card_order == self.Random.val:
             self.act_ln = self.filtered_shuffled_list[self.line_number]
-
+        else:
+            raise ValueError
 
     def update_tag_in_w_file(self, line_num, lang_idx, tag):
         """
@@ -247,7 +249,7 @@ class StudyCardsApp:
                 lang_tag_idx = self.lang2_tag_idx
                 language = self.language2
             else:
-                return  # need to raise exception
+                raise ValueError
             for idx, line in enumerate(wf):
                 line = line.rstrip()
                 info = line.split(self.f_separator)
@@ -272,10 +274,9 @@ class MainWin:
         tk.Label(window, text=title2_txt, font="Helvetica 16 bold").place(relx=0.4, rely=0.05)
 
         window.attributes('-topmost', 'true')
-        self._conf_frame = config_frame.Conf_Frame(self, window, app)
-        self._prsnt_frame = presnt_frame.Presentation_Frame(self, window, app)
+        self._conf_frame = config_frame.ConfFrame(self, window, app)
+        self._prsnt_frame = presnt_frame.PresentationFrame(self, window, app)
         self._app = app
-
 
     def flash_cards_button_clicked(self):
         self._conf_frame.config_frame_obj.place_forget()
