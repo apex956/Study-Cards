@@ -8,6 +8,10 @@ class PresentationFrame:
         R_B_BG = main_win.RB_BG
         BUTTON_FONT = main_win.BUTTON_FONT
 
+        self.front_card_color = "LightBlue1"
+        self.back_card_color = "lemon chiffon"
+
+
         self._app = app
         self.card_text = []  # The text of both sides of the current card
 
@@ -68,7 +72,7 @@ class PresentationFrame:
         self.label1.place(relx=0.65, rely=0.1)
         
         self.shown_l_word = tk.Label(cards_frame, font="Helvetica 18 ", justify=tk.CENTER,
-                                wraplength=450, width=35, height=9)
+                                     wraplength=450, width=35, height=9)
         self.shown_l_word.place(relx=0.05, rely=0.05)  # width and height in characters not pixels
 
         window.bind("<space>", self.space_bar_key)
@@ -110,11 +114,11 @@ class PresentationFrame:
         nxt = False
         self.nxt_back_button_clicked(nxt)
 
-    def nxt_back_button_clicked(self, nxt, start_over = False):
+    def nxt_back_button_clicked(self, nxt, start_over=False):
         app = self._app
         if app.filtered_list_size <= 0:
             label1_txt = "Card number " + str(0) + " of " + str(0) + " cards"
-            self.shown_l_word.configure(text="")
+            self.shown_l_word.configure(text="", bg=self.front_card_color)
             #enable_disable_tag_radio_buttons(False)
         else:
             if nxt:
@@ -135,7 +139,7 @@ class PresentationFrame:
             app.set_act_line()
             self.card_text = [app.term_list[app.act_ln][app.lang1_idx].rstrip(), app.term_list[app.act_ln][app.lang2_idx].strip()]
 
-            self.shown_l_word.configure(text=self.card_text[app.front_side])
+            self.shown_l_word.configure(text=self.card_text[app.front_side], bg=self.front_card_color)
             app.card_side = app.front_side
             self.set_tag_rb(app.act_ln)
 
@@ -146,11 +150,11 @@ class PresentationFrame:
     def flip_button_clicked(self):
         app = self._app
         if app.card_side == app.front_side:
-            self.shown_l_word.configure(text=self.card_text[app.back_side])
+            self.shown_l_word.configure(text=self.card_text[app.back_side], bg=self.back_card_color)
             app.card_side = app.back_side
             #enable_disable_tag_radio_buttons(False)
         else:
-            self.shown_l_word.configure(text=self.card_text[app.front_side])
+            self.shown_l_word.configure(text=self.card_text[app.front_side], bg=self.front_card_color)
             app.card_side = app.front_side
             #enable_disable_tag_radio_buttons(True)
 
