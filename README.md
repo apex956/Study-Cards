@@ -5,3 +5,5 @@ The Study Cards application provides a simple way to study subjects such as lang
 Work in progress
 ## Comments
 The repository includes examples of config.ini file, import file, and work file
+## Python Version
+3.9 or higher
