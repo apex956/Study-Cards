@@ -178,7 +178,7 @@ class StudyCardsApp:
     def read_work_file(self):
         # read the vocabulary list from the work-file
         try:
-            w_fl_ref = open(self.filepath+self.w_file, "r")
+            w_fl_ref = open(self.filepath+self.w_file, "r", encoding="utf8")
         except OSError:
             print("Couldn't open the work file")
             sys.exit()
