@@ -72,8 +72,8 @@ class PresentationFrame:
         self.label1.place(relx=0.65, rely=0.1)
         
         self.shown_l_word = tk.Label(cards_frame, font="Helvetica 18 ", justify=tk.CENTER,
-                                     wraplength=450, width=35, height=9)
-        self.shown_l_word.place(relx=0.05, rely=0.05)  # width and height in characters not pixels
+                                     wraplength=450, width=39, height=9)
+        self.shown_l_word.place(relx=0.045, rely=0.05)  # width and height in characters not pixels
 
         window.bind("<space>", self.space_bar_key)
         window.bind("<Right>", self.right_arrow_key)

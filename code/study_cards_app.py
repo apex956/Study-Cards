@@ -169,9 +169,9 @@ class StudyCardsApp:
 
         for d_line in in_line_list:
             w_file_ref.write(d_line[self.lang1_idx].rstrip() + self.f_separator +
-                         d_line[self.lang2_idx].strip() + self.f_separator +
-                         self.language1 + " " + self.NoTag.d_txt + self.f_separator +
-                         self.language2 + " " + self.NoTag.d_txt + "\n")
+                             d_line[self.lang2_idx].strip() + self.f_separator +
+                             self.language1 + " " + self.NoTag.d_txt + self.f_separator +
+                             self.language2 + " " + self.NoTag.d_txt + "\n")
         self.display_pop_up(PopUpType.Info, "File was imported")
         w_file_ref.close()
 
@@ -290,6 +290,8 @@ class MainWin:
 
 
 def main():
+    if sys.version_info[0] < 3:
+        raise Exception("Must use Python 3")
     app = StudyCardsApp()
     window = tk.Tk()  # The root
     MainWin(window, app)
