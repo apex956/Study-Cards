@@ -8,12 +8,12 @@ class ConfFrame:
 
         self.VAL = 0  # index for value
         self.TXT = 1  # index for radio button text
-        self.NO_FLTR = [0, "Show all"]
-        self.LOW_FLTR = [1, "Show low"]  # level of knowledge of studied terms
-        self.MED_FLTR = [2, "Show medium"]
-        self.HIGH_FLTR = [3, "Show high"]
-        self.GEN_FLTR = [4, "Show generic"]  # for example: spelling problems
-        self.UNTAGGED_FLTR = [5, "Show untagged"]
+        self.NO_FLTR = [0, "All cards"]
+        self.LOW_FLTR = [1, "Cards tagged low"]  # level of knowledge of studied terms
+        self.MED_FLTR = [2, "Cards tagged medium"]
+        self.HIGH_FLTR = [3, "Cards tagged high"]
+        self.GEN_FLTR = [4, "Cards tagged generic"]  # for example: spelling problems
+        self.UNTAGGED_FLTR = [5, "Untagged cards"]
 
         R_B_FONT = main_win.RADIO_BUTTON_FONT
         R_B_BG = main_win.RB_BG
@@ -24,31 +24,30 @@ class ConfFrame:
         config_frame.place(relx=0.1, rely=0.1)
         self.config_frame_obj = config_frame
 
-        card_order_frame = tk.Frame(config_frame, width=150, height=160, bg="white smoke",  bd=1, relief=tk.SOLID)
+        card_order_frame = tk.LabelFrame(config_frame, text="Card Order", font="Helvetica 14", width=150,
+                                    height=160, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         card_order_frame.place(relx=0.1, rely=0.05)
-        tk.Label(card_order_frame, text="Card Order:", font="Helvetica 16", bg="white smoke")\
-            .place(relx=0.0, rely=0.0)
 
         self.card_order_v = tk.IntVar()
         self.card_order_v.set(app.Alphabetical.val)  # set the default radio button
 
         tk.Radiobutton(card_order_frame, text=app.Alphabetical.txt, variable=self.card_order_v,
                        value=app.Alphabetical.val, command=self.update_card_order,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.2)
+                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.1)
 
         tk.Radiobutton(card_order_frame, text=app.Random.txt, variable=self.card_order_v,
                        value=app.Random.val, command=self.update_card_order,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.4)
+                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.3)
 
         tk.Radiobutton(card_order_frame, text=app.Original.txt, variable=self.card_order_v,
                        value=app.Original.val, command=self.update_card_order,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.6)
+                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.5)
 
         filter_cards = tk.IntVar()
         self._filter_cards = filter_cards
 
-        filter_cards_frame = tk.LabelFrame(config_frame, text="Filter", font="Helvetica 14",
-                                           width=250, height=220, bg="white smoke", bd=1, relief=tk.SOLID)
+        filter_cards_frame = tk.LabelFrame(config_frame, text="Show", font="Helvetica 14",
+                                           width=250, height=220, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         filter_cards_frame.place(relx=0.5, rely=0.05)
 
         tk.Radiobutton(filter_cards_frame, text=self.NO_FLTR[self.TXT], variable=filter_cards,
@@ -77,8 +76,8 @@ class ConfFrame:
 
         filter_cards.set(0)  # set the default radio button
 
-        front_side_frame = tk.LabelFrame(config_frame, text="Front side", font="Helvetica 14",
-                                         width=200, height=120, bg="white smoke", bd=1, relief=tk.SOLID)
+        front_side_frame = tk.LabelFrame(config_frame, text="Cards front side", font="Helvetica 14",
+                                         width=200, height=120, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         front_side_frame.place(relx=0.1, rely=0.5)
 
         self.lang1_var = tk.IntVar()

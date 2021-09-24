@@ -11,7 +11,6 @@ class PresentationFrame:
         self.front_card_color = "LightBlue1"
         self.back_card_color = "lemon chiffon"
 
-
         self._app = app
         self.card_text = []  # The text of both sides of the current card
 
@@ -21,7 +20,7 @@ class PresentationFrame:
         self.presentation_frame_obj = presentation_frame
 
         tagging_frame = tk.LabelFrame(presentation_frame, text="Tagging", font="Helvetica 14", width=170,
-                                      height=300, bg="white smoke", bd=1, relief=tk.SOLID)
+                                      height=300, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         tagging_frame.place(relx=0.75, rely=0.2)
         
         self.tagging_var = tk.IntVar()
@@ -52,7 +51,7 @@ class PresentationFrame:
         tag_rad5.place(relx=0.1, rely=0.5)
         
         cards_frame = tk.LabelFrame(presentation_frame, text="Cards", font="Helvetica 14", width=600,
-                                    height=300, bg="gray99",  bd=1, relief=tk.SOLID)
+                                    height=300, bg=main_win.L2_FRAME_BG,  bd=1, relief=tk.SOLID)
         cards_frame.place(relx=0.05, rely=0.2)
 
         tk.Button(presentation_frame, text="Next card", font=BUTTON_FONT,
@@ -119,7 +118,6 @@ class PresentationFrame:
         if app.filtered_list_size <= 0:
             label1_txt = "Card number " + str(0) + " of " + str(0) + " cards"
             self.shown_l_word.configure(text="", bg=self.front_card_color)
-            #enable_disable_tag_radio_buttons(False)
         else:
             if nxt:
                 app.line_number += 1
@@ -137,14 +135,15 @@ class PresentationFrame:
                 app.line_number = 0
 
             app.set_act_line()
-            self.card_text = [app.term_list[app.act_ln][app.lang1_idx].rstrip(), app.term_list[app.act_ln][app.lang2_idx].strip()]
+            self.card_text = [app.term_list[app.act_ln][app.lang1_idx].rstrip(),
+                              app.term_list[app.act_ln][app.lang2_idx].strip()]
 
             self.shown_l_word.configure(text=self.card_text[app.front_side], bg=self.front_card_color)
             app.card_side = app.front_side
             self.set_tag_rb(app.act_ln)
 
-            label1_txt = "Card number " + str(app.line_number + 1) + " of " + str(app.filtered_list_size) + " cards"
-            #enable_disable_tag_radio_buttons(True)
+            label1_txt = "Card number " + str(app.line_number + 1) + " of " + \
+                         str(app.filtered_list_size) + " cards"
         self.label1.configure(text=label1_txt)
 
     def flip_button_clicked(self):
@@ -152,11 +151,9 @@ class PresentationFrame:
         if app.card_side == app.front_side:
             self.shown_l_word.configure(text=self.card_text[app.back_side], bg=self.back_card_color)
             app.card_side = app.back_side
-            #enable_disable_tag_radio_buttons(False)
         else:
             self.shown_l_word.configure(text=self.card_text[app.front_side], bg=self.front_card_color)
             app.card_side = app.front_side
-            #enable_disable_tag_radio_buttons(True)
 
     def set_tag_rb(self, line):
         """
@@ -169,19 +166,3 @@ class PresentationFrame:
         data_text = self._app.get_tag_dt_txt(line)
         val = self._app.tdtv_dir[data_text]
         self.tagging_var.set(val)
-
-    def enable_disable_tag_radio_buttons(self, enable):
-        '''
-        if enable:
-            tag_rad1['state'] = tk.NORMAL
-            tag_rad2['state'] = tk.NORMAL
-            tag_rad3['state'] = tk.NORMAL
-            tag_rad4['state'] = tk.NORMAL
-            tag_rad5['state'] = tk.NORMAL
-        else:
-            tag_rad1['state'] = tk.DISABLED
-            tag_rad2['state'] = tk.DISABLED
-            tag_rad3['state'] = tk.DISABLED
-            tag_rad4['state'] = tk.DISABLED
-            tag_rad5['state'] = tk.DISABLED
-        '''

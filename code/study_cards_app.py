@@ -263,6 +263,7 @@ class MainWin:
     BUTTON_FONT = "Helvetica 16"
     RADIO_BUTTON_FONT = "Helvetica 14"
     RB_BG = "white smoke"  # Radio Button Background color
+    L2_FRAME_BG = "white smoke"  # The background color of level 2 frames
 
     def __init__(self, window, app):
         window.title("Study Cards")
