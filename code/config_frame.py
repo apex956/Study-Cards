@@ -25,7 +25,7 @@ class ConfFrame:
         self.config_frame_obj = config_frame
 
         card_order_frame = tk.LabelFrame(config_frame, text="Card Order", font="Helvetica 14", width=150,
-                                    height=160, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+                                         height=160, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         card_order_frame.place(relx=0.1, rely=0.05)
 
         self.card_order_v = tk.IntVar()
@@ -67,8 +67,8 @@ class ConfFrame:
                      font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.5)
 
         tk.Radiobutton(filter_cards_frame, text=self.GEN_FLTR[self.TXT], variable=filter_cards,
-                     value=self.GEN_FLTR[self.VAL], command=self.update_filter,
-                     font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.65)
+                       value=self.GEN_FLTR[self.VAL], command=self.update_filter,
+                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.65)
 
         tk.Radiobutton(filter_cards_frame, text=self.UNTAGGED_FLTR[self.TXT], variable=filter_cards,
                        value=self.UNTAGGED_FLTR[self.VAL], command=self.update_filter,
@@ -82,13 +82,13 @@ class ConfFrame:
 
         self.lang1_var = tk.IntVar()
 
-        front_side_rad1 = tk.Radiobutton(front_side_frame, text=app.language1, variable=self.lang1_var,
-                                         value=0, command=self.change_lang_order,
-                                         font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.05)
+        tk.Radiobutton(front_side_frame, text=app.language1, variable=self.lang1_var,
+                       value=0, command=self.change_lang_order,
+                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.05)
 
-        front_side_rad2 = tk.Radiobutton(front_side_frame, text=app.language2, variable=self.lang1_var,
-                                         value=1, command=self.change_lang_order,
-                                         font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.4)
+        tk.Radiobutton(front_side_frame, text=app.language2, variable=self.lang1_var,
+                       value=1, command=self.change_lang_order,
+                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.4)
 
         self.lang1_var.set(0)
 

@@ -8,8 +8,8 @@ class PresentationFrame:
         R_B_BG = main_win.RB_BG
         BUTTON_FONT = main_win.BUTTON_FONT
 
-        self.front_card_color = "LightBlue1"
-        self.back_card_color = "lemon chiffon"
+        self.front_card_color = "lightgrey"
+        self.back_card_color = "lavender"
 
         self._app = app
         self.card_text = []  # The text of both sides of the current card
@@ -148,6 +148,8 @@ class PresentationFrame:
 
     def flip_button_clicked(self):
         app = self._app
+        if app.filtered_list_size < 1:
+            return
         if app.card_side == app.front_side:
             self.shown_l_word.configure(text=self.card_text[app.back_side], bg=self.back_card_color)
             app.card_side = app.back_side
