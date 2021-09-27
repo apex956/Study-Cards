@@ -8,6 +8,7 @@ from fileinput import FileInput
 from collections import namedtuple
 from enum import Enum
 from configparser import ConfigParser
+import json
 import config_frame
 import presnt_frame
 
@@ -19,6 +20,7 @@ class PopUpType:
 
 
 class StudyCardsApp:
+
     def __init__(self):
         config_object = ConfigParser()
         config_object.read("config.ini")
@@ -258,6 +260,37 @@ class StudyCardsApp:
                 line = self.f_separator.join(str(x) for x in info)
                 print(line)
 
+    def save_config_to_file(self):
+        sets_conf_struct = {
+            "no_of_study_sets": 2,
+            "study_sets": [{"ID": 1001, "title": "Verbs", "no_of_terms": 20,
+                            "params": {"cnf_front_side": self.front_side,
+                                       "filter": 0,
+                                 "card_order": "Original",
+                                 "last_card": 7}
+                            }]}
+
+
+        sets_conf_struct["study_sets"].append( {"ID": 1002, "title": "Nouns","no_of_terms": 30,})
+        sets_conf_struct["study_sets"][0]["no_of_terms"] = 25
+        sets_config_name = "sets_config.json"
+        with open(sets_config_name, "w") as write_file:
+            json.dump(sets_conf_struct, write_file)
+
+    def get_conf_from_file(self):
+        pass
+
+
+class StudySetConf:
+    def __init__(self, set_id, set_title):
+        self.id_key = "ID"
+        self.id_val = set_id
+        self.title_key = "Title"
+        self.title_val = set_title
+
+    def change_title(self, new_title):
+        pass
+
 
 class MainWin:
     BUTTON_FONT = "Helvetica 16"
@@ -278,6 +311,7 @@ class MainWin:
         self._conf_frame = config_frame.ConfFrame(self, window, app)
         self._prsnt_frame = presnt_frame.PresentationFrame(self, window, app)
         self._app = app
+        self._window = window
 
     def flash_cards_button_clicked(self):
         self._conf_frame.config_frame_obj.place_forget()
@@ -289,13 +323,18 @@ class MainWin:
         self._conf_frame.config_frame_obj.place(relx=0.1, rely=0.1)
         self._prsnt_frame.presentation_frame_obj.place_forget()
 
+    def on_close(self):
+        print("Main Window is closing, write the configuration to JSON file")
+        self._app.save_config_to_file()
+        self._window.destroy()
 
 def main():
     if sys.version_info[0] < 3:
         raise Exception("Must use Python 3")
     app = StudyCardsApp()
     window = tk.Tk()  # The root
-    MainWin(window, app)
+    m_win = MainWin(window, app)
+    window.protocol("WM_DELETE_WINDOW", m_win.on_close)
     window.mainloop()
 
 
