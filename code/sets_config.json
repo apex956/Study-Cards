@@ -1,0 +1,18 @@
+[
+    {
+        "ID": 1001,
+        "title": "Verbs",
+        "no_of_terms": 25,
+        "params": {
+            "cnf_front_side": 1,
+            "filter": 0,
+            "card_order": "Original",
+            "last_card": 7
+        }
+    },
+    {
+        "ID": 1002,
+        "title": "Nouns",
+        "no_of_terms": 30
+    }
+]

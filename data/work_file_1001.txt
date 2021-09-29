@@ -1,0 +1,25 @@
+accendere;to turn on, to light a fire;Italian not tagged;English not tagged
+Conoscere;to know, be familiar with a person or place, to meet (for the 1st time);Italian not tagged;English not tagged
+Scendere;to go down, descend, get off (transportation);Italian not tagged;English not tagged
+Colpire;to hit;Italian not tagged;English not tagged
+Dormire;to sleep;Italian not tagged;English not tagged
+Finire;to finish;Italian not tagged;English not tagged
+mentire;to lie;Italian not tagged;English not tagged
+Offrire;to offer;Italian not tagged;English not tagged
+Partire;to leave, depart;Italian not tagged;English not tagged
+Preferire;to prefer;Italian not tagged;English not tagged
+Proibire;to prohibit, forbid;Italian not tagged;English not tagged
+avere ... anni;to be ... years old;Italian not tagged;English not tagged
+dare la mano;to shake hands;Italian not tagged;English not tagged
+rubare;to steal;Italian not tagged;English not tagged
+rendere;to return, to yield, to make;Italian not tagged;English not tagged
+sostare;to stop, pause (1 of 4);Italian not tagged;English not tagged
+fermare;to stop (2 of 4);Italian not tagged;English not tagged
+sedersi;to sit down;Italian not tagged;English not tagged
+uccidere;to kill;Italian not tagged;English not tagged
+immaginare;to imagine;Italian not tagged;English not tagged
+combinare;to combine;Italian not tagged;English not tagged
+interrogare;to question, interrogate;Italian not tagged;English not tagged
+significare;to mean;Italian not tagged;English not tagged
+impiegare;to use, to employ;Italian not tagged;English not tagged
+utilizzare;to use, utilize;Italian not tagged;English not tagged

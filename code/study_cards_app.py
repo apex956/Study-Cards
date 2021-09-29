@@ -24,28 +24,30 @@ class StudyCardsApp:
     def __init__(self):
         config_object = ConfigParser()
         config_object.read("config.ini")
-        proj_info = config_object["PROJINFO"]
-        self.language1 = proj_info["language1"]
-        self.language2 = proj_info["language2"]
-        self.number_of_sets = proj_info["number_of_sets"]
-        self.import_file_name = proj_info["import_file_name"]
-        self.set_title = proj_info["set_title"]  # The title of the study set
+        app_info = config_object["APP_INFO"]
+        self.term1 = app_info["term1"]
+        self.term2 = app_info["term2"]
+        file_import_info = config_object["FILE_IMPORT_INFO"]
+        self.import_file_request = self.str_to_bool(file_import_info["import_file_request"])
+        self.import_file_name = file_import_info["import_file_name"]
+        self.set_title = file_import_info["set_title"]  # The title of the study set
+        self.set_id = file_import_info["set_id"]  # The ID of the study set
         self.filepath = os.path.join('..', 'data', '')  # a relative path in any OS
-        self.import_file_request = True  # import a file per user demand.
         self.f_separator = ";"  # field separator in import file and in work file
-        self.w_file = self.import_file_name.removesuffix(".txt") + "_dat" + ".txt"
+        self.w_file = "work_file_" + self.set_id + ".txt"
         self.term_list = []  # list of terms and answers taken from the work file
-        self.ab_sort_lst = []  # list of indexes of the alphabetically sorted term list
+        self.ab_sort_list = []  # list of indexes of the alphabetically sorted term list
         self.shuffled_list = []  # list of indexes of the shuffled term list
         self.front_side = 0  # The term side of the card
         self.back_side = 1  # The answer side of the card
         self.line_number = 0  # The running index of the lines in the file and in the list of terms
         self.act_ln = 0  # The index of the displayed line
         self.card_side = self.front_side
-        self.filtered_ab_sort_lst = []
+        self.filtered_ab_sort_list = []
         self.filtered_shuffled_list = []
         self.filtered_term_list = []
         self.filtered_list_size = 0
+        self.study_set_conf_list = []
 
         # Index to data in lines of work file and volatile data structure
         self.lang1_idx = 0
@@ -54,9 +56,9 @@ class StudyCardsApp:
         self.lang2_tag_idx = 3
 
         # from language index to language and vice versa
-        self.languages = [self.language1, self.language2]
-        self.l_dir = {self.language1: 0,
-                      self.language2: 1}
+        self.languages = [self.term1, self.term2]
+        self.l_dir = {self.term1: 0,
+                      self.term2: 1}
 
         TagInfo = namedtuple("TagInfo", ["d_txt", "val", "rb_txt"])
         self.NoTag = TagInfo("not tagged", 0, "No tags")
@@ -92,6 +94,8 @@ class StudyCardsApp:
         self.read_work_file()
 
         self.sort_and_shuffle_term_list()
+
+        self.get_conf_from_file()
 
     @staticmethod
     def display_pop_up(pu_type, txt):
@@ -172,8 +176,8 @@ class StudyCardsApp:
         for d_line in in_line_list:
             w_file_ref.write(d_line[self.lang1_idx].rstrip() + self.f_separator +
                              d_line[self.lang2_idx].strip() + self.f_separator +
-                             self.language1 + " " + self.NoTag.d_txt + self.f_separator +
-                             self.language2 + " " + self.NoTag.d_txt + "\n")
+                             self.term1 + " " + self.NoTag.d_txt + self.f_separator +
+                             self.term2 + " " + self.NoTag.d_txt + "\n")
         self.display_pop_up(PopUpType.Info, "File was imported")
         w_file_ref.close()
 
@@ -196,6 +200,15 @@ class StudyCardsApp:
     def use_1st_str(lst1):
         return lst1[0].capitalize()
 
+    @staticmethod
+    def str_to_bool(s):
+        if s == 'True':
+            return True
+        elif s == 'False':
+            return False
+        else:
+            raise ValueError
+
     def sort_and_shuffle_term_list(self):
         sort_lst = []
         for ln_idx, line in enumerate(self.term_list):
@@ -203,7 +216,7 @@ class StudyCardsApp:
 
         sort_lst.sort(key=self.use_1st_str)
         for line in sort_lst:
-            self.ab_sort_lst.append(line[1])
+            self.ab_sort_list.append(line[1])
 
         self.shuffled_list = list(range(len(self.term_list)))
         random.shuffle(self.shuffled_list)
@@ -213,10 +226,10 @@ class StudyCardsApp:
         lang_idx = self.card_side
         data_text1 = self.term_list[line][lang_idx + 2]
         # parse the text to remove the language
-        if data_text1.startswith(self.language1):
-            data_text = data_text1.removeprefix(self.language1 + " ")
-        elif data_text1.startswith(self.language2):
-            data_text = data_text1.removeprefix(self.language2 + " ").rstrip()
+        if data_text1.startswith(self.term1):
+            data_text = data_text1.removeprefix(self.term1 + " ")
+        elif data_text1.startswith(self.term2):
+            data_text = data_text1.removeprefix(self.term2 + " ").rstrip()
         else:
             raise ValueError
         return data_text
@@ -228,7 +241,7 @@ class StudyCardsApp:
         if self.card_order == self.Original.val:
             self.act_ln = self.filtered_term_list[self.line_number]
         elif self.card_order == self.Alphabetical.val:
-            self.act_ln = self.filtered_ab_sort_lst[self.line_number]
+            self.act_ln = self.filtered_ab_sort_list[self.line_number]
         elif self.card_order == self.Random.val:
             self.act_ln = self.filtered_shuffled_list[self.line_number]
         else:
@@ -246,10 +259,10 @@ class StudyCardsApp:
         with FileInput(files=[self.filepath+self.w_file], inplace=True) as wf:
             if lang_idx == self.lang1_idx:
                 lang_tag_idx = self.lang1_tag_idx
-                language = self.language1
+                language = self.term1
             elif lang_idx == self.lang2_idx:
                 lang_tag_idx = self.lang2_tag_idx
-                language = self.language2
+                language = self.term2
             else:
                 raise ValueError
             for idx, line in enumerate(wf):
@@ -261,35 +274,56 @@ class StudyCardsApp:
                 print(line)
 
     def save_config_to_file(self):
-        sets_conf_struct = {
-            "no_of_study_sets": 2,
-            "study_sets": [{"ID": 1001, "title": "Verbs", "no_of_terms": 20,
+        sets_conf_struct = [{"ID": 1001, "title": "Verbs", "no_of_terms": 20,
                             "params": {"cnf_front_side": self.front_side,
                                        "filter": 0,
                                  "card_order": "Original",
                                  "last_card": 7}
-                            }]}
+                            }]
 
 
-        sets_conf_struct["study_sets"].append( {"ID": 1002, "title": "Nouns","no_of_terms": 30,})
-        sets_conf_struct["study_sets"][0]["no_of_terms"] = 25
+        sets_conf_struct.append( {"ID": 1002, "title": "Nouns","no_of_terms": 30,})
+        sets_conf_struct[0]["no_of_terms"] = 25
         sets_config_name = "sets_config.json"
         with open(sets_config_name, "w") as write_file:
-            json.dump(sets_conf_struct, write_file)
+            json.dump(sets_conf_struct, write_file, indent=4)
 
     def get_conf_from_file(self):
+        sets_config_name = "sets_config.json"
+        with open(sets_config_name, "r") as read_file:
+            sets_conf_struct = json.load(read_file)
+            print(sets_conf_struct)
         pass
+
 
 
 class StudySetConf:
-    def __init__(self, set_id, set_title):
+    """
+    Each object maintains parameters of a study-set
+    """
+    def __init__(self, s_set_id, s_set_title, s_set_front_side, s_set_filter, s_set_card_order, s_set_last_card=0):
         self.id_key = "ID"
-        self.id_val = set_id
+        self.id_val = s_set_id
         self.title_key = "Title"
-        self.title_val = set_title
+        self.title_val = s_set_title
+        self.front_side_key = "Front_side"
+        self.front_side_val = s_set_front_side
+        self.filter_key = "Filter"
+        self.filter_val = s_set_filter
+        self.card_order_key = "Card_order"
+        self.filter_val = s_set_card_order
+        self.last_card_key = "Last_card"
+        self.last_card_val = s_set_last_card
+        self.tags_key = "Set_tags"
+        self.tags_val = []
+        self.s_set_conf = {self.id_key:self.id_val, elf.title_key: elf.title_val}
+
+    def get_study_set_id(self):
+        return self.id_val
 
     def change_title(self, new_title):
-        pass
+        self.s_set_conf[self.title_key] = new_title
+
 
 
 class MainWin:
@@ -302,7 +336,7 @@ class MainWin:
         window.title("Study Cards")
         window.geometry('1100x700')
         window.resizable(False, False)
-        title1_txt = app.language1 + " " + app.language2 + " Vocabulary"
+        title1_txt = app.term1 + " " + app.term2 + " Vocabulary"
         tk.Label(window, text=title1_txt, font="Helvetica 20 bold").place(relx=0.3, rely=0.0)
         title2_txt = "Study Set: " + app.set_title
         tk.Label(window, text=title2_txt, font="Helvetica 16 bold").place(relx=0.4, rely=0.05)

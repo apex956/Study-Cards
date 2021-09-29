@@ -82,11 +82,11 @@ class ConfFrame:
 
         self.lang1_var = tk.IntVar()
 
-        tk.Radiobutton(front_side_frame, text=app.language1, variable=self.lang1_var,
+        tk.Radiobutton(front_side_frame, text=app.term1, variable=self.lang1_var,
                        value=0, command=self.change_lang_order,
                        font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.05)
 
-        tk.Radiobutton(front_side_frame, text=app.language2, variable=self.lang1_var,
+        tk.Radiobutton(front_side_frame, text=app.term2, variable=self.lang1_var,
                        value=1, command=self.change_lang_order,
                        font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.4)
 
@@ -106,13 +106,13 @@ class ConfFrame:
         self._app.back_side = 1 - self._app.front_side
 
     def create_filtered_index_lists(self, app):
-        app.filtered_ab_sort_lst.clear()
+        app.filtered_ab_sort_list.clear()
         app.filtered_shuffled_list.clear()
         app.filtered_term_list.clear()
 
         filter_val = self._filter_cards.get()
         if filter_val == self.NO_FLTR[self.VAL]:
-            app.filtered_ab_sort_lst = app.ab_sort_lst[:]
+            app.filtered_ab_sort_list = app.ab_sort_list[:]
             app.filtered_shuffled_list = app.shuffled_list[:]
             app.filtered_term_list = list(range(len(app.term_list)))
             app.filtered_list_size = len(app.term_list)
@@ -135,8 +135,8 @@ class ConfFrame:
             if app.card_order == app.Alphabetical.val:
                 for m_idx in app.ab_sort_lst:
                     if app.get_tag_dt_txt(m_idx) == expected_tag_dt_txt:
-                        app.filtered_ab_sort_lst.append(m_idx)
-                app.filtered_list_size = len(app.filtered_ab_sort_lst)
+                        app.filtered_ab_sort_list.append(m_idx)
+                app.filtered_list_size = len(app.filtered_ab_sort_list)
             elif app.card_order == app.Random.val:
                 for m_idx in app.shuffled_list:
                     if app.get_tag_dt_txt(m_idx) == expected_tag_dt_txt:
