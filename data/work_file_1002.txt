@@ -1,0 +1,64 @@
+giorni della settimana;Days of the week;Italian not tagged;English not tagged
+(il) lunedì;Monday;Italian not tagged;English not tagged
+(il) martedì;Tuesday;Italian not tagged;English not tagged
+(il) mercoledì;Wednesday;Italian not tagged;English not tagged
+(il) giovedì;Thursday;Italian not tagged;English not tagged
+(il) venerdì;Friday;Italian not tagged;English not tagged
+(il) sabato;Saturday;Italian not tagged;English not tagged
+(la) domenica;Sunday;Italian not tagged;English not tagged
+Que giorno e' oggi?;What day is it today?;Italian not tagged;English not tagged
+mesi dell'anno;Months of the year;Italian not tagged;English not tagged
+anno;year;Italian not tagged;English not tagged
+mese;month;Italian not tagged;English not tagged
+Gennaio;January;Italian not tagged;English not tagged
+Febbraio;February;Italian not tagged;English not tagged
+Marzo;March;Italian not tagged;English not tagged
+Aprile;April;Italian not tagged;English tagged high
+maggio;May;Italian not tagged;English not tagged
+giugno;June;Italian not tagged;English tagged gen
+luglio;July;Italian not tagged;English not tagged
+agosto;August;Italian not tagged;English not tagged
+settembre;September;Italian not tagged;English not tagged
+ottobre;October;Italian not tagged;English not tagged
+novembre;November;Italian not tagged;English not tagged
+dicembre;December;Italian not tagged;English not tagged
+il mese scorso;last month;Italian not tagged;English not tagged
+il mese prossimo;next month;Italian not tagged;English not tagged
+stagioni;Seasons;Italian not tagged;English not tagged
+inverno;Winter;Italian not tagged;English not tagged
+primavera;Spring;Italian not tagged;English not tagged
+estate;Summer;Italian not tagged;English not tagged
+autunno;Fall;Italian not tagged;English not tagged
+domani;Tomorrow;Italian not tagged;English not tagged
+ieri;Yesterday;Italian not tagged;English not tagged
+la prossima settimana;next week;Italian not tagged;English not tagged
+la settimana scorsa;last week (1 of 2);Italian not tagged;English not tagged
+la settimana passata;last week (2 of 2);Italian not tagged;English tagged med
+questa settimana;this week;Italian not tagged;English not tagged
+fine settimana;weekend;Italian not tagged;English not tagged
+quest'anno;this year;Italian not tagged;English not tagged
+stasera;this evening;Italian not tagged;English not tagged
+stamattina;this morning;Italian not tagged;English not tagged
+Oggi è il 7 luglio 2014;Today is July 7th, 2014.;Italian not tagged;English not tagged
+è mezzanotte;It's midnight;Italian not tagged;English not tagged
+è mezzagiorno;It's noon;Italian not tagged;English not tagged
+Sono le otto di sera;It's 8 p.m.;Italian not tagged;English tagged high
+Sono le due e un quarto;It's a quarter past two;Italian not tagged;English not tagged
+Sono le due e quindici;It is two fifteen;Italian not tagged;English not tagged
+Sono le dieci;It's ten o'clock.;Italian not tagged;English not tagged
+è l'una e trenta / mezzo / mezza;It is 1:30 (3);Italian not tagged;English not tagged
+Sono le cinque e quindici, Sono le cinque e un quarto;It is 5:15 (2);Italian not tagged;English not tagged
+tempo;time;Italian not tagged;English not tagged
+Sono le tre e venticinque;it's twenty-five past three;Italian not tagged;English not tagged
+Sono le dodici meno un quarto;It's a quarter to twelve.;Italian not tagged;English not tagged
+Che ore sono?;What time is it?;Italian not tagged;English tagged high
+A che ora? Alle sette e mezza di mattina;At what time? At half past seven in the morning;Italian not tagged;English tagged high
+pomeriggio;afternoon;Italian not tagged;English not tagged
+ora;hour;Italian not tagged;English tagged high
+secondo;second;Italian not tagged;English not tagged
+minuto;minute;Italian not tagged;English not tagged
+Oggi è sabato. È il ventisette gennaio duemilasette.;Today is Saturday. It is the twenty-seventh of January two thousand and seven.;Italian not tagged;English not tagged
+dalle nove alle tre;from 9 to 3;Italian not tagged;English not tagged
+due giorni fa;two days ago;Italian not tagged;English not tagged
+ieri sera;yesterday evening / last night;Italian not tagged;English not tagged
+l'estate scorsa;last summer;Italian not tagged;English not tagged

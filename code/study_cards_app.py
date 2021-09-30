@@ -57,7 +57,7 @@ class StudyCardsApp:
         self.lang2_tag_idx = 3
 
         # from language index to language and vice versa
-        self.languages = [self.term1, self.term2]
+        self.terms = [self.term1, self.term2]
         self.l_dir = {self.term1: 0,
                       self.term2: 1}
 
@@ -224,8 +224,8 @@ class StudyCardsApp:
 
     def get_tag_dt_txt(self, line):
         """Returns the tag value for a line of data and the shown language  """
-        lang_idx = self.card_side
-        data_text1 = self.term_list[line][lang_idx + 2]
+        term_idx = self.card_side
+        data_text1 = self.term_list[line][term_idx + 2]
         # parse the text to remove the language
         if data_text1.startswith(self.term1):
             data_text = data_text1.removeprefix(self.term1 + " ")
@@ -248,29 +248,29 @@ class StudyCardsApp:
         else:
             raise ValueError
 
-    def update_tag_in_w_file(self, line_num, lang_idx, tag):
+    def update_tag_in_w_file(self, line_num, term_idx, tag):
         """
         Write the tagging string into the work file
         This is done when the tagging radio button is changed
         :param line_num:
-        :param lang_idx:
+        :param term_idx:
         :param tag:
         :return:
         """
         with FileInput(files=[self.filepath+self.w_file], inplace=True) as wf:
-            if lang_idx == self.lang1_idx:
+            if term_idx == self.lang1_idx:
                 lang_tag_idx = self.lang1_tag_idx
-                language = self.term1
-            elif lang_idx == self.lang2_idx:
+                term = self.term1
+            elif term_idx == self.lang2_idx:
                 lang_tag_idx = self.lang2_tag_idx
-                language = self.term2
+                term = self.term2
             else:
                 raise ValueError
             for idx, line in enumerate(wf):
                 line = line.rstrip()
                 info = line.split(self.f_separator)
                 if idx == line_num:
-                    info[lang_tag_idx] = language + " " + tag
+                    info[lang_tag_idx] = term + " " + tag
                 line = self.f_separator.join(str(x) for x in info)
                 print(line)
 
@@ -303,39 +303,9 @@ class StudyCardsApp:
                 self.running_study_set_conf = s_set_conf
                 self.line_number = self.running_study_set_conf["last_card"]
                 self.card_order = self.running_study_set_conf["card_order"]
-                #abb1
+                self.front_side = self.running_study_set_conf["cnf_front_side"]
+                self.back_side = 1 - self.front_side
                 break
-
-
-'''
-class StudySetConf:
-    """
-    Each object maintains parameters of a study-set
-    """
-    def __init__(self, s_set_id, s_set_title, s_set_front_side, s_set_filter, s_set_card_order, s_set_last_card=0):
-        self.id_key = "ID"
-        self.id_val = s_set_id
-        self.title_key = "Title"
-        self.title_val = s_set_title
-        self.front_side_key = "Front_side"
-        self.front_side_val = s_set_front_side
-        self.filter_key = "Filter"
-        self.filter_val = s_set_filter
-        self.card_order_key = "Card_order"
-        self.filter_val = s_set_card_order
-        self.last_card_key = "Last_card"
-        self.last_card_val = s_set_last_card
-        self.tags_key = "Set_tags"
-        self.tags_val = []
-        self.s_set_conf = {self.id_key:self.id_val, elf.title_key: elf.title_val}
-
-
-    def get_study_set_id(self):
-        return self.id_val
-
-    def change_title(self, new_title):
-        self.s_set_conf[self.title_key] = new_title
-'''
 
 
 class MainWin:
@@ -343,15 +313,20 @@ class MainWin:
     RADIO_BUTTON_FONT = "Helvetica 14"
     RB_BG = "white smoke"  # Radio Button Background color
     L2_FRAME_BG = "white smoke"  # The background color of level 2 frames
+    MW_WIDTH = 1100  # The width of the main window in pixels
 
     def __init__(self, window, app):
         window.title("Study Cards")
-        window.geometry('1100x700')
+        window.geometry(str(self.MW_WIDTH)+'x700')
         window.resizable(False, False)
-        title1_txt = app.term1 + " " + app.term2 + " Vocabulary"
-        tk.Label(window, text=title1_txt, font="Helvetica 20 bold").place(relx=0.3, rely=0.0)
+        title1_txt = app.term1 + " vs. " + app.term2
+        ltr_size = 16  # approx number of pixels per letter
+        calc_relx = (1 - ((ltr_size * len(title1_txt)) / self.MW_WIDTH)) / 2
+        tk.Label(window, text=title1_txt, font="Helvetica 20 bold").place(relx=calc_relx, rely=0.0)
         title2_txt = "Study Set: " + app.set_title
-        tk.Label(window, text=title2_txt, font="Helvetica 16 bold").place(relx=0.4, rely=0.05)
+        ltr_size = 13  # approx number of pixels per letter
+        calc_relx = (1 - ((ltr_size * len(title2_txt)) / self.MW_WIDTH)) / 2
+        tk.Label(window, text=title2_txt, font="Helvetica 16 bold").place(relx=calc_relx, rely=0.05)
 
         window.attributes('-topmost', 'true')
         self._conf_frame = config_frame.ConfFrame(self, window, app)
@@ -363,7 +338,6 @@ class MainWin:
         self._conf_frame.config_frame_obj.place_forget()
         self._prsnt_frame.presentation_frame_obj.place(relx=0.1, rely=0.1)
         self._conf_frame.create_filtered_index_lists(self._app)
-        # abb1
         self._prsnt_frame.nxt_back_button_clicked(nxt=True, continue_cards=True)
 
     def config_button_clicked(self):

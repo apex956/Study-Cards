@@ -6,7 +6,7 @@
         "cnf_front_side": 1,
         "filter": 0,
         "card_order": 22,
-        "last_card": 0
+        "last_card": 5
     },
     {
         "ID": "1002",
@@ -14,7 +14,7 @@
         "no_of_terms": 64,
         "cnf_front_side": 1,
         "filter": 0,
-        "card_order": 33,
-        "last_card": 0
+        "card_order": 22,
+        "last_card": 5
     }
 ]

@@ -91,7 +91,8 @@ class ConfFrame:
                        value=1, command=self.change_lang_order,
                        font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.4)
 
-        self.lang1_var.set(0)
+        self.lang1_var.set(self._app.front_side)
+        #abb1
 
         tk.Button(config_frame, text="Show Flashcards", font=BUTTON_FONT,
                   command=main_win.flash_cards_button_clicked).place(relx=0.6, rely=0.8)
