@@ -24,12 +24,13 @@ class ConfFrame:
         config_frame.place(relx=0.1, rely=0.1)
         self.config_frame_obj = config_frame
 
-        card_order_frame = tk.LabelFrame(config_frame, text="Card Order", font="Helvetica 14", width=150,
-                                         height=160, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+        card_order_frame = tk.LabelFrame(config_frame, text="Card Order", font="Helvetica 14", width=170,
+                                         height=170, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         card_order_frame.place(relx=0.1, rely=0.05)
 
         self.card_order_v = tk.IntVar()
-        self.card_order_v.set(app.Alphabetical.val)  # set the default radio button
+        #abb1
+        self.card_order_v.set(app.card_order)  # set the default radio button
 
         tk.Radiobutton(card_order_frame, text=app.Alphabetical.txt, variable=self.card_order_v,
                        value=app.Alphabetical.val, command=self.update_card_order,
@@ -48,7 +49,7 @@ class ConfFrame:
 
         filter_cards_frame = tk.LabelFrame(config_frame, text="Show", font="Helvetica 14",
                                            width=250, height=220, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
-        filter_cards_frame.place(relx=0.5, rely=0.05)
+        filter_cards_frame.place(relx=0.6, rely=0.05)
 
         tk.Radiobutton(filter_cards_frame, text=self.NO_FLTR[self.TXT], variable=filter_cards,
                        value=self.NO_FLTR[self.VAL], command=self.update_filter,
@@ -77,7 +78,7 @@ class ConfFrame:
         filter_cards.set(0)  # set the default radio button
 
         front_side_frame = tk.LabelFrame(config_frame, text="Cards front side", font="Helvetica 14",
-                                         width=200, height=120, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+                                         width=170, height=120, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         front_side_frame.place(relx=0.1, rely=0.5)
 
         self.lang1_var = tk.IntVar()
@@ -92,18 +93,29 @@ class ConfFrame:
 
         self.lang1_var.set(0)
 
-        tk.Button(config_frame, text="Show Flash Cards", font=BUTTON_FONT,
-                  command=main_win.flash_cards_button_clicked).place(relx=0.7, rely=0.8)
+        tk.Button(config_frame, text="Show Flashcards", font=BUTTON_FONT,
+                  command=main_win.flash_cards_button_clicked).place(relx=0.6, rely=0.8)
 
+        tk.Button(config_frame, text="Reset Flashcards", font=BUTTON_FONT,
+                  command=self.reset_cards).place(relx=0.1, rely=0.8)
+
+
+    # abb1
     def update_card_order(self):
         self._app.card_order = self.card_order_v.get()
+        self.reset_cards()
 
     def update_filter(self):
-        pass
+        self.reset_cards()
 
     def change_lang_order(self):
         self._app.front_side = self.lang1_var.get()
         self._app.back_side = 1 - self._app.front_side
+        self.reset_cards()
+
+    def reset_cards(self):
+        self._app.line_number = 0
+
 
     def create_filtered_index_lists(self, app):
         app.filtered_ab_sort_list.clear()
@@ -133,7 +145,7 @@ class ConfFrame:
                 raise ValueError
 
             if app.card_order == app.Alphabetical.val:
-                for m_idx in app.ab_sort_lst:
+                for m_idx in app.ab_sort_list:
                     if app.get_tag_dt_txt(m_idx) == expected_tag_dt_txt:
                         app.filtered_ab_sort_list.append(m_idx)
                 app.filtered_list_size = len(app.filtered_ab_sort_list)

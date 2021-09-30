@@ -113,14 +113,17 @@ class PresentationFrame:
         nxt = False
         self.nxt_back_button_clicked(nxt)
 
-    def nxt_back_button_clicked(self, nxt, start_over=False):
+    def nxt_back_button_clicked(self, nxt, continue_cards=False):
         app = self._app
         if app.filtered_list_size <= 0:
             label1_txt = "Card number " + str(0) + " of " + str(0) + " cards"
             self.shown_l_word.configure(text="", bg=self.front_card_color)
         else:
             if nxt:
-                app.line_number += 1
+                if continue_cards:
+                    pass
+                else:
+                    app.line_number += 1
             else:
                 app.line_number -= 1
 
@@ -129,10 +132,6 @@ class PresentationFrame:
                 app.line_number = 0
             elif app.line_number < 0:
                 app.line_number = app.filtered_list_size - 1
-
-            # start over
-            if start_over:
-                app.line_number = 0
 
             app.set_act_line()
             self.card_text = [app.term_list[app.act_ln][app.lang1_idx].rstrip(),

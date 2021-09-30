@@ -47,6 +47,7 @@ class StudyCardsApp:
         self.filtered_shuffled_list = []
         self.filtered_term_list = []
         self.filtered_list_size = 0
+        self.running_study_set_conf = {}
         self.study_set_conf_list = []
 
         # Index to data in lines of work file and volatile data structure
@@ -95,7 +96,7 @@ class StudyCardsApp:
 
         self.sort_and_shuffle_term_list()
 
-        self.get_conf_from_file()
+        self.get_study_set_conf_from_file()
 
     @staticmethod
     def display_pop_up(pu_type, txt):
@@ -274,29 +275,39 @@ class StudyCardsApp:
                 print(line)
 
     def save_config_to_file(self):
-        sets_conf_struct = [{"ID": 1001, "title": "Verbs", "no_of_terms": 20,
-                            "params": {"cnf_front_side": self.front_side,
-                                       "filter": 0,
-                                 "card_order": "Original",
-                                 "last_card": 7}
-                            }]
-
-
-        sets_conf_struct.append( {"ID": 1002, "title": "Nouns","no_of_terms": 30,})
+        # Fake data to test a list with multiple entries
+        sets_conf_struct = [{"ID": 1005, "title": "Verbs", "no_of_terms": 30,
+                                  "cnf_front_side": self.front_side, "filter": 0,
+                                  "card_order": 22, "last_card": self.line_number}]
         sets_conf_struct[0]["no_of_terms"] = 25
+        # end of fake data
+
+        # abb1
+        sets_conf_struct.append({"ID": self.set_id, "title": self.set_title,
+                                "no_of_terms": len(self.term_list), "cnf_front_side": self.front_side,
+                                 "filter": 0, "card_order": self.card_order,
+                                 "last_card": self.line_number})
+
+
         sets_config_name = "sets_config.json"
         with open(sets_config_name, "w") as write_file:
             json.dump(sets_conf_struct, write_file, indent=4)
 
-    def get_conf_from_file(self):
+    def get_study_set_conf_from_file(self):
+        # abb1
         sets_config_name = "sets_config.json"
         with open(sets_config_name, "r") as read_file:
             sets_conf_struct = json.load(read_file)
-            print(sets_conf_struct)
-        pass
+        for s_set_conf in sets_conf_struct:
+            if int(s_set_conf["ID"]) == int(self.set_id):
+                self.running_study_set_conf = s_set_conf
+                self.line_number = self.running_study_set_conf["last_card"]
+                self.card_order = self.running_study_set_conf["card_order"]
+                #abb1
+                break
 
 
-
+'''
 class StudySetConf:
     """
     Each object maintains parameters of a study-set
@@ -318,12 +329,13 @@ class StudySetConf:
         self.tags_val = []
         self.s_set_conf = {self.id_key:self.id_val, elf.title_key: elf.title_val}
 
+
     def get_study_set_id(self):
         return self.id_val
 
     def change_title(self, new_title):
         self.s_set_conf[self.title_key] = new_title
-
+'''
 
 
 class MainWin:
@@ -351,16 +363,18 @@ class MainWin:
         self._conf_frame.config_frame_obj.place_forget()
         self._prsnt_frame.presentation_frame_obj.place(relx=0.1, rely=0.1)
         self._conf_frame.create_filtered_index_lists(self._app)
-        self._prsnt_frame.nxt_back_button_clicked(nxt=True, start_over=True)
+        # abb1
+        self._prsnt_frame.nxt_back_button_clicked(nxt=True, continue_cards=True)
 
     def config_button_clicked(self):
         self._conf_frame.config_frame_obj.place(relx=0.1, rely=0.1)
         self._prsnt_frame.presentation_frame_obj.place_forget()
 
     def on_close(self):
-        print("Main Window is closing, write the configuration to JSON file")
+        print("Main Window is closing. Writing the configuration to JSON file")
         self._app.save_config_to_file()
         self._window.destroy()
+
 
 def main():
     if sys.version_info[0] < 3:
