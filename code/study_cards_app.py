@@ -47,6 +47,7 @@ class StudyCardsApp:
         self.filtered_shuffled_list = []
         self.filtered_term_list = []
         self.filtered_list_size = 0
+        self.filter_cards_val = 0
         self.running_study_set_conf = {}
         self.study_set_conf_list = []
 
@@ -285,7 +286,7 @@ class StudyCardsApp:
         # abb1
         sets_conf_struct.append({"ID": self.set_id, "title": self.set_title,
                                 "no_of_terms": len(self.term_list), "cnf_front_side": self.front_side,
-                                 "filter": 0, "card_order": self.card_order,
+                                 "filter": self.filter_cards_val, "card_order": self.card_order,
                                  "last_card": self.line_number})
 
 
@@ -305,6 +306,7 @@ class StudyCardsApp:
                 self.card_order = self.running_study_set_conf["card_order"]
                 self.front_side = self.running_study_set_conf["cnf_front_side"]
                 self.back_side = 1 - self.front_side
+                self.filter_cards_val = self.running_study_set_conf["filter"]
                 break
 
 

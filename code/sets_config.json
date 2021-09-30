@@ -6,15 +6,15 @@
         "cnf_front_side": 1,
         "filter": 0,
         "card_order": 22,
-        "last_card": 5
+        "last_card": 0
     },
     {
         "ID": "1002",
         "title": "Time Days Months",
         "no_of_terms": 64,
         "cnf_front_side": 1,
-        "filter": 0,
+        "filter": 2,
         "card_order": 22,
-        "last_card": 5
+        "last_card": 0
     }
 ]
