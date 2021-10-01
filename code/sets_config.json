@@ -13,8 +13,8 @@
         "title": "Time Days Months",
         "no_of_terms": 64,
         "cnf_front_side": 1,
-        "filter": 2,
-        "card_order": 22,
+        "filter": 5,
+        "card_order": 33,
         "last_card": 0
     }
 ]

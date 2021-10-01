@@ -1,27 +1,27 @@
-giorni della settimana;Days of the week;Italian not tagged;English not tagged
-(il) lunedì;Monday;Italian not tagged;English not tagged
-(il) martedì;Tuesday;Italian not tagged;English not tagged
-(il) mercoledì;Wednesday;Italian not tagged;English not tagged
-(il) giovedì;Thursday;Italian not tagged;English not tagged
-(il) venerdì;Friday;Italian not tagged;English not tagged
-(il) sabato;Saturday;Italian not tagged;English not tagged
-(la) domenica;Sunday;Italian not tagged;English not tagged
-Que giorno e' oggi?;What day is it today?;Italian not tagged;English not tagged
-mesi dell'anno;Months of the year;Italian not tagged;English not tagged
-anno;year;Italian not tagged;English not tagged
-mese;month;Italian not tagged;English not tagged
-Gennaio;January;Italian not tagged;English not tagged
-Febbraio;February;Italian not tagged;English not tagged
-Marzo;March;Italian not tagged;English not tagged
+giorni della settimana;Days of the week;Italian tagged high;English tagged high
+(il) lunedì;Monday;Italian tagged high;English tagged high
+(il) martedì;Tuesday;Italian tagged med;English tagged high
+(il) mercoledì;Wednesday;Italian tagged high;English tagged high
+(il) giovedì;Thursday;Italian tagged high;English tagged high
+(il) venerdì;Friday;Italian not tagged;English tagged high
+(il) sabato;Saturday;Italian not tagged;English tagged high
+(la) domenica;Sunday;Italian not tagged;English tagged med
+Que giorno e' oggi?;What day is it today?;Italian not tagged;English tagged high
+mesi dell'anno;Months of the year;Italian not tagged;English tagged high
+anno;year;Italian not tagged;English tagged high
+mese;month;Italian not tagged;English tagged high
+Gennaio;January;Italian not tagged;English tagged high
+Febbraio;February;Italian not tagged;English tagged high
+Marzo;March;Italian not tagged;English tagged high
 Aprile;April;Italian not tagged;English tagged high
-maggio;May;Italian not tagged;English not tagged
-giugno;June;Italian not tagged;English tagged gen
-luglio;July;Italian not tagged;English not tagged
-agosto;August;Italian not tagged;English not tagged
-settembre;September;Italian not tagged;English not tagged
-ottobre;October;Italian not tagged;English not tagged
-novembre;November;Italian not tagged;English not tagged
-dicembre;December;Italian not tagged;English not tagged
+maggio;May;Italian not tagged;English tagged high
+giugno;June;Italian not tagged;English tagged high
+luglio;July;Italian not tagged;English tagged high
+agosto;August;Italian not tagged;English tagged high
+settembre;September;Italian not tagged;English tagged high
+ottobre;October;Italian not tagged;English tagged high
+novembre;November;Italian not tagged;English tagged high
+dicembre;December;Italian not tagged;English tagged high
 il mese scorso;last month;Italian not tagged;English not tagged
 il mese prossimo;next month;Italian not tagged;English not tagged
 stagioni;Seasons;Italian not tagged;English not tagged
@@ -41,16 +41,16 @@ stasera;this evening;Italian not tagged;English not tagged
 stamattina;this morning;Italian not tagged;English not tagged
 Oggi è il 7 luglio 2014;Today is July 7th, 2014.;Italian not tagged;English not tagged
 è mezzanotte;It's midnight;Italian not tagged;English not tagged
-è mezzagiorno;It's noon;Italian not tagged;English not tagged
+è mezzagiorno;It's noon;Italian not tagged;English tagged high
 Sono le otto di sera;It's 8 p.m.;Italian not tagged;English tagged high
-Sono le due e un quarto;It's a quarter past two;Italian not tagged;English not tagged
+Sono le due e un quarto;It's a quarter past two;Italian not tagged;English tagged high
 Sono le due e quindici;It is two fifteen;Italian not tagged;English not tagged
 Sono le dieci;It's ten o'clock.;Italian not tagged;English not tagged
 è l'una e trenta / mezzo / mezza;It is 1:30 (3);Italian not tagged;English not tagged
 Sono le cinque e quindici, Sono le cinque e un quarto;It is 5:15 (2);Italian not tagged;English not tagged
 tempo;time;Italian not tagged;English not tagged
 Sono le tre e venticinque;it's twenty-five past three;Italian not tagged;English not tagged
-Sono le dodici meno un quarto;It's a quarter to twelve.;Italian not tagged;English not tagged
+Sono le dodici meno un quarto;It's a quarter to twelve.;Italian not tagged;English tagged high
 Che ore sono?;What time is it?;Italian not tagged;English tagged high
 A che ora? Alle sette e mezza di mattina;At what time? At half past seven in the morning;Italian not tagged;English tagged high
 pomeriggio;afternoon;Italian not tagged;English not tagged

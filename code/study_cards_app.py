@@ -49,13 +49,13 @@ class StudyCardsApp:
         self.filtered_list_size = 0
         self.filter_cards_val = 0
         self.running_study_set_conf = {}
-        self.study_set_conf_list = []
+        #self.study_set_conf_list = []
 
         # Index to data in lines of work file and volatile data structure
-        self.lang1_idx = 0
-        self.lang2_idx = 1
-        self.lang1_tag_idx = 2
-        self.lang2_tag_idx = 3
+        self.term1_idx = 0
+        self.term2_idx = 1
+        self.term1_tag_idx = 2
+        self.term2_tag_idx = 3
 
         # from language index to language and vice versa
         self.terms = [self.term1, self.term2]
@@ -64,10 +64,10 @@ class StudyCardsApp:
 
         TagInfo = namedtuple("TagInfo", ["d_txt", "val", "rb_txt"])
         self.NoTag = TagInfo("not tagged", 0, "No tags")
-        self.LowTag = TagInfo("tagged low", 1, "Low")
-        self.MedTag = TagInfo("tagged med", 2, "Med")
-        self.HighTag = TagInfo("tagged high", 3, "High")
-        self.GenTag = TagInfo("tagged gen", 4, "Generic")
+        self.LowTag = TagInfo("tagged low", 1, "No knowl.")
+        self.MedTag = TagInfo("tagged med", 2, "Med knowl.")
+        self.HighTag = TagInfo("tagged high", 3, "Good knowl.")
+        self.GenTag = TagInfo("tagged gen", 4, "Minor issues")
 
         # value to data text dictionary
         self.tvdt_dir = {self.NoTag.val: self.NoTag.d_txt,
@@ -176,8 +176,8 @@ class StudyCardsApp:
                 sys.exit()
 
         for d_line in in_line_list:
-            w_file_ref.write(d_line[self.lang1_idx].rstrip() + self.f_separator +
-                             d_line[self.lang2_idx].strip() + self.f_separator +
+            w_file_ref.write(d_line[self.term1_idx].rstrip() + self.f_separator +
+                             d_line[self.term2_idx].strip() + self.f_separator +
                              self.term1 + " " + self.NoTag.d_txt + self.f_separator +
                              self.term2 + " " + self.NoTag.d_txt + "\n")
         self.display_pop_up(PopUpType.Info, "File was imported")
@@ -188,7 +188,9 @@ class StudyCardsApp:
         try:
             w_fl_ref = open(self.filepath+self.w_file, "r", encoding="utf8")
         except OSError:
-            print("Couldn't open the work file")
+            disp_txt = "Couldn't open the work file"
+            print(disp_txt)
+            self.display_pop_up(PopUpType.Error, disp_txt)
             sys.exit()
 
         for r_line in w_fl_ref:
@@ -259,11 +261,11 @@ class StudyCardsApp:
         :return:
         """
         with FileInput(files=[self.filepath+self.w_file], inplace=True) as wf:
-            if term_idx == self.lang1_idx:
-                lang_tag_idx = self.lang1_tag_idx
+            if term_idx == self.term1_idx:
+                lang_tag_idx = self.term1_tag_idx
                 term = self.term1
-            elif term_idx == self.lang2_idx:
-                lang_tag_idx = self.lang2_tag_idx
+            elif term_idx == self.term2_idx:
+                lang_tag_idx = self.term2_tag_idx
                 term = self.term2
             else:
                 raise ValueError
@@ -281,24 +283,29 @@ class StudyCardsApp:
                                   "cnf_front_side": self.front_side, "filter": 0,
                                   "card_order": 22, "last_card": self.line_number}]
         sets_conf_struct[0]["no_of_terms"] = 25
-        # end of fake data
+        # -------- end of fake data -----------
 
-        # abb1
         sets_conf_struct.append({"ID": self.set_id, "title": self.set_title,
                                 "no_of_terms": len(self.term_list), "cnf_front_side": self.front_side,
                                  "filter": self.filter_cards_val, "card_order": self.card_order,
                                  "last_card": self.line_number})
-
 
         sets_config_name = "sets_config.json"
         with open(sets_config_name, "w") as write_file:
             json.dump(sets_conf_struct, write_file, indent=4)
 
     def get_study_set_conf_from_file(self):
-        # abb1
         sets_config_name = "sets_config.json"
-        with open(sets_config_name, "r") as read_file:
+        try:
+            read_file = open(sets_config_name, "r")
             sets_conf_struct = json.load(read_file)
+        except Exception as e:
+            wrn_txt = "Couldn't open and read JSON study-sets-configuration file. Using default values"
+            print(e, wrn_txt)
+            self.display_pop_up(PopUpType.Warning, wrn_txt)
+            self.use_s_set_default_conf()
+            return
+
         for s_set_conf in sets_conf_struct:
             if int(s_set_conf["ID"]) == int(self.set_id):
                 self.running_study_set_conf = s_set_conf
@@ -308,6 +315,13 @@ class StudyCardsApp:
                 self.back_side = 1 - self.front_side
                 self.filter_cards_val = self.running_study_set_conf["filter"]
                 break
+
+    def use_s_set_default_conf(self):
+        self.line_number = 0
+        self.card_order = 11
+        self.front_side = 0
+        self.back_side = 1 - self.front_side
+        self.filter_cards_val = 0
 
 
 class MainWin:
