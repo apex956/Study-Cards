@@ -19,7 +19,7 @@ class PresentationFrame:
 
         self.presentation_frame_obj = presentation_frame
 
-        tagging_frame = tk.LabelFrame(presentation_frame, text="Tagging", font="Helvetica 14", width=170,
+        tagging_frame = tk.LabelFrame(presentation_frame, text="Tagging", font="Helvetica 14", width=180,
                                       height=300, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         tagging_frame.place(relx=0.75, rely=0.2)
         
@@ -95,15 +95,15 @@ class PresentationFrame:
         app = self._app
 
         if app.front_side == 0:
-            lang_idx = app.lang1_idx
+            lang_idx = app.term1_idx
         elif app.front_side == 1:
-            lang_idx = app.lang2_idx
+            lang_idx = app.term2_idx
         else:
             lang_idx = -1
 
         d_txt = app.tvdt_dir[self.tagging_var.get()]
         app.update_tag_in_w_file(app.act_ln, lang_idx, d_txt)  # use act_line
-        app.term_list[app.act_ln][lang_idx+2] = app.languages[lang_idx]+" "+d_txt
+        app.term_list[app.act_ln][lang_idx+2] = app.terms[lang_idx]+" "+d_txt
 
     def nxt_button_clicked(self):
         nxt = True
@@ -113,14 +113,17 @@ class PresentationFrame:
         nxt = False
         self.nxt_back_button_clicked(nxt)
 
-    def nxt_back_button_clicked(self, nxt, start_over=False):
+    def nxt_back_button_clicked(self, nxt, continue_cards=False):
         app = self._app
         if app.filtered_list_size <= 0:
             label1_txt = "Card number " + str(0) + " of " + str(0) + " cards"
             self.shown_l_word.configure(text="", bg=self.front_card_color)
         else:
             if nxt:
-                app.line_number += 1
+                if continue_cards:
+                    pass
+                else:
+                    app.line_number += 1
             else:
                 app.line_number -= 1
 
@@ -130,13 +133,9 @@ class PresentationFrame:
             elif app.line_number < 0:
                 app.line_number = app.filtered_list_size - 1
 
-            # start over
-            if start_over:
-                app.line_number = 0
-
             app.set_act_line()
-            self.card_text = [app.term_list[app.act_ln][app.lang1_idx].rstrip(),
-                              app.term_list[app.act_ln][app.lang2_idx].strip()]
+            self.card_text = [app.term_list[app.act_ln][app.term1_idx].rstrip(),
+                              app.term_list[app.act_ln][app.term2_idx].strip()]
 
             self.shown_l_word.configure(text=self.card_text[app.front_side], bg=self.front_card_color)
             app.card_side = app.front_side

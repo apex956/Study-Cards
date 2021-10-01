@@ -8,6 +8,7 @@ from fileinput import FileInput
 from collections import namedtuple
 from enum import Enum
 from configparser import ConfigParser
+import json
 import config_frame
 import presnt_frame
 
@@ -19,49 +20,54 @@ class PopUpType:
 
 
 class StudyCardsApp:
+
     def __init__(self):
         config_object = ConfigParser()
         config_object.read("config.ini")
-        proj_info = config_object["PROJINFO"]
-        self.language1 = proj_info["language1"]
-        self.language2 = proj_info["language2"]
-        self.number_of_sets = proj_info["number_of_sets"]
-        self.import_file_name = proj_info["import_file_name"]
-        self.set_title = proj_info["set_title"]  # The title of the study set
+        app_info = config_object["APP_INFO"]
+        self.term1 = app_info["term1"]
+        self.term2 = app_info["term2"]
+        file_import_info = config_object["FILE_IMPORT_INFO"]
+        self.import_file_request = self.str_to_bool(file_import_info["import_file_request"])
+        self.import_file_name = file_import_info["import_file_name"]
+        self.set_title = file_import_info["set_title"]  # The title of the study set
+        self.set_id = file_import_info["set_id"]  # The ID of the study set
         self.filepath = os.path.join('..', 'data', '')  # a relative path in any OS
-        self.import_file_request = True  # import a file per user demand.
         self.f_separator = ";"  # field separator in import file and in work file
-        self.w_file = self.import_file_name.removesuffix(".txt") + "_dat" + ".txt"
+        self.w_file = "work_file_" + self.set_id + ".txt"
         self.term_list = []  # list of terms and answers taken from the work file
-        self.ab_sort_lst = []  # list of indexes of the alphabetically sorted term list
+        self.ab_sort_list = []  # list of indexes of the alphabetically sorted term list
         self.shuffled_list = []  # list of indexes of the shuffled term list
         self.front_side = 0  # The term side of the card
         self.back_side = 1  # The answer side of the card
         self.line_number = 0  # The running index of the lines in the file and in the list of terms
         self.act_ln = 0  # The index of the displayed line
         self.card_side = self.front_side
-        self.filtered_ab_sort_lst = []
+        self.filtered_ab_sort_list = []
         self.filtered_shuffled_list = []
         self.filtered_term_list = []
         self.filtered_list_size = 0
+        self.filter_cards_val = 0
+        self.running_study_set_conf = {}
+        #self.study_set_conf_list = []
 
         # Index to data in lines of work file and volatile data structure
-        self.lang1_idx = 0
-        self.lang2_idx = 1
-        self.lang1_tag_idx = 2
-        self.lang2_tag_idx = 3
+        self.term1_idx = 0
+        self.term2_idx = 1
+        self.term1_tag_idx = 2
+        self.term2_tag_idx = 3
 
         # from language index to language and vice versa
-        self.languages = [self.language1, self.language2]
-        self.l_dir = {self.language1: 0,
-                      self.language2: 1}
+        self.terms = [self.term1, self.term2]
+        self.l_dir = {self.term1: 0,
+                      self.term2: 1}
 
         TagInfo = namedtuple("TagInfo", ["d_txt", "val", "rb_txt"])
         self.NoTag = TagInfo("not tagged", 0, "No tags")
-        self.LowTag = TagInfo("tagged low", 1, "Low")
-        self.MedTag = TagInfo("tagged med", 2, "Med")
-        self.HighTag = TagInfo("tagged high", 3, "High")
-        self.GenTag = TagInfo("tagged gen", 4, "Generic")
+        self.LowTag = TagInfo("tagged low", 1, "No knowl.")
+        self.MedTag = TagInfo("tagged med", 2, "Med knowl.")
+        self.HighTag = TagInfo("tagged high", 3, "Good knowl.")
+        self.GenTag = TagInfo("tagged gen", 4, "Minor issues")
 
         # value to data text dictionary
         self.tvdt_dir = {self.NoTag.val: self.NoTag.d_txt,
@@ -90,6 +96,8 @@ class StudyCardsApp:
         self.read_work_file()
 
         self.sort_and_shuffle_term_list()
+
+        self.get_study_set_conf_from_file()
 
     @staticmethod
     def display_pop_up(pu_type, txt):
@@ -168,10 +176,10 @@ class StudyCardsApp:
                 sys.exit()
 
         for d_line in in_line_list:
-            w_file_ref.write(d_line[self.lang1_idx].rstrip() + self.f_separator +
-                             d_line[self.lang2_idx].strip() + self.f_separator +
-                             self.language1 + " " + self.NoTag.d_txt + self.f_separator +
-                             self.language2 + " " + self.NoTag.d_txt + "\n")
+            w_file_ref.write(d_line[self.term1_idx].rstrip() + self.f_separator +
+                             d_line[self.term2_idx].strip() + self.f_separator +
+                             self.term1 + " " + self.NoTag.d_txt + self.f_separator +
+                             self.term2 + " " + self.NoTag.d_txt + "\n")
         self.display_pop_up(PopUpType.Info, "File was imported")
         w_file_ref.close()
 
@@ -180,7 +188,9 @@ class StudyCardsApp:
         try:
             w_fl_ref = open(self.filepath+self.w_file, "r", encoding="utf8")
         except OSError:
-            print("Couldn't open the work file")
+            disp_txt = "Couldn't open the work file"
+            print(disp_txt)
+            self.display_pop_up(PopUpType.Error, disp_txt)
             sys.exit()
 
         for r_line in w_fl_ref:
@@ -194,6 +204,15 @@ class StudyCardsApp:
     def use_1st_str(lst1):
         return lst1[0].capitalize()
 
+    @staticmethod
+    def str_to_bool(s):
+        if s == 'True':
+            return True
+        elif s == 'False':
+            return False
+        else:
+            raise ValueError
+
     def sort_and_shuffle_term_list(self):
         sort_lst = []
         for ln_idx, line in enumerate(self.term_list):
@@ -201,20 +220,20 @@ class StudyCardsApp:
 
         sort_lst.sort(key=self.use_1st_str)
         for line in sort_lst:
-            self.ab_sort_lst.append(line[1])
+            self.ab_sort_list.append(line[1])
 
         self.shuffled_list = list(range(len(self.term_list)))
         random.shuffle(self.shuffled_list)
 
     def get_tag_dt_txt(self, line):
         """Returns the tag value for a line of data and the shown language  """
-        lang_idx = self.card_side
-        data_text1 = self.term_list[line][lang_idx + 2]
+        term_idx = self.card_side
+        data_text1 = self.term_list[line][term_idx + 2]
         # parse the text to remove the language
-        if data_text1.startswith(self.language1):
-            data_text = data_text1.removeprefix(self.language1 + " ")
-        elif data_text1.startswith(self.language2):
-            data_text = data_text1.removeprefix(self.language2 + " ").rstrip()
+        if data_text1.startswith(self.term1):
+            data_text = data_text1.removeprefix(self.term1 + " ")
+        elif data_text1.startswith(self.term2):
+            data_text = data_text1.removeprefix(self.term2 + " ").rstrip()
         else:
             raise ValueError
         return data_text
@@ -226,37 +245,83 @@ class StudyCardsApp:
         if self.card_order == self.Original.val:
             self.act_ln = self.filtered_term_list[self.line_number]
         elif self.card_order == self.Alphabetical.val:
-            self.act_ln = self.filtered_ab_sort_lst[self.line_number]
+            self.act_ln = self.filtered_ab_sort_list[self.line_number]
         elif self.card_order == self.Random.val:
             self.act_ln = self.filtered_shuffled_list[self.line_number]
         else:
             raise ValueError
 
-    def update_tag_in_w_file(self, line_num, lang_idx, tag):
+    def update_tag_in_w_file(self, line_num, term_idx, tag):
         """
         Write the tagging string into the work file
         This is done when the tagging radio button is changed
         :param line_num:
-        :param lang_idx:
+        :param term_idx:
         :param tag:
         :return:
         """
         with FileInput(files=[self.filepath+self.w_file], inplace=True) as wf:
-            if lang_idx == self.lang1_idx:
-                lang_tag_idx = self.lang1_tag_idx
-                language = self.language1
-            elif lang_idx == self.lang2_idx:
-                lang_tag_idx = self.lang2_tag_idx
-                language = self.language2
+            if term_idx == self.term1_idx:
+                lang_tag_idx = self.term1_tag_idx
+                term = self.term1
+            elif term_idx == self.term2_idx:
+                lang_tag_idx = self.term2_tag_idx
+                term = self.term2
             else:
                 raise ValueError
             for idx, line in enumerate(wf):
                 line = line.rstrip()
                 info = line.split(self.f_separator)
                 if idx == line_num:
-                    info[lang_tag_idx] = language + " " + tag
+                    info[lang_tag_idx] = term + " " + tag
                 line = self.f_separator.join(str(x) for x in info)
                 print(line)
+
+    def save_config_to_file(self):
+        # Fake data to test a list with multiple entries
+        sets_conf_struct = [{"ID": 1005, "title": "Verbs", "no_of_terms": 30,
+                                  "cnf_front_side": self.front_side, "filter": 0,
+                                  "card_order": 22, "last_card": self.line_number}]
+        sets_conf_struct[0]["no_of_terms"] = 25
+        # -------- end of fake data -----------
+
+        sets_conf_struct.append({"ID": self.set_id, "title": self.set_title,
+                                "no_of_terms": len(self.term_list), "cnf_front_side": self.front_side,
+                                 "filter": self.filter_cards_val, "card_order": self.card_order,
+                                 "last_card": self.line_number})
+
+        sets_config_name = "sets_config.json"
+        with open(sets_config_name, "w") as write_file:
+            json.dump(sets_conf_struct, write_file, indent=4)
+
+    def get_study_set_conf_from_file(self):
+        sets_config_name = "sets_config.json"
+        try:
+            read_file = open(sets_config_name, "r")
+            sets_conf_struct = json.load(read_file)
+        except Exception as e:
+            wrn_txt = "Couldn't open and read JSON study-sets-configuration file. Using default values"
+            print(e, wrn_txt)
+            self.display_pop_up(PopUpType.Warning, wrn_txt)
+            self.use_s_set_default_conf()
+            return
+
+        for s_set_conf in sets_conf_struct:
+            if int(s_set_conf["ID"]) == int(self.set_id):
+                self.running_study_set_conf = s_set_conf
+                self.line_number = self.running_study_set_conf["last_card"]
+                self.card_order = self.running_study_set_conf["card_order"]
+                self.front_side = self.running_study_set_conf["cnf_front_side"]
+                self.back_side = 1 - self.front_side
+                self.filter_cards_val = self.running_study_set_conf["filter"]
+                break
+
+    def use_s_set_default_conf(self):
+        self.line_number = 0
+        self.card_order = 11
+        self.front_side = 0
+        self.back_side = 1 - self.front_side
+        self.filter_cards_val = 0
 
 
 class MainWin:
@@ -264,30 +329,41 @@ class MainWin:
     RADIO_BUTTON_FONT = "Helvetica 14"
     RB_BG = "white smoke"  # Radio Button Background color
     L2_FRAME_BG = "white smoke"  # The background color of level 2 frames
+    MW_WIDTH = 1100  # The width of the main window in pixels
 
     def __init__(self, window, app):
         window.title("Study Cards")
-        window.geometry('1100x700')
+        window.geometry(str(self.MW_WIDTH)+'x700')
         window.resizable(False, False)
-        title1_txt = app.language1 + " " + app.language2 + " Vocabulary"
-        tk.Label(window, text=title1_txt, font="Helvetica 20 bold").place(relx=0.3, rely=0.0)
+        title1_txt = app.term1 + " vs. " + app.term2
+        ltr_size = 16  # approx number of pixels per letter
+        calc_relx = (1 - ((ltr_size * len(title1_txt)) / self.MW_WIDTH)) / 2
+        tk.Label(window, text=title1_txt, font="Helvetica 20 bold").place(relx=calc_relx, rely=0.0)
         title2_txt = "Study Set: " + app.set_title
-        tk.Label(window, text=title2_txt, font="Helvetica 16 bold").place(relx=0.4, rely=0.05)
+        ltr_size = 13  # approx number of pixels per letter
+        calc_relx = (1 - ((ltr_size * len(title2_txt)) / self.MW_WIDTH)) / 2
+        tk.Label(window, text=title2_txt, font="Helvetica 16 bold").place(relx=calc_relx, rely=0.05)
 
         window.attributes('-topmost', 'true')
         self._conf_frame = config_frame.ConfFrame(self, window, app)
         self._prsnt_frame = presnt_frame.PresentationFrame(self, window, app)
         self._app = app
+        self._window = window
 
     def flash_cards_button_clicked(self):
         self._conf_frame.config_frame_obj.place_forget()
         self._prsnt_frame.presentation_frame_obj.place(relx=0.1, rely=0.1)
         self._conf_frame.create_filtered_index_lists(self._app)
-        self._prsnt_frame.nxt_back_button_clicked(nxt=True, start_over=True)
+        self._prsnt_frame.nxt_back_button_clicked(nxt=True, continue_cards=True)
 
     def config_button_clicked(self):
         self._conf_frame.config_frame_obj.place(relx=0.1, rely=0.1)
         self._prsnt_frame.presentation_frame_obj.place_forget()
+
+    def on_close(self):
+        print("Main Window is closing. Writing the configuration to JSON file")
+        self._app.save_config_to_file()
+        self._window.destroy()
 
 
 def main():
@@ -295,7 +371,8 @@ def main():
         raise Exception("Must use Python 3")
     app = StudyCardsApp()
     window = tk.Tk()  # The root
-    MainWin(window, app)
+    m_win = MainWin(window, app)
+    window.protocol("WM_DELETE_WINDOW", m_win.on_close)
     window.mainloop()
 
 

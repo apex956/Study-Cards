@@ -1,0 +1,64 @@
+giorni della settimana ;Days of the week
+(il) lunedì ;Monday
+(il) martedì ;Tuesday
+(il) mercoledì ;Wednesday
+(il) giovedì ;Thursday
+(il) venerdì ;Friday
+(il) sabato ;Saturday
+(la) domenica ;Sunday
+Que giorno e' oggi? ;What day is it today?
+mesi dell'anno ;Months of the year
+anno ;year
+mese ;month
+Gennaio ;January
+Febbraio ;February
+Marzo ;March
+Aprile ;April
+maggio ;May
+giugno ;June
+luglio ;July
+agosto ;August
+settembre ;September
+ottobre ;October
+novembre ;November
+dicembre ;December
+il mese scorso ;last month
+il mese prossimo ;next month
+stagioni ;Seasons
+inverno ;Winter
+primavera ;Spring
+estate ;Summer
+autunno ;Fall
+domani ;Tomorrow
+ieri ;Yesterday
+la prossima settimana ;next week
+la settimana scorsa ;last week (1 of 2)
+la settimana passata ;last week (2 of 2)
+questa settimana ;this week
+fine settimana ;weekend
+quest'anno ;this year
+stasera ;this evening
+stamattina ;this morning
+Oggi è il 7 luglio 2014 ;Today is July 7th, 2014.
+è mezzanotte ;It's midnight
+è mezzagiorno ;It's noon
+Sono le otto di sera ;It's 8 p.m.
+Sono le due e un quarto ;It's a quarter past two
+Sono le due e quindici ;It is two fifteen
+Sono le dieci ;It's ten o'clock.
+è l'una e trenta / mezzo / mezza ;It is 1:30 (3)
+Sono le cinque e quindici, Sono le cinque e un quarto ;It is 5:15 (2)
+tempo ;time
+Sono le tre e venticinque ;it's twenty-five past three
+Sono le dodici meno un quarto ;It's a quarter to twelve.
+Che ore sono? ;What time is it?
+A che ora? Alle sette e mezza di mattina ;At what time? At half past seven in the morning
+pomeriggio ;afternoon
+ora ;hour
+secondo ;second
+minuto ;minute
+Oggi è sabato. È il ventisette gennaio duemilasette. ;Today is Saturday. It is the twenty-seventh of January two thousand and seven.
+dalle nove alle tre ;from 9 to 3
+due giorni fa ;two days ago
+ieri sera ;yesterday evening / last night
+l'estate scorsa ;last summer
