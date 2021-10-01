@@ -6,7 +6,7 @@
         "cnf_front_side": 1,
         "filter": 0,
         "card_order": 22,
-        "last_card": 0
+        "last_card": 4
     },
     {
         "ID": "1002",
@@ -15,6 +15,6 @@
         "cnf_front_side": 1,
         "filter": 5,
         "card_order": 33,
-        "last_card": 0
+        "last_card": 4
     }
 ]
