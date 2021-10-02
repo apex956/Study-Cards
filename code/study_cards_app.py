@@ -6,17 +6,26 @@ import sys
 import os
 from fileinput import FileInput
 from collections import namedtuple
-from enum import Enum
+from enum import Enum, unique
 from configparser import ConfigParser
 import json
 import config_frame
 import presnt_frame
 
 
-class PopUpType:
-    Info = "Info"
-    Warning = "Warning"
-    Error = "Error"
+@unique
+class PopUpType(Enum):
+    INFO = "Info"
+    WARNING = "Warning"
+    ERROR = "Error"
+
+
+class LnIdx:
+    """ Index to data within lines of the work file and the term list data structure """
+    TERM1_IDX = 0
+    TERM2_IDX = 1
+    TERM1_TAG_IDX = 2
+    TERM2_TAG_IDX = 3
 
 
 class StudyCardsApp:
@@ -51,18 +60,13 @@ class StudyCardsApp:
         self.running_study_set_conf = {}
         #self.study_set_conf_list = []
 
-        # Index to data in lines of work file and volatile data structure
-        self.term1_idx = 0
-        self.term2_idx = 1
-        self.term1_tag_idx = 2
-        self.term2_tag_idx = 3
-
-        # from language index to language and vice versa
+        # from term index to term and vice versa
         self.terms = [self.term1, self.term2]
         self.l_dir = {self.term1: 0,
                       self.term2: 1}
 
         TagInfo = namedtuple("TagInfo", ["d_txt", "val", "rb_txt"])
+
         self.NoTag = TagInfo("not tagged", 0, "No tags")
         self.LowTag = TagInfo("tagged low", 1, "No knowl.")
         self.MedTag = TagInfo("tagged med", 2, "Med knowl.")
@@ -112,11 +116,11 @@ class StudyCardsApp:
         msg = tk.Tk()
         msg.withdraw()
         pu_title = pu_type
-        if pu_type == PopUpType.Warning:
+        if pu_type == PopUpType.WARNING:
             tk.messagebox.showwarning(title=pu_title, message=txt)
-        elif pu_type == PopUpType.Error:
+        elif pu_type == PopUpType.ERROR:
             tk.messagebox.showerror(title=pu_title, message=txt)
-        elif pu_type == PopUpType.Info:
+        elif pu_type == PopUpType.INFO:
             tk.messagebox.showinfo(title=pu_title, message=txt)
         else:
             print("Unexpected value of pu_type argument:", pu_type)
@@ -142,7 +146,7 @@ class StudyCardsApp:
         except OSError as e:
             wrn_txt = "Couldn't open a file to be imported"
             print(e, wrn_txt)
-            self.display_pop_up(PopUpType.Warning, wrn_txt)
+            self.display_pop_up(PopUpType.WARNING, wrn_txt)
             return
         try:
             for t_idx, in_line in enumerate(in_file_ref):
@@ -155,7 +159,7 @@ class StudyCardsApp:
                           "' in line " + str(p_line) +\
                           " of the imported file. " + "The file was not imported."
             print(warning_txt)
-            self.display_pop_up(PopUpType.Warning, warning_txt)
+            self.display_pop_up(PopUpType.WARNING, warning_txt)
             return
         finally:
             in_file_ref.close()
@@ -172,15 +176,15 @@ class StudyCardsApp:
             except OSError as e:
                 err_txt = "couldn't open the work file for writing"
                 print(e, err_txt)
-                self.display_pop_up(PopUpType.Error, err_txt)
+                self.display_pop_up(PopUpType.ERROR, err_txt)
                 sys.exit()
 
         for d_line in in_line_list:
-            w_file_ref.write(d_line[self.term1_idx].rstrip() + self.f_separator +
-                             d_line[self.term2_idx].strip() + self.f_separator +
+            w_file_ref.write(d_line[LnIdx.TERM1_IDX].rstrip() + self.f_separator +
+                             d_line[self.TERM2_IDX].strip() + self.f_separator +
                              self.term1 + " " + self.NoTag.d_txt + self.f_separator +
                              self.term2 + " " + self.NoTag.d_txt + "\n")
-        self.display_pop_up(PopUpType.Info, "File was imported")
+        self.display_pop_up(PopUpType.INFO, "File was imported")
         w_file_ref.close()
 
     def read_work_file(self):
@@ -190,7 +194,7 @@ class StudyCardsApp:
         except OSError:
             disp_txt = "Couldn't open the work file"
             print(disp_txt)
-            self.display_pop_up(PopUpType.Error, disp_txt)
+            self.display_pop_up(PopUpType.ERROR, disp_txt)
             sys.exit()
 
         for r_line in w_fl_ref:
@@ -261,11 +265,11 @@ class StudyCardsApp:
         :return:
         """
         with FileInput(files=[self.filepath+self.w_file], inplace=True) as wf:
-            if term_idx == self.term1_idx:
-                lang_tag_idx = self.term1_tag_idx
+            if term_idx == LnIdx.TERM1_IDX:
+                lang_tag_idx = LnIdx.TERM1_TAG_IDX
                 term = self.term1
-            elif term_idx == self.term2_idx:
-                lang_tag_idx = self.term2_tag_idx
+            elif term_idx == LnIdx.TERM2_IDX:
+                lang_tag_idx = LnIdx.TERM2_TAG_IDX
                 term = self.term2
             else:
                 raise ValueError
@@ -302,7 +306,7 @@ class StudyCardsApp:
         except Exception as e:
             wrn_txt = "Couldn't open and read JSON study-sets-configuration file. Using default values"
             print(e, wrn_txt)
-            self.display_pop_up(PopUpType.Warning, wrn_txt)
+            self.display_pop_up(PopUpType.WARNING, wrn_txt)
             self.use_s_set_default_conf()
             return
 

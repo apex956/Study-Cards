@@ -7,9 +7,10 @@ class PresentationFrame:
         R_B_FONT = main_win.RADIO_BUTTON_FONT
         R_B_BG = main_win.RB_BG
         BUTTON_FONT = main_win.BUTTON_FONT
-
-        self.front_card_color = "lightgrey"
-        self.back_card_color = "lavender"
+        self.TERM1_IDX = study_cards_app.LnIdx.TERM1_IDX
+        self.TERM2_IDX = study_cards_app.LnIdx.TERM2_IDX
+        self.FRONT_CARD_COLOR = "lightgrey"
+        self.BACK_CARD_COLOR = "lavender"
 
         self._app = app
         self.card_text = []  # The text of both sides of the current card
@@ -95,9 +96,9 @@ class PresentationFrame:
         app = self._app
 
         if app.front_side == 0:
-            lang_idx = app.term1_idx
+            lang_idx = self.TERM1_IDX
         elif app.front_side == 1:
-            lang_idx = app.term2_idx
+            lang_idx = self.TERM2_IDX
         else:
             lang_idx = -1
 
@@ -117,7 +118,7 @@ class PresentationFrame:
         app = self._app
         if app.filtered_list_size <= 0:
             label1_txt = "Card number " + str(0) + " of " + str(0) + " cards"
-            self.shown_l_word.configure(text="", bg=self.front_card_color)
+            self.shown_l_word.configure(text="", bg=self.FRONT_CARD_COLOR)
         else:
             if nxt:
                 if continue_cards:
@@ -134,10 +135,10 @@ class PresentationFrame:
                 app.line_number = app.filtered_list_size - 1
 
             app.set_act_line()
-            self.card_text = [app.term_list[app.act_ln][app.term1_idx].rstrip(),
-                              app.term_list[app.act_ln][app.term2_idx].strip()]
+            self.card_text = [app.term_list[app.act_ln][self.TERM1_IDX].rstrip(),
+                              app.term_list[app.act_ln][self.TERM2_IDX].strip()]
 
-            self.shown_l_word.configure(text=self.card_text[app.front_side], bg=self.front_card_color)
+            self.shown_l_word.configure(text=self.card_text[app.front_side], bg=self.FRONT_CARD_COLOR)
             app.card_side = app.front_side
             self.set_tag_rb(app.act_ln)
 
@@ -150,10 +151,10 @@ class PresentationFrame:
         if app.filtered_list_size < 1:
             return
         if app.card_side == app.front_side:
-            self.shown_l_word.configure(text=self.card_text[app.back_side], bg=self.back_card_color)
+            self.shown_l_word.configure(text=self.card_text[app.back_side], bg=self.BACK_CARD_COLOR)
             app.card_side = app.back_side
         else:
-            self.shown_l_word.configure(text=self.card_text[app.front_side], bg=self.front_card_color)
+            self.shown_l_word.configure(text=self.card_text[app.front_side], bg=self.FRONT_CARD_COLOR)
             app.card_side = app.front_side
 
     def set_tag_rb(self, line):
