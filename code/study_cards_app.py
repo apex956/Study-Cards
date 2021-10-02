@@ -6,26 +6,13 @@ import sys
 import os
 from fileinput import FileInput
 from collections import namedtuple
-from enum import Enum, unique
+from enum import Enum
 from configparser import ConfigParser
 import json
 import config_frame
 import presnt_frame
+from constants import Const, PopUpType, LnIdx
 
-
-@unique
-class PopUpType(Enum):
-    INFO = "Info"
-    WARNING = "Warning"
-    ERROR = "Error"
-
-
-class LnIdx:
-    """ Index to data within lines of the work file and the term list data structure """
-    TERM1_IDX = 0
-    TERM2_IDX = 1
-    TERM1_TAG_IDX = 2
-    TERM2_TAG_IDX = 3
 
 
 class StudyCardsApp:
@@ -41,8 +28,6 @@ class StudyCardsApp:
         self.import_file_name = file_import_info["import_file_name"]
         self.set_title = file_import_info["set_title"]  # The title of the study set
         self.set_id = file_import_info["set_id"]  # The ID of the study set
-        self.filepath = os.path.join('..', 'data', '')  # a relative path in any OS
-        self.f_separator = ";"  # field separator in import file and in work file
         self.w_file = "work_file_" + self.set_id + ".txt"
         self.term_list = []  # list of terms and answers taken from the work file
         self.ab_sort_list = []  # list of indexes of the alphabetically sorted term list
@@ -95,7 +80,7 @@ class StudyCardsApp:
         self.card_order = self.Alphabetical.val  # Terms are arranged alphabetically based on the 1st side only
 
         if self.import_file_request:
-            self.import_term_file(self.filepath, self.import_file_name, self.w_file)
+            self.import_term_file(Const.filepath, self.import_file_name, self.w_file)
 
         self.read_work_file()
 
@@ -150,12 +135,12 @@ class StudyCardsApp:
             return
         try:
             for t_idx, in_line in enumerate(in_file_ref):
-                if in_line.count(self.f_separator) > 1:
+                if in_line.count(Const.f_separator) > 1:
                     p_line = t_idx
                     raise ValueError
-                in_line_list.append(in_line.split(self.f_separator))
+                in_line_list.append(in_line.split(Const.f_separator))
         except ValueError:
-            warning_txt = "Found an unexpected separator character '" + self.f_separator + \
+            warning_txt = "Found an unexpected separator character '" + Const.f_separator + \
                           "' in line " + str(p_line) +\
                           " of the imported file. " + "The file was not imported."
             print(warning_txt)
@@ -164,7 +149,7 @@ class StudyCardsApp:
         finally:
             in_file_ref.close()
 
-        w_file_path = pathlib.Path(self.filepath+w_file_name)
+        w_file_path = pathlib.Path(Const.filepath+w_file_name)
         if w_file_path.is_file():
             # work file exists - add here the ability to merge with an imported file
             print("Work file found. No file importing was performed")
@@ -180,9 +165,9 @@ class StudyCardsApp:
                 sys.exit()
 
         for d_line in in_line_list:
-            w_file_ref.write(d_line[LnIdx.TERM1_IDX].rstrip() + self.f_separator +
-                             d_line[self.TERM2_IDX].strip() + self.f_separator +
-                             self.term1 + " " + self.NoTag.d_txt + self.f_separator +
+            w_file_ref.write(d_line[LnIdx.TERM1_IDX].rstrip() + Const.f_separator +
+                             d_line[LnIdx.TERM2_IDX].strip() + Const.f_separator +
+                             self.term1 + " " + self.NoTag.d_txt + Const.f_separator +
                              self.term2 + " " + self.NoTag.d_txt + "\n")
         self.display_pop_up(PopUpType.INFO, "File was imported")
         w_file_ref.close()
@@ -190,7 +175,7 @@ class StudyCardsApp:
     def read_work_file(self):
         # read the vocabulary list from the work-file
         try:
-            w_fl_ref = open(self.filepath+self.w_file, "r", encoding="utf8")
+            w_fl_ref = open(Const.filepath+self.w_file, "r", encoding="utf8")
         except OSError:
             disp_txt = "Couldn't open the work file"
             print(disp_txt)
@@ -198,7 +183,7 @@ class StudyCardsApp:
             sys.exit()
 
         for r_line in w_fl_ref:
-            line_content = r_line.split(self.f_separator)
+            line_content = r_line.split(Const.f_separator)
             self.term_list.append(line_content)
 
         print("The 1st line from the work file: ", self.term_list[0])
@@ -264,7 +249,7 @@ class StudyCardsApp:
         :param tag:
         :return:
         """
-        with FileInput(files=[self.filepath+self.w_file], inplace=True) as wf:
+        with FileInput(files=[Const.filepath+self.w_file], inplace=True) as wf:
             if term_idx == LnIdx.TERM1_IDX:
                 lang_tag_idx = LnIdx.TERM1_TAG_IDX
                 term = self.term1
@@ -275,10 +260,10 @@ class StudyCardsApp:
                 raise ValueError
             for idx, line in enumerate(wf):
                 line = line.rstrip()
-                info = line.split(self.f_separator)
+                info = line.split(Const.f_separator)
                 if idx == line_num:
                     info[lang_tag_idx] = term + " " + tag
-                line = self.f_separator.join(str(x) for x in info)
+                line = Const.f_separator.join(str(x) for x in info)
                 print(line)
 
     def save_config_to_file(self):

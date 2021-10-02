@@ -1,6 +1,6 @@
 import tkinter as tk
 import study_cards_app
-
+from constants import Const
 
 class ConfFrame:
     def __init__(self, main_win, window, app):
