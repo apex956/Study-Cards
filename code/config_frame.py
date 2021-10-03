@@ -1,6 +1,6 @@
 import tkinter as tk
 import study_cards_app
-from constants import Const
+from constants import Const,GuiTc, CrdOrdr
 
 class ConfFrame:
     def __init__(self, main_win, window, app):
@@ -15,85 +15,81 @@ class ConfFrame:
         self.GEN_FLTR = [4, "Minor issues tag"]  # for example: spelling problems
         self.UNTAGGED_FLTR = [5, "Untagged"]
 
-        R_B_FONT = main_win.RADIO_BUTTON_FONT
-        R_B_BG = main_win.RB_BG
-        BUTTON_FONT = main_win.BUTTON_FONT
-
         config_frame = tk.LabelFrame(window, text="Configuration", font="Helvetica 14",
                                      width=900, height=600, bg="gray99", bd=1, relief=tk.SOLID)
         config_frame.place(relx=0.1, rely=0.1)
         self.config_frame_obj = config_frame
 
         card_order_frame = tk.LabelFrame(config_frame, text="Card Order", font="Helvetica 14", width=205,
-                                         height=170, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+                                         height=170, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         card_order_frame.place(relx=0.1, rely=0.05)
 
         self.card_order_v = tk.IntVar()
         self.card_order_v.set(app.card_order)  # set the default radio button
 
-        tk.Radiobutton(card_order_frame, text=app.Alphabetical.txt + " (" +app.term1+")", variable=self.card_order_v,
-                       value=app.Alphabetical.val, command=self.update_card_order,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.1)
+        tk.Radiobutton(card_order_frame, text=CrdOrdr.Alphabetical.txt + " (" +app.term1+")", variable=self.card_order_v,
+                       value=CrdOrdr.Alphabetical.val, command=self.update_card_order,
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.1)
 
-        tk.Radiobutton(card_order_frame, text=app.Random.txt, variable=self.card_order_v,
-                       value=app.Random.val, command=self.update_card_order,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.3)
+        tk.Radiobutton(card_order_frame, text=CrdOrdr.Random.txt, variable=self.card_order_v,
+                       value=CrdOrdr.Random.val, command=self.update_card_order,
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.3)
 
-        tk.Radiobutton(card_order_frame, text=app.Original.txt, variable=self.card_order_v,
-                       value=app.Original.val, command=self.update_card_order,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.5)
+        tk.Radiobutton(card_order_frame, text=CrdOrdr.Original.txt, variable=self.card_order_v,
+                       value=CrdOrdr.Original.val, command=self.update_card_order,
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.5)
 
         self._filter_cards = tk.IntVar()
         self._filter_cards.set(app.filter_cards_val)
 
         filter_cards_frame = tk.LabelFrame(config_frame, text="Show cards", font="Helvetica 14",
-                                           width=230, height=220, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+                                           width=230, height=220, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         filter_cards_frame.place(relx=0.6, rely=0.05)
 
         tk.Radiobutton(filter_cards_frame, text=self.NO_FLTR[self.TXT], variable=self._filter_cards,
                        value=self.NO_FLTR[self.VAL], command=self.update_filter,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.05)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.05)
 
         tk.Radiobutton(filter_cards_frame, text=self.LOW_FLTR[self.TXT], variable=self._filter_cards,
                        value=self.LOW_FLTR[self.VAL], command=self.update_filter,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.2)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.2)
 
         tk.Radiobutton(filter_cards_frame, text=self.MED_FLTR[self.TXT], variable=self._filter_cards,
                        value=self.MED_FLTR[self.VAL], command=self.update_filter,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.35)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.35)
 
         tk.Radiobutton(filter_cards_frame, text=self.HIGH_FLTR[self.TXT], variable=self._filter_cards,
                        value=self.HIGH_FLTR[self.VAL], command=self.update_filter,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.5)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.5)
 
         tk.Radiobutton(filter_cards_frame, text=self.GEN_FLTR[self.TXT], variable=self._filter_cards,
                        value=self.GEN_FLTR[self.VAL], command=self.update_filter,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.65)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.65)
 
         tk.Radiobutton(filter_cards_frame, text=self.UNTAGGED_FLTR[self.TXT], variable=self._filter_cards,
                        value=self.UNTAGGED_FLTR[self.VAL], command=self.update_filter,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.8)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.8)
 
         front_side_frame = tk.LabelFrame(config_frame, text="Cards front side", font="Helvetica 14",
-                                         width=170, height=120, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+                                         width=170, height=120, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         front_side_frame.place(relx=0.1, rely=0.5)
 
         self.lang1_var = tk.IntVar()
 
         tk.Radiobutton(front_side_frame, text=app.term1, variable=self.lang1_var,
                        value=0, command=self.change_lang_order,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.05)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.05)
 
         tk.Radiobutton(front_side_frame, text=app.term2, variable=self.lang1_var,
                        value=1, command=self.change_lang_order,
-                       font=R_B_FONT, bg=R_B_BG).place(relx=0.0, rely=0.4)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.4)
 
         self.lang1_var.set(self._app.front_side)
 
-        tk.Button(config_frame, text="Show Flashcards", font=BUTTON_FONT,
+        tk.Button(config_frame, text="Show Flashcards", font=GuiTc.BUTTON_FONT,
                   command=main_win.flash_cards_button_clicked).place(relx=0.6, rely=0.8)
 
-        tk.Button(config_frame, text="Reset Flashcards", font=BUTTON_FONT,
+        tk.Button(config_frame, text="Reset Flashcards", font=GuiTc.BUTTON_FONT,
                   command=self.reset_cards).place(relx=0.1, rely=0.8)
 
 
@@ -141,17 +137,17 @@ class ConfFrame:
                 print("Filter not found!")
                 raise ValueError
 
-            if app.card_order == app.Alphabetical.val:
+            if app.card_order == CrdOrdr.Alphabetical.val:
                 for m_idx in app.ab_sort_list:
                     if app.get_tag_dt_txt(m_idx) == expected_tag_dt_txt:
                         app.filtered_ab_sort_list.append(m_idx)
                 app.filtered_list_size = len(app.filtered_ab_sort_list)
-            elif app.card_order == app.Random.val:
+            elif app.card_order == CrdOrdr.Random.val:
                 for m_idx in app.shuffled_list:
                     if app.get_tag_dt_txt(m_idx) == expected_tag_dt_txt:
                         app.filtered_shuffled_list.append(m_idx)
                 app.filtered_list_size = len(app.filtered_shuffled_list)
-            elif app.card_order == app.Original.val:
+            elif app.card_order == CrdOrdr.Original.val:
                 for a_idx in range(len(app.term_list)):
                     if app.get_tag_dt_txt(a_idx) == expected_tag_dt_txt:
                         app.filtered_term_list.append(a_idx)

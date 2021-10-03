@@ -11,8 +11,7 @@ from configparser import ConfigParser
 import json
 import config_frame
 import presnt_frame
-from constants import Const, PopUpType, LnIdx
-
+from constants import Const, PopUpType, LnIdx, GuiTc, CrdOrdr
 
 
 class StudyCardsApp:
@@ -72,15 +71,10 @@ class StudyCardsApp:
                          self.HighTag.d_txt: self.HighTag.val,
                          self.GenTag.d_txt: self.GenTag.val}
 
-        CardOrder = namedtuple("CardOrder", ["val", "txt"])
-        self.Alphabetical = CardOrder(11, "Alphabetical")
-        self.Random = CardOrder(22, "Random")
-        self.Original = CardOrder(33, "Original")
-
-        self.card_order = self.Alphabetical.val  # Terms are arranged alphabetically based on the 1st side only
+        self.card_order = CrdOrdr.Alphabetical.val  # Terms are arranged alphabetically based on the 1st side only
 
         if self.import_file_request:
-            self.import_term_file(Const.filepath, self.import_file_name, self.w_file)
+            self.import_term_file(Const.FILE_PATH, self.import_file_name, self.w_file)
 
         self.read_work_file()
 
@@ -135,12 +129,12 @@ class StudyCardsApp:
             return
         try:
             for t_idx, in_line in enumerate(in_file_ref):
-                if in_line.count(Const.f_separator) > 1:
+                if in_line.count(Const.F_SEPARATOR) > 1:
                     p_line = t_idx
                     raise ValueError
-                in_line_list.append(in_line.split(Const.f_separator))
+                in_line_list.append(in_line.split(Const.F_SEPARATOR))
         except ValueError:
-            warning_txt = "Found an unexpected separator character '" + Const.f_separator + \
+            warning_txt = "Found an unexpected separator character '" + Const.F_SEPARATOR + \
                           "' in line " + str(p_line) +\
                           " of the imported file. " + "The file was not imported."
             print(warning_txt)
@@ -149,7 +143,7 @@ class StudyCardsApp:
         finally:
             in_file_ref.close()
 
-        w_file_path = pathlib.Path(Const.filepath+w_file_name)
+        w_file_path = pathlib.Path(Const.FILE_PATH+w_file_name)
         if w_file_path.is_file():
             # work file exists - add here the ability to merge with an imported file
             print("Work file found. No file importing was performed")
@@ -165,9 +159,9 @@ class StudyCardsApp:
                 sys.exit()
 
         for d_line in in_line_list:
-            w_file_ref.write(d_line[LnIdx.TERM1_IDX].rstrip() + Const.f_separator +
-                             d_line[LnIdx.TERM2_IDX].strip() + Const.f_separator +
-                             self.term1 + " " + self.NoTag.d_txt + Const.f_separator +
+            w_file_ref.write(d_line[LnIdx.TERM1_IDX].rstrip() + Const.F_SEPARATOR +
+                             d_line[LnIdx.TERM2_IDX].strip() + Const.F_SEPARATOR +
+                             self.term1 + " " + self.NoTag.d_txt + Const.F_SEPARATOR +
                              self.term2 + " " + self.NoTag.d_txt + "\n")
         self.display_pop_up(PopUpType.INFO, "File was imported")
         w_file_ref.close()
@@ -175,7 +169,7 @@ class StudyCardsApp:
     def read_work_file(self):
         # read the vocabulary list from the work-file
         try:
-            w_fl_ref = open(Const.filepath+self.w_file, "r", encoding="utf8")
+            w_fl_ref = open(Const.FILE_PATH+self.w_file, "r", encoding="utf8")
         except OSError:
             disp_txt = "Couldn't open the work file"
             print(disp_txt)
@@ -183,7 +177,7 @@ class StudyCardsApp:
             sys.exit()
 
         for r_line in w_fl_ref:
-            line_content = r_line.split(Const.f_separator)
+            line_content = r_line.split(Const.F_SEPARATOR)
             self.term_list.append(line_content)
 
         print("The 1st line from the work file: ", self.term_list[0])
@@ -231,11 +225,11 @@ class StudyCardsApp:
         """
         Set the global parameter act_ln (actual line) depending on the card order
         """
-        if self.card_order == self.Original.val:
+        if self.card_order == CrdOrdr.Original.val:
             self.act_ln = self.filtered_term_list[self.line_number]
-        elif self.card_order == self.Alphabetical.val:
+        elif self.card_order == CrdOrdr.Alphabetical.val:
             self.act_ln = self.filtered_ab_sort_list[self.line_number]
-        elif self.card_order == self.Random.val:
+        elif self.card_order == CrdOrdr.Random.val:
             self.act_ln = self.filtered_shuffled_list[self.line_number]
         else:
             raise ValueError
@@ -249,7 +243,7 @@ class StudyCardsApp:
         :param tag:
         :return:
         """
-        with FileInput(files=[Const.filepath+self.w_file], inplace=True) as wf:
+        with FileInput(files=[Const.FILE_PATH+self.w_file], inplace=True) as wf:
             if term_idx == LnIdx.TERM1_IDX:
                 lang_tag_idx = LnIdx.TERM1_TAG_IDX
                 term = self.term1
@@ -260,10 +254,10 @@ class StudyCardsApp:
                 raise ValueError
             for idx, line in enumerate(wf):
                 line = line.rstrip()
-                info = line.split(Const.f_separator)
+                info = line.split(Const.F_SEPARATOR)
                 if idx == line_num:
                     info[lang_tag_idx] = term + " " + tag
-                line = Const.f_separator.join(str(x) for x in info)
+                line = Const.F_SEPARATOR.join(str(x) for x in info)
                 print(line)
 
     def save_config_to_file(self):
@@ -314,23 +308,17 @@ class StudyCardsApp:
 
 
 class MainWin:
-    BUTTON_FONT = "Helvetica 16"
-    RADIO_BUTTON_FONT = "Helvetica 14"
-    RB_BG = "white smoke"  # Radio Button Background color
-    L2_FRAME_BG = "white smoke"  # The background color of level 2 frames
-    MW_WIDTH = 1100  # The width of the main window in pixels
-
     def __init__(self, window, app):
         window.title("Study Cards")
-        window.geometry(str(self.MW_WIDTH)+'x700')
+        window.geometry(str(GuiTc.MW_WIDTH)+'x700')
         window.resizable(False, False)
         title1_txt = app.term1 + " vs. " + app.term2
         ltr_size = 16  # approx number of pixels per letter
-        calc_relx = (1 - ((ltr_size * len(title1_txt)) / self.MW_WIDTH)) / 2
+        calc_relx = (1 - ((ltr_size * len(title1_txt)) / GuiTc.MW_WIDTH)) / 2
         tk.Label(window, text=title1_txt, font="Helvetica 20 bold").place(relx=calc_relx, rely=0.0)
         title2_txt = "Study Set: " + app.set_title
         ltr_size = 13  # approx number of pixels per letter
-        calc_relx = (1 - ((ltr_size * len(title2_txt)) / self.MW_WIDTH)) / 2
+        calc_relx = (1 - ((ltr_size * len(title2_txt)) / GuiTc.MW_WIDTH)) / 2
         tk.Label(window, text=title2_txt, font="Helvetica 16 bold").place(relx=calc_relx, rely=0.05)
 
         window.attributes('-topmost', 'true')

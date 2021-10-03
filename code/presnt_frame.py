@@ -1,13 +1,10 @@
 import tkinter as tk
 import study_cards_app
-from constants import Const, LnIdx
+from constants import Const, LnIdx, GuiTc
 
 
 class PresentationFrame:
     def __init__(self, main_win, window, app):
-        R_B_FONT = main_win.RADIO_BUTTON_FONT
-        R_B_BG = main_win.RB_BG
-        BUTTON_FONT = main_win.BUTTON_FONT
 
         self._app = app
         self.card_text = []  # The text of both sides of the current card
@@ -18,50 +15,50 @@ class PresentationFrame:
         self.presentation_frame_obj = presentation_frame
 
         tagging_frame = tk.LabelFrame(presentation_frame, text="Tagging", font="Helvetica 14", width=180,
-                                      height=300, bg=main_win.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+                                      height=300, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         tagging_frame.place(relx=0.75, rely=0.2)
         
         self.tagging_var = tk.IntVar()
         
         tag_rad1 = tk.Radiobutton(tagging_frame, text=app.NoTag.rb_txt, variable=self.tagging_var,
                                   value=app.NoTag.val, command=self.item_tagging,
-                                  font=R_B_FONT, bg=R_B_BG)
+                                  font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
         tag_rad1.place(relx=0.1, rely=0.1)
 
         tag_rad2 = tk.Radiobutton(tagging_frame, text=app.LowTag.rb_txt, variable=self.tagging_var,
                                   value=app.LowTag.val, command=self.item_tagging,
-                                  font=R_B_FONT, bg=R_B_BG)
+                                  font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
         tag_rad2.place(relx=0.1, rely=0.2)
         
         tag_rad3 = tk.Radiobutton(tagging_frame, text=app.MedTag.rb_txt, variable=self.tagging_var,
                                   value=app.MedTag.val, command=self.item_tagging,
-                                  font=R_B_FONT, bg=R_B_BG)
+                                  font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
         tag_rad3.place(relx=0.1, rely=0.3)
 
         tag_rad4 = tk.Radiobutton(tagging_frame, text=app.HighTag.rb_txt, variable=self.tagging_var,
                                   value=app.HighTag.val, command=self.item_tagging,
-                                  font=R_B_FONT, bg=R_B_BG)
+                                  font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
         tag_rad4.place(relx=0.1, rely=0.4)
         
         tag_rad5 = tk.Radiobutton(tagging_frame, text=app.GenTag.rb_txt, variable=self.tagging_var,
                                   value=app.GenTag.val, command=self.item_tagging,
-                                  font=R_B_FONT, bg=R_B_BG)
+                                  font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
         tag_rad5.place(relx=0.1, rely=0.5)
         
         cards_frame = tk.LabelFrame(presentation_frame, text="Cards", font="Helvetica 14", width=600,
-                                    height=300, bg=main_win.L2_FRAME_BG,  bd=1, relief=tk.SOLID)
+                                    height=300, bg=GuiTc.L2_FRAME_BG,  bd=1, relief=tk.SOLID)
         cards_frame.place(relx=0.05, rely=0.2)
 
-        tk.Button(presentation_frame, text="Next card", font=BUTTON_FONT,
+        tk.Button(presentation_frame, text="Next card", font=GuiTc.BUTTON_FONT,
                   command=self.nxt_button_clicked).place(relx=0.05, rely=0.1)
         
-        tk.Button(presentation_frame, text="Previous card", font=BUTTON_FONT,
+        tk.Button(presentation_frame, text="Previous card", font=GuiTc.BUTTON_FONT,
                   command=self.back_button_clicked).place(relx=0.2, rely=0.1)
         
-        tk.Button(presentation_frame, text="Flip side", font=BUTTON_FONT,
+        tk.Button(presentation_frame, text="Flip side", font=GuiTc.BUTTON_FONT,
                   command=self.flip_button_clicked).place(relx=0.4, rely=0.1)
 
-        tk.Button(presentation_frame, text="Go to Config", font=BUTTON_FONT,
+        tk.Button(presentation_frame, text="Go to Config", font=GuiTc.BUTTON_FONT,
                   command=main_win.config_button_clicked).place(relx=0.1, rely=0.8)
         
         # show the card number sequentially:
