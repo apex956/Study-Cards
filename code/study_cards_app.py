@@ -3,15 +3,11 @@ import tkinter as tk
 import tkinter.messagebox
 import pathlib
 import sys
-import os
 from fileinput import FileInput
-from collections import namedtuple
-from enum import Enum
-from configparser import ConfigParser
 import json
 import config_frame
 import presnt_frame
-from constants import Const, PopUpType, LnIdx, GuiTc, CrdOrdr, Cnf
+from constants import Const, PopUpType, LnIdx, GuiTc, CrdOrdr, Cnf, Tag
 
 
 class StudyCardsApp:
@@ -122,8 +118,8 @@ class StudyCardsApp:
         for d_line in in_line_list:
             w_file_ref.write(d_line[LnIdx.TERM1_IDX].rstrip() + Const.F_SEPARATOR +
                              d_line[LnIdx.TERM2_IDX].strip() + Const.F_SEPARATOR +
-                             Cnf.term1 + " " + self.NoTag.d_txt + Const.F_SEPARATOR +
-                             Cnf.term2 + " " + self.NoTag.d_txt + "\n")
+                             Cnf.term1 + " " + Tag.NoTag.d_txt + Const.F_SEPARATOR +
+                             Cnf.term2 + " " + Tag.NoTag.d_txt + "\n")
         self.display_pop_up(PopUpType.INFO, "File was imported")
         w_file_ref.close()
 
