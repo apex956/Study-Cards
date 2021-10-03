@@ -1,20 +1,10 @@
 import tkinter as tk
 import study_cards_app
-from constants import Const,GuiTc, CrdOrdr, Cnf
+from constants import Const,GuiTc, CrdOrdr, Cnf, Fltr, Tag
 
 class ConfFrame:
     def __init__(self, main_win, window, app):
         self._app = app
-
-        self.VAL = 0  # index for value
-        self.TXT = 1  # index for radio button text
-        self.NO_FLTR = [0, "All"]
-        self.LOW_FLTR = [1, "No knowl. tag"]  # level of knowledge of studied terms
-        self.MED_FLTR = [2, "Medium knowl. tag"]
-        self.HIGH_FLTR = [3, "Good knowl. tag"]
-        self.GEN_FLTR = [4, "Minor issues tag"]  # for example: spelling problems
-        self.UNTAGGED_FLTR = [5, "Untagged"]
-
         config_frame = tk.LabelFrame(window, text="Configuration", font="Helvetica 14",
                                      width=900, height=600, bg="gray99", bd=1, relief=tk.SOLID)
         config_frame.place(relx=0.1, rely=0.1)
@@ -46,28 +36,28 @@ class ConfFrame:
                                            width=230, height=220, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         filter_cards_frame.place(relx=0.6, rely=0.05)
 
-        tk.Radiobutton(filter_cards_frame, text=self.NO_FLTR[self.TXT], variable=self._filter_cards,
-                       value=self.NO_FLTR[self.VAL], command=self.update_filter,
+        tk.Radiobutton(filter_cards_frame, text=Fltr.NO_FLTR[Fltr.TXT], variable=self._filter_cards,
+                       value=Fltr.NO_FLTR[Fltr.VAL], command=self.update_filter,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.05)
 
-        tk.Radiobutton(filter_cards_frame, text=self.LOW_FLTR[self.TXT], variable=self._filter_cards,
-                       value=self.LOW_FLTR[self.VAL], command=self.update_filter,
+        tk.Radiobutton(filter_cards_frame, text=Fltr.LOW_FLTR[Fltr.TXT], variable=self._filter_cards,
+                       value=Fltr.LOW_FLTR[Fltr.VAL], command=self.update_filter,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.2)
 
-        tk.Radiobutton(filter_cards_frame, text=self.MED_FLTR[self.TXT], variable=self._filter_cards,
-                       value=self.MED_FLTR[self.VAL], command=self.update_filter,
+        tk.Radiobutton(filter_cards_frame, text=Fltr.MED_FLTR[Fltr.TXT], variable=self._filter_cards,
+                       value=Fltr.MED_FLTR[Fltr.VAL], command=self.update_filter,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.35)
 
-        tk.Radiobutton(filter_cards_frame, text=self.HIGH_FLTR[self.TXT], variable=self._filter_cards,
-                       value=self.HIGH_FLTR[self.VAL], command=self.update_filter,
+        tk.Radiobutton(filter_cards_frame, text=Fltr.HIGH_FLTR[Fltr.TXT], variable=self._filter_cards,
+                       value=Fltr.HIGH_FLTR[Fltr.VAL], command=self.update_filter,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.5)
 
-        tk.Radiobutton(filter_cards_frame, text=self.GEN_FLTR[self.TXT], variable=self._filter_cards,
-                       value=self.GEN_FLTR[self.VAL], command=self.update_filter,
+        tk.Radiobutton(filter_cards_frame, text=Fltr.GEN_FLTR[Fltr.TXT], variable=self._filter_cards,
+                       value=Fltr.GEN_FLTR[Fltr.VAL], command=self.update_filter,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.65)
 
-        tk.Radiobutton(filter_cards_frame, text=self.UNTAGGED_FLTR[self.TXT], variable=self._filter_cards,
-                       value=self.UNTAGGED_FLTR[self.VAL], command=self.update_filter,
+        tk.Radiobutton(filter_cards_frame, text=Fltr.UNTAGGED_FLTR[Fltr.TXT], variable=self._filter_cards,
+                       value=Fltr.UNTAGGED_FLTR[Fltr.VAL], command=self.update_filter,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.8)
 
         front_side_frame = tk.LabelFrame(config_frame, text="Cards front side", font="Helvetica 14",
@@ -92,7 +82,6 @@ class ConfFrame:
         tk.Button(config_frame, text="Reset Flashcards", font=GuiTc.BUTTON_FONT,
                   command=self.reset_cards).place(relx=0.1, rely=0.8)
 
-
     def update_card_order(self):
         self._app.card_order = self.card_order_v.get()
         self.reset_cards()
@@ -109,30 +98,29 @@ class ConfFrame:
     def reset_cards(self):
         self._app.line_number = 0
 
-
     def create_filtered_index_lists(self, app):
         app.filtered_ab_sort_list.clear()
         app.filtered_shuffled_list.clear()
         app.filtered_term_list.clear()
 
         filter_val = self._filter_cards.get()
-        if filter_val == self.NO_FLTR[self.VAL]:
+        if filter_val == Fltr.NO_FLTR[Fltr.VAL]:
             app.filtered_ab_sort_list = app.ab_sort_list[:]
             app.filtered_shuffled_list = app.shuffled_list[:]
             app.filtered_term_list = list(range(len(app.term_list)))
             app.filtered_list_size = len(app.term_list)
             return
         else:
-            if filter_val == self.UNTAGGED_FLTR[self.VAL]:
-                expected_tag_dt_txt = app.NoTag.d_txt
-            elif filter_val == self.LOW_FLTR[self.VAL]:
-                expected_tag_dt_txt = app.LowTag.d_txt
-            elif filter_val == self.MED_FLTR[self.VAL]:
-                expected_tag_dt_txt = app.MedTag.d_txt
-            elif filter_val == self.HIGH_FLTR[self.VAL]:
-                expected_tag_dt_txt = app.HighTag.d_txt
-            elif filter_val == self.GEN_FLTR[self.VAL]:
-                expected_tag_dt_txt = app.GenTag.d_txt
+            if filter_val == Fltr.UNTAGGED_FLTR[Fltr.VAL]:
+                expected_tag_dt_txt = Tag.NoTag.d_txt
+            elif filter_val == Fltr.LOW_FLTR[Fltr.VAL]:
+                expected_tag_dt_txt = Tag.LowTag.d_txt
+            elif filter_val == Fltr.MED_FLTR[Fltr.VAL]:
+                expected_tag_dt_txt = Tag.MedTag.d_txt
+            elif filter_val == Fltr.HIGH_FLTR[Fltr.VAL]:
+                expected_tag_dt_txt = Tag.HighTag.d_txt
+            elif filter_val == Fltr.GEN_FLTR[Fltr.VAL]:
+                expected_tag_dt_txt = Tag.GenTag.d_txt
             else:
                 print("Filter not found!")
                 raise ValueError

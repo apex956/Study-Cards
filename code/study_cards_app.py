@@ -15,7 +15,6 @@ from constants import Const, PopUpType, LnIdx, GuiTc, CrdOrdr, Cnf
 
 
 class StudyCardsApp:
-
     def __init__(self):
         self.term_list = []  # list of terms and answers taken from the work file
         self.ab_sort_list = []  # list of indexes of the alphabetically sorted term list
@@ -32,33 +31,6 @@ class StudyCardsApp:
         self.filter_cards_val = 0
         self.running_study_set_conf = {}
         #self.study_set_conf_list = []
-
-        # from term index to term and vice versa
-        self.terms = [Cnf.term1, Cnf.term2]
-        self.l_dir = {Cnf.term1: 0,
-                      Cnf.term2: 1}
-
-        TagInfo = namedtuple("TagInfo", ["d_txt", "val", "rb_txt"])
-
-        self.NoTag = TagInfo("not tagged", 0, "No tags")
-        self.LowTag = TagInfo("tagged low", 1, "No knowl.")
-        self.MedTag = TagInfo("tagged med", 2, "Med knowl.")
-        self.HighTag = TagInfo("tagged high", 3, "Good knowl.")
-        self.GenTag = TagInfo("tagged gen", 4, "Minor issues")
-
-        # value to data text dictionary
-        self.tvdt_dir = {self.NoTag.val: self.NoTag.d_txt,
-                         self.LowTag.val: self.LowTag.d_txt,
-                         self.MedTag.val: self.MedTag.d_txt,
-                         self.HighTag.val: self.HighTag.d_txt,
-                         self.GenTag.val: self.GenTag.d_txt}
-
-        # data text to value dictionary
-        self.tdtv_dir = {self.NoTag.d_txt: self.NoTag.val,
-                         self.LowTag.d_txt: self.LowTag.val,
-                         self.MedTag.d_txt: self.MedTag.val,
-                         self.HighTag.d_txt: self.HighTag.val,
-                         self.GenTag.d_txt: self.GenTag.val}
 
         self.card_order = CrdOrdr.Alphabetical.val  # Terms are arranged alphabetically based on the 1st side only
 

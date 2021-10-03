@@ -41,6 +41,40 @@ class LnIdx:
     TERM2_TAG_IDX = 3
 
 
+class Fltr:
+    VAL = 0  # index for value
+    TXT = 1  # index for radio button text
+    NO_FLTR = [0, "All"]
+    LOW_FLTR = [1, "No knowl. tag"]  # level of knowledge of studied terms
+    MED_FLTR = [2, "Medium knowl. tag"]
+    HIGH_FLTR = [3, "Good knowl. tag"]
+    GEN_FLTR = [4, "Minor issues tag"]  # for example: spelling problems
+    UNTAGGED_FLTR = [5, "Untagged"]
+
+
+class Tag:
+    TagInfo = namedtuple("TagInfo", ["d_txt", "val", "rb_txt"])
+    NoTag = TagInfo("not tagged", 0, "No tags")
+    LowTag = TagInfo("tagged low", 1, "No knowl.")
+    MedTag = TagInfo("tagged med", 2, "Med knowl.")
+    HighTag = TagInfo("tagged high", 3, "Good knowl.")
+    GenTag = TagInfo("tagged gen", 4, "Minor issues")
+
+    # value to data text dictionary
+    tvdt_dir = {NoTag.val: NoTag.d_txt,
+                LowTag.val: LowTag.d_txt,
+                MedTag.val: MedTag.d_txt,
+                HighTag.val: HighTag.d_txt,
+                GenTag.val: GenTag.d_txt}
+
+    # data text to value dictionary
+    tdtv_dir = {NoTag.d_txt: NoTag.val,
+                LowTag.d_txt: LowTag.val,
+                MedTag.d_txt: MedTag.val,
+                HighTag.d_txt: HighTag.val,
+                GenTag.d_txt: GenTag.val}
+
+
 class Cnf:
     def str_to_bool(s):
         if s == 'True':
@@ -63,4 +97,10 @@ class Cnf:
     set_title = file_import_info["set_title"]  # The title of the study set
     set_id = file_import_info["set_id"]  # The ID of the study set
     w_file = "work_file_" + set_id + ".txt"
+
+
+class Trm:
+    # from term index to term and vice versa
+    terms = [Cnf.term1, Cnf.term2]
+    # l_dir = {Cnf.term1: 0, Cnf.term2: 1}
 

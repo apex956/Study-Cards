@@ -1,11 +1,10 @@
 import tkinter as tk
 import study_cards_app
-from constants import Const, LnIdx, GuiTc
+from constants import Const, LnIdx, GuiTc, Trm, Tag
 
 
 class PresentationFrame:
     def __init__(self, main_win, window, app):
-
         self._app = app
         self.card_text = []  # The text of both sides of the current card
 
@@ -20,28 +19,28 @@ class PresentationFrame:
         
         self.tagging_var = tk.IntVar()
         
-        tag_rad1 = tk.Radiobutton(tagging_frame, text=app.NoTag.rb_txt, variable=self.tagging_var,
-                                  value=app.NoTag.val, command=self.item_tagging,
+        tag_rad1 = tk.Radiobutton(tagging_frame, text=Tag.NoTag.rb_txt, variable=self.tagging_var,
+                                  value=Tag.NoTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
         tag_rad1.place(relx=0.1, rely=0.1)
 
-        tag_rad2 = tk.Radiobutton(tagging_frame, text=app.LowTag.rb_txt, variable=self.tagging_var,
-                                  value=app.LowTag.val, command=self.item_tagging,
+        tag_rad2 = tk.Radiobutton(tagging_frame, text=Tag.LowTag.rb_txt, variable=self.tagging_var,
+                                  value=Tag.LowTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
         tag_rad2.place(relx=0.1, rely=0.2)
         
-        tag_rad3 = tk.Radiobutton(tagging_frame, text=app.MedTag.rb_txt, variable=self.tagging_var,
-                                  value=app.MedTag.val, command=self.item_tagging,
+        tag_rad3 = tk.Radiobutton(tagging_frame, text=Tag.MedTag.rb_txt, variable=self.tagging_var,
+                                  value=Tag.MedTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
         tag_rad3.place(relx=0.1, rely=0.3)
 
-        tag_rad4 = tk.Radiobutton(tagging_frame, text=app.HighTag.rb_txt, variable=self.tagging_var,
-                                  value=app.HighTag.val, command=self.item_tagging,
+        tag_rad4 = tk.Radiobutton(tagging_frame, text=Tag.HighTag.rb_txt, variable=self.tagging_var,
+                                  value=Tag.HighTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
         tag_rad4.place(relx=0.1, rely=0.4)
         
-        tag_rad5 = tk.Radiobutton(tagging_frame, text=app.GenTag.rb_txt, variable=self.tagging_var,
-                                  value=app.GenTag.val, command=self.item_tagging,
+        tag_rad5 = tk.Radiobutton(tagging_frame, text=Tag.GenTag.rb_txt, variable=self.tagging_var,
+                                  value=Tag.GenTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
         tag_rad5.place(relx=0.1, rely=0.5)
         
@@ -96,9 +95,9 @@ class PresentationFrame:
         else:
             lang_idx = -1
 
-        d_txt = app.tvdt_dir[self.tagging_var.get()]
+        d_txt = Tag.tvdt_dir[self.tagging_var.get()]
         app.update_tag_in_w_file(app.act_ln, lang_idx, d_txt)  # use act_line
-        app.term_list[app.act_ln][lang_idx+2] = app.terms[lang_idx]+" "+d_txt
+        app.term_list[app.act_ln][lang_idx+2] = Trm.terms[lang_idx]+" "+d_txt
 
     def nxt_button_clicked(self):
         nxt = True
@@ -160,5 +159,5 @@ class PresentationFrame:
         :return: none
         """
         data_text = self._app.get_tag_dt_txt(line)
-        val = self._app.tdtv_dir[data_text]
+        val = Tag.tdtv_dir[data_text]
         self.tagging_var.set(val)
