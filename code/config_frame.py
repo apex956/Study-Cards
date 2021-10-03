@@ -1,6 +1,6 @@
 import tkinter as tk
 import study_cards_app
-from constants import Const,GuiTc, CrdOrdr
+from constants import Const,GuiTc, CrdOrdr, Cnf
 
 class ConfFrame:
     def __init__(self, main_win, window, app):
@@ -27,7 +27,7 @@ class ConfFrame:
         self.card_order_v = tk.IntVar()
         self.card_order_v.set(app.card_order)  # set the default radio button
 
-        tk.Radiobutton(card_order_frame, text=CrdOrdr.Alphabetical.txt + " (" +app.term1+")", variable=self.card_order_v,
+        tk.Radiobutton(card_order_frame, text=CrdOrdr.Alphabetical.txt + " (" +Cnf.term1+")", variable=self.card_order_v,
                        value=CrdOrdr.Alphabetical.val, command=self.update_card_order,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.1)
 
@@ -76,11 +76,11 @@ class ConfFrame:
 
         self.lang1_var = tk.IntVar()
 
-        tk.Radiobutton(front_side_frame, text=app.term1, variable=self.lang1_var,
+        tk.Radiobutton(front_side_frame, text=Cnf.term1, variable=self.lang1_var,
                        value=0, command=self.change_lang_order,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.05)
 
-        tk.Radiobutton(front_side_frame, text=app.term2, variable=self.lang1_var,
+        tk.Radiobutton(front_side_frame, text=Cnf.term2, variable=self.lang1_var,
                        value=1, command=self.change_lang_order,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.4)
 

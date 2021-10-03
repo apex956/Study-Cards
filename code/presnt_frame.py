@@ -112,7 +112,7 @@ class PresentationFrame:
         app = self._app
         if app.filtered_list_size <= 0:
             label1_txt = "Card number " + str(0) + " of " + str(0) + " cards"
-            self.shown_l_word.configure(text="", bg=Const.FRONT_CARD_COLOR)
+            self.shown_l_word.configure(text="", bg=GuiTc.FRONT_CARD_COLOR)
         else:
             if nxt:
                 if continue_cards:
@@ -132,7 +132,7 @@ class PresentationFrame:
             self.card_text = [app.term_list[app.act_ln][LnIdx.TERM1_IDX].rstrip(),
                               app.term_list[app.act_ln][LnIdx.TERM2_IDX].strip()]
 
-            self.shown_l_word.configure(text=self.card_text[app.front_side], bg=Const.FRONT_CARD_COLOR)
+            self.shown_l_word.configure(text=self.card_text[app.front_side], bg=GuiTc.FRONT_CARD_COLOR)
             app.card_side = app.front_side
             self.set_tag_rb(app.act_ln)
 
@@ -145,10 +145,10 @@ class PresentationFrame:
         if app.filtered_list_size < 1:
             return
         if app.card_side == app.front_side:
-            self.shown_l_word.configure(text=self.card_text[app.back_side], bg=Const.BACK_CARD_COLOR)
+            self.shown_l_word.configure(text=self.card_text[app.back_side], bg=GuiTc.BACK_CARD_COLOR)
             app.card_side = app.back_side
         else:
-            self.shown_l_word.configure(text=self.card_text[app.front_side], bg=Const.FRONT_CARD_COLOR)
+            self.shown_l_word.configure(text=self.card_text[app.front_side], bg=GuiTc.FRONT_CARD_COLOR)
             app.card_side = app.front_side
 
     def set_tag_rb(self, line):

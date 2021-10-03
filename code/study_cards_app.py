@@ -11,23 +11,12 @@ from configparser import ConfigParser
 import json
 import config_frame
 import presnt_frame
-from constants import Const, PopUpType, LnIdx, GuiTc, CrdOrdr
+from constants import Const, PopUpType, LnIdx, GuiTc, CrdOrdr, Cnf
 
 
 class StudyCardsApp:
 
     def __init__(self):
-        config_object = ConfigParser()
-        config_object.read("config.ini")
-        app_info = config_object["APP_INFO"]
-        self.term1 = app_info["term1"]
-        self.term2 = app_info["term2"]
-        file_import_info = config_object["FILE_IMPORT_INFO"]
-        self.import_file_request = self.str_to_bool(file_import_info["import_file_request"])
-        self.import_file_name = file_import_info["import_file_name"]
-        self.set_title = file_import_info["set_title"]  # The title of the study set
-        self.set_id = file_import_info["set_id"]  # The ID of the study set
-        self.w_file = "work_file_" + self.set_id + ".txt"
         self.term_list = []  # list of terms and answers taken from the work file
         self.ab_sort_list = []  # list of indexes of the alphabetically sorted term list
         self.shuffled_list = []  # list of indexes of the shuffled term list
@@ -45,9 +34,9 @@ class StudyCardsApp:
         #self.study_set_conf_list = []
 
         # from term index to term and vice versa
-        self.terms = [self.term1, self.term2]
-        self.l_dir = {self.term1: 0,
-                      self.term2: 1}
+        self.terms = [Cnf.term1, Cnf.term2]
+        self.l_dir = {Cnf.term1: 0,
+                      Cnf.term2: 1}
 
         TagInfo = namedtuple("TagInfo", ["d_txt", "val", "rb_txt"])
 
@@ -73,8 +62,8 @@ class StudyCardsApp:
 
         self.card_order = CrdOrdr.Alphabetical.val  # Terms are arranged alphabetically based on the 1st side only
 
-        if self.import_file_request:
-            self.import_term_file(Const.FILE_PATH, self.import_file_name, self.w_file)
+        if Cnf.import_file_request:
+            self.import_term_file(Const.FILE_PATH, Cnf.import_file_name, Cnf.w_file)
 
         self.read_work_file()
 
@@ -161,15 +150,15 @@ class StudyCardsApp:
         for d_line in in_line_list:
             w_file_ref.write(d_line[LnIdx.TERM1_IDX].rstrip() + Const.F_SEPARATOR +
                              d_line[LnIdx.TERM2_IDX].strip() + Const.F_SEPARATOR +
-                             self.term1 + " " + self.NoTag.d_txt + Const.F_SEPARATOR +
-                             self.term2 + " " + self.NoTag.d_txt + "\n")
+                             Cnf.term1 + " " + self.NoTag.d_txt + Const.F_SEPARATOR +
+                             Cnf.term2 + " " + self.NoTag.d_txt + "\n")
         self.display_pop_up(PopUpType.INFO, "File was imported")
         w_file_ref.close()
 
     def read_work_file(self):
         # read the vocabulary list from the work-file
         try:
-            w_fl_ref = open(Const.FILE_PATH+self.w_file, "r", encoding="utf8")
+            w_fl_ref = open(Const.FILE_PATH+Cnf.w_file, "r", encoding="utf8")
         except OSError:
             disp_txt = "Couldn't open the work file"
             print(disp_txt)
@@ -213,10 +202,10 @@ class StudyCardsApp:
         term_idx = self.card_side
         data_text1 = self.term_list[line][term_idx + 2]
         # parse the text to remove the language
-        if data_text1.startswith(self.term1):
-            data_text = data_text1.removeprefix(self.term1 + " ")
-        elif data_text1.startswith(self.term2):
-            data_text = data_text1.removeprefix(self.term2 + " ").rstrip()
+        if data_text1.startswith(Cnf.term1):
+            data_text = data_text1.removeprefix(Cnf.term1 + " ")
+        elif data_text1.startswith(Cnf.term2):
+            data_text = data_text1.removeprefix(Cnf.term2 + " ").rstrip()
         else:
             raise ValueError
         return data_text
@@ -243,13 +232,13 @@ class StudyCardsApp:
         :param tag:
         :return:
         """
-        with FileInput(files=[Const.FILE_PATH+self.w_file], inplace=True) as wf:
+        with FileInput(files=[Const.FILE_PATH+Cnf.w_file], inplace=True) as wf:
             if term_idx == LnIdx.TERM1_IDX:
                 lang_tag_idx = LnIdx.TERM1_TAG_IDX
-                term = self.term1
+                term = Cnf.term1
             elif term_idx == LnIdx.TERM2_IDX:
                 lang_tag_idx = LnIdx.TERM2_TAG_IDX
-                term = self.term2
+                term = Cnf.term2
             else:
                 raise ValueError
             for idx, line in enumerate(wf):
@@ -268,7 +257,7 @@ class StudyCardsApp:
         sets_conf_struct[0]["no_of_terms"] = 25
         # -------- end of fake data -----------
 
-        sets_conf_struct.append({"ID": self.set_id, "title": self.set_title,
+        sets_conf_struct.append({"ID": Cnf.set_id, "title": Cnf.set_title,
                                 "no_of_terms": len(self.term_list), "cnf_front_side": self.front_side,
                                  "filter": self.filter_cards_val, "card_order": self.card_order,
                                  "last_card": self.line_number})
@@ -290,7 +279,7 @@ class StudyCardsApp:
             return
 
         for s_set_conf in sets_conf_struct:
-            if int(s_set_conf["ID"]) == int(self.set_id):
+            if int(s_set_conf["ID"]) == int(Cnf.set_id):
                 self.running_study_set_conf = s_set_conf
                 self.line_number = self.running_study_set_conf["last_card"]
                 self.card_order = self.running_study_set_conf["card_order"]
@@ -312,11 +301,11 @@ class MainWin:
         window.title("Study Cards")
         window.geometry(str(GuiTc.MW_WIDTH)+'x700')
         window.resizable(False, False)
-        title1_txt = app.term1 + " vs. " + app.term2
+        title1_txt = Cnf.term1 + " vs. " + Cnf.term2
         ltr_size = 16  # approx number of pixels per letter
         calc_relx = (1 - ((ltr_size * len(title1_txt)) / GuiTc.MW_WIDTH)) / 2
         tk.Label(window, text=title1_txt, font="Helvetica 20 bold").place(relx=calc_relx, rely=0.0)
-        title2_txt = "Study Set: " + app.set_title
+        title2_txt = "Study Set: " + Cnf.set_title
         ltr_size = 13  # approx number of pixels per letter
         calc_relx = (1 - ((ltr_size * len(title2_txt)) / GuiTc.MW_WIDTH)) / 2
         tk.Label(window, text=title2_txt, font="Helvetica 16 bold").place(relx=calc_relx, rely=0.05)
