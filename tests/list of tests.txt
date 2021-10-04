@@ -13,5 +13,22 @@ Testing the configuration and data files
 * illegal config file
 * incomplete config file
 
+Tseting the filters
+Start by deleting the work file
+Teset both Italian and English as the front side
+Set the fliter to "all"
+For each of the tags, tag specific cards. Do the tagging on both sides.
+Note the tagging 
+go back to configuration
+go back to presentation check that things did not change
+go back to configuration
+for each filter check that the tag cards are shown
+Exit and re-enter the app. Make sure all the filters still work.
+ 
+ 
+Test the order of the cards.
 
+
+
+Test changing the front side
 
