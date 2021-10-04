@@ -1,0 +1,17 @@
+List of tests for the Study-Cards app
+
+Testing the configuration and data files
+
+* no work file
+* no import file
+* no work file and no import file
+* no config.ini file
+* no JSON file
+* illegal import file
+* illegal work file
+* illegal JSON file
+* illegal config file
+* incomplete config file
+
+
+

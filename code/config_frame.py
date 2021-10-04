@@ -102,8 +102,7 @@ class ConfFrame:
         app.filtered_ab_sort_list.clear()
         app.filtered_shuffled_list.clear()
         app.filtered_term_list.clear()
-
-        filter_val = self._filter_cards.get()
+        filter_val = self._app.filter_cards_val
         if filter_val == Fltr.NO_FLTR[Fltr.VAL]:
             app.filtered_ab_sort_list = app.ab_sort_list[:]
             app.filtered_shuffled_list = app.shuffled_list[:]

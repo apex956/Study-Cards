@@ -26,8 +26,8 @@ class CrdOrdr:
     Original = CardOrder(33, "Original")
 
 
-@unique
-class PopUpType(Enum):
+
+class PopUpType:
     INFO = "Info"
     WARNING = "Warning"
     ERROR = "Error"

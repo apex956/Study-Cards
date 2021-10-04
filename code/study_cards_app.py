@@ -110,7 +110,7 @@ class StudyCardsApp:
             try:
                 w_file_ref = open(w_file_path, "w")
             except OSError as e:
-                err_txt = "couldn't open the work file for writing"
+                err_txt = "couldn't open the work file for writing. Exiting the application."
                 print(e, err_txt)
                 self.display_pop_up(PopUpType.ERROR, err_txt)
                 sys.exit()
@@ -128,7 +128,7 @@ class StudyCardsApp:
         try:
             w_fl_ref = open(Const.FILE_PATH+Cnf.w_file, "r", encoding="utf8")
         except OSError:
-            disp_txt = "Couldn't open the work file"
+            disp_txt = "Couldn't open the work file. Exiting the application."
             print(disp_txt)
             self.display_pop_up(PopUpType.ERROR, disp_txt)
             sys.exit()
@@ -273,7 +273,7 @@ class MainWin:
         ltr_size = 16  # approx number of pixels per letter
         calc_relx = (1 - ((ltr_size * len(title1_txt)) / GuiTc.MW_WIDTH)) / 2
         tk.Label(window, text=title1_txt, font="Helvetica 20 bold").place(relx=calc_relx, rely=0.0)
-        title2_txt = "Study Set: " + Cnf.set_title
+        title2_txt = "Study Set: %s" % Cnf.set_title
         ltr_size = 13  # approx number of pixels per letter
         calc_relx = (1 - ((ltr_size * len(title2_txt)) / GuiTc.MW_WIDTH)) / 2
         tk.Label(window, text=title2_txt, font="Helvetica 16 bold").place(relx=calc_relx, rely=0.05)
