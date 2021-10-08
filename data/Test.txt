@@ -1,0 +1,3 @@
+accendere ;to turn on
+Conoscere ;to know
+Dormire ;to sleep

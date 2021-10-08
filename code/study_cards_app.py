@@ -166,8 +166,9 @@ class StudyCardsApp:
         random.shuffle(self.shuffled_list)
 
     def get_tag_dt_txt(self, line):
-        """Returns the tag value for a line of data and the shown language  """
-        term_idx = self.card_side
+        """ Returns the tag value for a line of data and the shown side  """
+        # term_idx = self.card_side
+        term_idx = self.front_side
         data_text1 = self.term_list[line][term_idx + 2]
         # parse the text to remove the language
         if data_text1.startswith(Cnf.term1):

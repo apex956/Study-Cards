@@ -3,18 +3,18 @@
         "ID": 1005,
         "title": "Verbs",
         "no_of_terms": 25,
-        "cnf_front_side": 1,
+        "cnf_front_side": 0,
         "filter": 0,
         "card_order": 22,
-        "last_card": 4
+        "last_card": 0
     },
     {
-        "ID": "1002",
-        "title": "Time Days Months",
-        "no_of_terms": 64,
-        "cnf_front_side": 1,
+        "ID": "1001",
+        "title": "Test",
+        "no_of_terms": 3,
+        "cnf_front_side": 0,
         "filter": 5,
         "card_order": 33,
-        "last_card": 4
+        "last_card": 0
     }
 ]
