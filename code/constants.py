@@ -26,7 +26,6 @@ class CrdOrdr:
     Original = CardOrder(33, "Original")
 
 
-
 class PopUpType:
     INFO = "Info"
     WARNING = "Warning"
