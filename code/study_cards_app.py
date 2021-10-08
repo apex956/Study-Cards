@@ -167,16 +167,13 @@ class StudyCardsApp:
 
     def get_tag_dt_txt(self, line):
         """ Returns the tag value for a line of data and the shown side  """
-        # term_idx = self.card_side
         term_idx = self.front_side
         data_text1 = self.term_list[line][term_idx + 2]
         # parse the text to remove the language
         if data_text1.startswith(Cnf.term1):
-            #data_text = data_text1.removeprefix(Cnf.term1 + " ")
             pref_len = len(Cnf.term1) + 1
             data_text = data_text1[pref_len:]
         elif data_text1.startswith(Cnf.term2):
-            #data_text = data_text1.removeprefix(Cnf.term2 + " ").rstrip()
             pref_len = len(Cnf.term2) + 1
             data_text = data_text1[pref_len:].rstrip()
         else:

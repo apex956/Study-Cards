@@ -138,8 +138,6 @@ class ConfFrame:
                     if app.get_tag_dt_txt(a_idx) == expected_tag_dt_txt:
                         app.filtered_term_list.append(a_idx)
                 app.filtered_list_size = len(app.filtered_term_list)
-                print(app.filtered_term_list)
-                print(expected_tag_dt_txt)
             else:
                 raise ValueError
 
