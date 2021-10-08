@@ -5,8 +5,8 @@ import pathlib
 import sys
 from fileinput import FileInput
 import json
-import config_frame
-import presnt_frame
+import config_frame as cfr
+import presnt_frame as prf
 from constants import Const, PopUpType, LnIdx, GuiTc, CrdOrdr, Cnf, Tag
 
 
@@ -283,8 +283,8 @@ class MainWin:
         tk.Label(window, text=title2_txt, font="Helvetica 16 bold").place(relx=calc_relx, rely=0.05)
 
         window.attributes('-topmost', 'true')
-        self._conf_frame = config_frame.ConfFrame(self, window, app)
-        self._prsnt_frame = presnt_frame.PresentationFrame(self, window, app)
+        self._conf_frame = cfr.ConfFrame(self, window, app)
+        self._prsnt_frame = prf.PresentationFrame(self, window, app)
         self._app = app
         self._window = window
 

@@ -1,5 +1,4 @@
 import tkinter as tk
-import study_cards_app
 from constants import Const, LnIdx, GuiTc, Trm, Tag
 
 
