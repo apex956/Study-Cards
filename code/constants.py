@@ -41,14 +41,14 @@ class LnIdx:
 
 
 class Fltr:
-    VAL = 0  # index for value
-    TXT = 1  # index for radio button text
-    NO_FLTR = [0, "All"]
-    LOW_FLTR = [1, "No knowl. tag"]  # level of knowledge of studied terms
-    MED_FLTR = [2, "Medium knowl. tag"]
-    HIGH_FLTR = [3, "Good knowl. tag"]
-    GEN_FLTR = [4, "Minor issues tag"]  # for example: spelling problems
-    UNTAGGED_FLTR = [5, "Untagged"]
+    VAL = 0  # index for value in the tuples below
+    TXT = 1  # index for radio button text in the tuples below
+    NO_FLTR = (0, "All")
+    LOW_FLTR = (1, "No knowl. tag")  # level of knowledge of studied terms
+    MED_FLTR = (2, "Medium knowl. tag")
+    HIGH_FLTR = (3, "Good knowl. tag")
+    GEN_FLTR = (4, "Minor issues tag")  # for example: spelling problems
+    UNTAGGED_FLTR = (5, "Untagged")
 
 
 class Tag:
@@ -57,7 +57,7 @@ class Tag:
     LowTag = TagInfo("tagged low", 1, "No knowl.")
     MedTag = TagInfo("tagged med", 2, "Med knowl.")
     HighTag = TagInfo("tagged high", 3, "Good knowl.")
-    GenTag = TagInfo("tagged gen", 4, "Minor issues")
+    GenTag = TagInfo("tagged minor", 4, "Minor issues")
 
     # value to data text dictionary
     tvdt_dir = {NoTag.val: NoTag.d_txt,
@@ -96,6 +96,7 @@ class Cnf:
     set_title = file_import_info["set_title"]  # The title of the study set
     set_id = file_import_info["set_id"]  # The ID of the study set
     w_file = "work_file_" + set_id + ".txt"
+    print("class Cnf is running")
 
 
 class Trm:

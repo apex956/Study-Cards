@@ -220,7 +220,7 @@ class StudyCardsApp:
                 print(line)
 
     def save_config_to_file(self):
-        # Fake data to test a list with multiple entries
+        # ------- Fake data to test a list with multiple entries ---------
         sets_conf_struct = [{"ID": 1005, "title": "Verbs", "no_of_terms": 30,
                                   "cnf_front_side": self.front_side, "filter": 0,
                                   "card_order": 22, "last_card": self.line_number}]
@@ -231,6 +231,8 @@ class StudyCardsApp:
                                 "no_of_terms": len(self.term_list), "cnf_front_side": self.front_side,
                                  "filter": self.filter_cards_val, "card_order": self.card_order,
                                  "last_card": self.line_number})
+        # abb1
+        # save number of terms for each filter per language so it can be presented next time
 
         sets_config_name = "sets_config.json"
         with open(sets_config_name, "w") as write_file:
@@ -275,8 +277,8 @@ class MainWin:
         ltr_size = 16  # approx number of pixels per letter
         calc_relx = (1 - ((ltr_size * len(title1_txt)) / GuiTc.MW_WIDTH)) / 2
         tk.Label(window, text=title1_txt, font="Helvetica 20 bold").place(relx=calc_relx, rely=0.0)
-        title2_txt = "Study Set: %s" % Cnf.set_title
-        ltr_size = 13  # approx number of pixels per letter
+        title2_txt = "Study Set: %s (%s Cards)" % (Cnf.set_title, str(len(app.term_list)))
+        ltr_size = 12  # approx number of pixels per letter
         calc_relx = (1 - ((ltr_size * len(title2_txt)) / GuiTc.MW_WIDTH)) / 2
         tk.Label(window, text=title2_txt, font="Helvetica 16 bold").place(relx=calc_relx, rely=0.05)
 
@@ -295,6 +297,8 @@ class MainWin:
     def config_button_clicked(self):
         self._conf_frame.config_frame_obj.place(relx=0.1, rely=0.1)
         self._prsnt_frame.presentation_frame_obj.place_forget()
+        # create all filtered lists so the number of terms can be presented
+        # abb1
 
     def on_close(self):
         print("Main Window is closing. Writing the configuration to JSON file")

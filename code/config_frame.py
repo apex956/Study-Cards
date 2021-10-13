@@ -16,7 +16,8 @@ class ConfFrame:
         self.card_order_v = tk.IntVar()
         self.card_order_v.set(app.card_order)  # set the default radio button
 
-        tk.Radiobutton(card_order_frame, text=CrdOrdr.Alphabetical.txt + " (" +Cnf.term1+")", variable=self.card_order_v,
+        local_text = CrdOrdr.Alphabetical.txt + " (" +Cnf.term1+")"
+        tk.Radiobutton(card_order_frame, text=local_text, variable=self.card_order_v,
                        value=CrdOrdr.Alphabetical.val, command=self.update_card_order,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.1)
 
@@ -35,7 +36,9 @@ class ConfFrame:
                                            width=230, height=220, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         filter_cards_frame.place(relx=0.6, rely=0.05)
 
-        tk.Radiobutton(filter_cards_frame, text=Fltr.NO_FLTR[Fltr.TXT], variable=self._filter_cards,
+        #abb1
+        local_txt = Fltr.NO_FLTR[Fltr.TXT] + " (" + str(len(self._app.term_list)) + " cards)"
+        tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
                        value=Fltr.NO_FLTR[Fltr.VAL], command=self.update_filter,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.05)
 
