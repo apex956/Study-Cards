@@ -97,6 +97,7 @@ class PresentationFrame:
         d_txt = Tag.tvdt_dir[self.tagging_var.get()]
         app.update_tag_in_w_file(app.act_ln, lang_idx, d_txt)  # use act_line
         app.term_list[app.act_ln][lang_idx+2] = Trm.terms[lang_idx]+" "+d_txt
+        app.reset_cards_request = True
 
     def nxt_button_clicked(self):
         nxt = True

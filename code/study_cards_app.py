@@ -27,6 +27,7 @@ class StudyCardsApp:
         self.filter_cards_val = 0
         self.running_study_set_conf = {}
         #self.study_set_conf_list = []
+        self.reset_cards_request = False
 
         self.card_order = CrdOrdr.Alphabetical.val  # Terms are arranged alphabetically based on the 1st side only
 
@@ -292,6 +293,7 @@ class MainWin:
         self._conf_frame.config_frame_obj.place_forget()
         self._prsnt_frame.presentation_frame_obj.place(relx=0.1, rely=0.1)
         self._conf_frame.create_filtered_index_lists(self._app)
+        self.handle_card_location()
         self._prsnt_frame.nxt_back_button_clicked(nxt=True, continue_cards=True)
 
     def config_button_clicked(self):
@@ -301,10 +303,18 @@ class MainWin:
         # abb1
 
     def on_close(self):
+        self.handle_card_location()
         print("Main Window is closing. Writing the configuration to JSON file")
         self._app.save_config_to_file()
         self._window.destroy()
 
+    def handle_card_location(self):
+        """ If the filtered list has changed due to tagging then the location of the last card needs to change.
+            For now, just reset to beginning.
+        """
+        if self._app.reset_cards_request:
+            self._conf_frame.reset_cards()
+            self._app.reset_cards_request = False
 
 def main():
     if sys.version_info[0] < 3:
