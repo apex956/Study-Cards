@@ -48,20 +48,20 @@ class PresentationFrame:
         cards_frame.place(relx=0.05, rely=0.2)
 
         tk.Button(presentation_frame, text="Next card", font=GuiTc.BUTTON_FONT,
-                  command=self.nxt_button_clicked).place(relx=0.05, rely=0.1)
+                  command=self.nxt_button_clicked).place(relx=0.3, rely=0.8)
         
         tk.Button(presentation_frame, text="Previous card", font=GuiTc.BUTTON_FONT,
-                  command=self.back_button_clicked).place(relx=0.2, rely=0.1)
+                  command=self.back_button_clicked).place(relx=0.05, rely=0.8)
         
         tk.Button(presentation_frame, text="Flip side", font=GuiTc.BUTTON_FONT,
-                  command=self.flip_button_clicked).place(relx=0.4, rely=0.1)
+                  command=self.flip_button_clicked).place(relx=0.5, rely=0.8)
 
         tk.Button(presentation_frame, text="Go to Config", font=GuiTc.BUTTON_FONT,
-                  command=main_win.config_button_clicked).place(relx=0.1, rely=0.8)
+                  command=main_win.config_button_clicked).place(relx=0.8, rely=0.8)
         
         # show the card number sequentially:
         self.label1 = tk.Label(presentation_frame, text="", font="Helvetica 16")
-        self.label1.place(relx=0.65, rely=0.1)
+        self.label1.place(relx=0.05, rely=0.1)
         
         self.shown_l_word = tk.Label(cards_frame, font="Helvetica 18 ", justify=tk.CENTER,
                                      wraplength=450, width=39, height=9)
