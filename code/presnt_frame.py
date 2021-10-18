@@ -1,5 +1,5 @@
 import tkinter as tk
-from constants import Const, LnIdx, GuiTc, Trm, Tag
+from constants import Const, LnIdx, GuiTc, Trm, Tag, Fltr
 
 
 class PresentationFrame:
@@ -109,8 +109,9 @@ class PresentationFrame:
 
     def nxt_back_button_clicked(self, nxt, continue_cards=False):
         app = self._app
+        txt_filter = " (" + Fltr.filter_val_to_txt(app.filter_cards_val) + ")"
         if app.filtered_list_size <= 0:
-            label1_txt = "Card number " + str(0) + " of " + str(0) + " cards"
+            label1_txt = "Card number " + str(0) + " of " + str(0) + " cards" + txt_filter
             self.shown_l_word.configure(text="", bg=GuiTc.FRONT_CARD_COLOR)
         else:
             if nxt:
@@ -136,7 +137,7 @@ class PresentationFrame:
             self.set_tag_rb(app.act_ln)
 
             label1_txt = "Card number " + str(app.line_number + 1) + " of " + \
-                         str(app.filtered_list_size) + " cards"
+                         str(app.filtered_list_size) + " cards" + txt_filter
         self.label1.configure(text=label1_txt)
 
     def flip_button_clicked(self):

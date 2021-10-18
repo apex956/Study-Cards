@@ -50,6 +50,24 @@ class Fltr:
     GEN_FLTR = (4, "Minor issues tag")  # for example: spelling problems
     UNTAGGED_FLTR = (5, "Untagged")
 
+    @classmethod
+    def filter_val_to_txt(cls, filter_val):
+        if filter_val == cls.UNTAGGED_FLTR[cls.VAL]:
+            return cls.UNTAGGED_FLTR[cls.TXT]
+        elif filter_val == cls.LOW_FLTR[cls.VAL]:
+            return cls.LOW_FLTR[cls.TXT]
+        elif filter_val == cls.MED_FLTR[cls.VAL]:
+            return cls.MED_FLTR[cls.TXT]
+        elif filter_val == cls.HIGH_FLTR[cls.VAL]:
+            return cls.HIGH_FLTR[cls.TXT]
+        elif filter_val == cls.GEN_FLTR[cls.VAL]:
+            return cls.GEN_FLTR[cls.TXT]
+        elif filter_val == cls.NO_FLTR[cls.VAL]:
+            return cls.NO_FLTR[cls.TXT]
+        else:
+            print("Filter not found!")
+            raise ValueError
+
 
 class Tag:
     TagInfo = namedtuple("TagInfo", ["d_txt", "val", "rb_txt"])
