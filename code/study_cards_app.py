@@ -7,7 +7,7 @@ from fileinput import FileInput
 import json
 import config_frame as cfr
 import presnt_frame as prf
-from constants import Const, PopUpType, LnIdx, GuiTc, CrdOrdr, Cnf, Tag
+from constants import Const, PopUpType, LnIdx, GuiTc, CrdOrdr, Cnf, Tag, Fltr
 
 
 class StudyCardsApp:
@@ -28,6 +28,8 @@ class StudyCardsApp:
         self.running_study_set_conf = {}
         #self.study_set_conf_list = []
         self.reset_cards_request = False
+        #abb1
+        self.untagged_filter_list_size = 0
 
         self.card_order = CrdOrdr.Alphabetical.val  # Terms are arranged alphabetically based on the 1st side only
 
@@ -231,9 +233,9 @@ class StudyCardsApp:
         sets_conf_struct.append({"ID": Cnf.set_id, "title": Cnf.set_title,
                                 "no_of_terms": len(self.term_list), "cnf_front_side": self.front_side,
                                  "filter": self.filter_cards_val, "card_order": self.card_order,
-                                 "last_card": self.line_number})
+                                 "last_card": self.line_number,
+                                 "untagged_filter_list_size": self.untagged_filter_list_size})
         # abb1
-        # save number of terms for each filter per language so it can be presented next time
 
         sets_config_name = "sets_config.json"
         with open(sets_config_name, "w") as write_file:
@@ -259,6 +261,8 @@ class StudyCardsApp:
                 self.front_side = self.running_study_set_conf["cnf_front_side"]
                 self.back_side = 1 - self.front_side
                 self.filter_cards_val = self.running_study_set_conf["filter"]
+                #abb1
+                self.untagged_filter_list_size = self.running_study_set_conf["untagged_filter_list_size"]
                 break
 
     def use_s_set_default_conf(self):
@@ -292,15 +296,14 @@ class MainWin:
     def flash_cards_button_clicked(self):
         self._conf_frame.config_frame_obj.place_forget()
         self._prsnt_frame.presentation_frame_obj.place(relx=0.1, rely=0.1)
-        self._conf_frame.create_filtered_index_lists(self._app)
+        self._conf_frame.create_filtered_index_lists(self._app, self._app.filter_cards_val, self._app.card_order)
         self.handle_card_location()
         self._prsnt_frame.nxt_back_button_clicked(nxt=True, continue_cards=True)
 
     def config_button_clicked(self):
+        self._conf_frame.update_size_of_filtered_lists()
         self._conf_frame.config_frame_obj.place(relx=0.1, rely=0.1)
         self._prsnt_frame.presentation_frame_obj.place_forget()
-        # create all filtered lists so the number of terms can be presented
-        # abb1
 
     def on_close(self):
         self.handle_card_location()

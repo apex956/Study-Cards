@@ -57,10 +57,12 @@ class ConfFrame:
         tk.Radiobutton(filter_cards_frame, text=Fltr.GEN_FLTR[Fltr.TXT], variable=self._filter_cards,
                        value=Fltr.GEN_FLTR[Fltr.VAL], command=self.update_filter,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.65)
-
-        tk.Radiobutton(filter_cards_frame, text=Fltr.UNTAGGED_FLTR[Fltr.TXT], variable=self._filter_cards,
-                       value=Fltr.UNTAGGED_FLTR[Fltr.VAL], command=self.update_filter,
-                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.8)
+        #abb1
+        local_txt = Fltr.UNTAGGED_FLTR[Fltr.TXT] + " (" + str(self._app.untagged_filter_list_size) + " cards)"
+        self.untagged_rb = tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
+                                          value=Fltr.UNTAGGED_FLTR[Fltr.VAL], command=self.update_filter,
+                                          font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
+        self.untagged_rb.place(relx=0.0, rely=0.8)
 
         front_side_frame = tk.LabelFrame(config_frame, text="Cards front side", font="Helvetica 14",
                                          width=170, height=120, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
@@ -96,15 +98,18 @@ class ConfFrame:
         self._app.front_side = self.lang1_var.get()
         self._app.back_side = 1 - self._app.front_side
         self.reset_cards()
+        self.update_size_of_filtered_lists()
+
 
     def reset_cards(self):
         self._app.line_number = 0
 
-    def create_filtered_index_lists(self, app):
+    #abb1
+    def create_filtered_index_lists(self, app, filter_val, card_order):
+        """Possible refactoring: move this function to the study_cards_app module"""
         app.filtered_ab_sort_list.clear()
         app.filtered_shuffled_list.clear()
         app.filtered_term_list.clear()
-        filter_val = self._app.filter_cards_val
         if filter_val == Fltr.NO_FLTR[Fltr.VAL]:
             app.filtered_ab_sort_list = app.ab_sort_list[:]
             app.filtered_shuffled_list = app.shuffled_list[:]
@@ -126,17 +131,17 @@ class ConfFrame:
                 print("Filter not found!")
                 raise ValueError
 
-            if app.card_order == CrdOrdr.Alphabetical.val:
+            if card_order == CrdOrdr.Alphabetical.val:
                 for m_idx in app.ab_sort_list:
                     if app.get_tag_dt_txt(m_idx) == expected_tag_dt_txt:
                         app.filtered_ab_sort_list.append(m_idx)
                 app.filtered_list_size = len(app.filtered_ab_sort_list)
-            elif app.card_order == CrdOrdr.Random.val:
+            elif card_order == CrdOrdr.Random.val:
                 for m_idx in app.shuffled_list:
                     if app.get_tag_dt_txt(m_idx) == expected_tag_dt_txt:
                         app.filtered_shuffled_list.append(m_idx)
                 app.filtered_list_size = len(app.filtered_shuffled_list)
-            elif app.card_order == CrdOrdr.Original.val:
+            elif card_order == CrdOrdr.Original.val:
                 for a_idx in range(len(app.term_list)):
                     if app.get_tag_dt_txt(a_idx) == expected_tag_dt_txt:
                         app.filtered_term_list.append(a_idx)
@@ -144,4 +149,10 @@ class ConfFrame:
             else:
                 raise ValueError
 
-
+    def update_size_of_filtered_lists(self):
+        # abb1
+        """To be called only in the config frame"""
+        self.create_filtered_index_lists(self._app, Fltr.UNTAGGED_FLTR[Fltr.VAL], CrdOrdr.Original.val)
+        self._app.untagged_filter_list_size = self._app.filtered_list_size
+        local_txt = Fltr.UNTAGGED_FLTR[Fltr.TXT] + " (" + str(self._app.untagged_filter_list_size) + " cards)"
+        self.untagged_rb.config(text=local_txt)
