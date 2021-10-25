@@ -33,7 +33,7 @@ class ConfFrame:
         self._filter_cards.set(app.filter_cards_val)
 
         filter_cards_frame = tk.LabelFrame(config_frame, text="Show cards", font="Helvetica 14",
-                                           width=230, height=220, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+                                           width=280, height=220, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         filter_cards_frame.place(relx=0.6, rely=0.05)
 
         #abb1
@@ -42,21 +42,29 @@ class ConfFrame:
                        value=Fltr.NO_FLTR[Fltr.VAL], command=self.update_filter,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.05)
 
-        tk.Radiobutton(filter_cards_frame, text=Fltr.LOW_FLTR[Fltr.TXT], variable=self._filter_cards,
+        local_txt = Fltr.LOW_FLTR[Fltr.TXT] + " (" + str(self._app.low_filter_list_size) + " cards)"
+        self.low_fltr_rb = tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
                        value=Fltr.LOW_FLTR[Fltr.VAL], command=self.update_filter,
-                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.2)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
+        self.low_fltr_rb.place(relx=0.0, rely=0.2)
 
-        tk.Radiobutton(filter_cards_frame, text=Fltr.MED_FLTR[Fltr.TXT], variable=self._filter_cards,
+        local_txt = Fltr.MED_FLTR[Fltr.TXT] + " (" + str(self._app.med_filter_list_size) + " cards)"
+        self.med_fltr_rb = tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
                        value=Fltr.MED_FLTR[Fltr.VAL], command=self.update_filter,
-                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.35)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
+        self.med_fltr_rb.place(relx=0.0, rely=0.35)
 
-        tk.Radiobutton(filter_cards_frame, text=Fltr.HIGH_FLTR[Fltr.TXT], variable=self._filter_cards,
+        local_txt = Fltr.HIGH_FLTR[Fltr.TXT] + " (" + str(self._app.high_filter_list_size) + " cards)"
+        self.high_fltr_rb = tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
                        value=Fltr.HIGH_FLTR[Fltr.VAL], command=self.update_filter,
-                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.5)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
+        self.high_fltr_rb.place(relx=0.0, rely=0.5)
 
-        tk.Radiobutton(filter_cards_frame, text=Fltr.GEN_FLTR[Fltr.TXT], variable=self._filter_cards,
+        local_txt = Fltr.GEN_FLTR[Fltr.TXT] + " (" + str(self._app.gen_filter_list_size) + " cards)"
+        self.gen_fltr_rb = tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
                        value=Fltr.GEN_FLTR[Fltr.VAL], command=self.update_filter,
-                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.65)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
+        self.gen_fltr_rb.place(relx=0.0, rely=0.65)
         #abb1
         local_txt = Fltr.UNTAGGED_FLTR[Fltr.TXT] + " (" + str(self._app.untagged_filter_list_size) + " cards)"
         self.untagged_rb = tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
@@ -156,3 +164,24 @@ class ConfFrame:
         self._app.untagged_filter_list_size = self._app.filtered_list_size
         local_txt = Fltr.UNTAGGED_FLTR[Fltr.TXT] + " (" + str(self._app.untagged_filter_list_size) + " cards)"
         self.untagged_rb.config(text=local_txt)
+
+        self.create_filtered_index_lists(self._app, Fltr.HIGH_FLTR[Fltr.VAL], CrdOrdr.Original.val)
+        self._app.high_filter_list_size = self._app.filtered_list_size
+        local_txt = Fltr.HIGH_FLTR[Fltr.TXT] + " (" + str(self._app.high_filter_list_size) + " cards)"
+        self.high_fltr_rb.config(text=local_txt)
+
+        self.create_filtered_index_lists(self._app, Fltr.MED_FLTR[Fltr.VAL], CrdOrdr.Original.val)
+        self._app.med_filter_list_size = self._app.filtered_list_size
+        local_txt = Fltr.MED_FLTR[Fltr.TXT] + " (" + str(self._app.med_filter_list_size) + " cards)"
+        self.med_fltr_rb.config(text=local_txt)
+
+        self.create_filtered_index_lists(self._app, Fltr.LOW_FLTR[Fltr.VAL], CrdOrdr.Original.val)
+        self._app.low_filter_list_size = self._app.filtered_list_size
+        local_txt = Fltr.LOW_FLTR[Fltr.TXT] + " (" + str(self._app.low_filter_list_size) + " cards)"
+        self.low_fltr_rb.config(text=local_txt)
+
+        self.create_filtered_index_lists(self._app, Fltr.GEN_FLTR[Fltr.VAL], CrdOrdr.Original.val)
+        self._app.gen_filter_list_size = self._app.filtered_list_size
+        local_txt = Fltr.GEN_FLTR[Fltr.TXT] + " (" + str(self._app.gen_filter_list_size) + " cards)"
+        self.gen_fltr_rb.config(text=local_txt)
+

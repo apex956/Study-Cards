@@ -30,6 +30,11 @@ class StudyCardsApp:
         self.reset_cards_request = False
         #abb1
         self.untagged_filter_list_size = 0
+        self.high_filter_list_size = 0
+        self.med_filter_list_size = 0
+        self.low_filter_list_size = 0
+        self.gen_filter_list_size = 0
+
 
         self.card_order = CrdOrdr.Alphabetical.val  # Terms are arranged alphabetically based on the 1st side only
 
@@ -234,9 +239,13 @@ class StudyCardsApp:
                                 "no_of_terms": len(self.term_list), "cnf_front_side": self.front_side,
                                  "filter": self.filter_cards_val, "card_order": self.card_order,
                                  "last_card": self.line_number,
-                                 "untagged_filter_list_size": self.untagged_filter_list_size})
+                                 "untagged_filter_list_size": self.untagged_filter_list_size,
+                                 "high_filter_list_size": self.high_filter_list_size,
+                                 "med_filter_list_size": self.med_filter_list_size,
+                                 "low_filter_list_size": self.low_filter_list_size,
+                                 "gen_filter_list_size": self.gen_filter_list_size
+                                 })
         # abb1
-
         sets_config_name = "sets_config.json"
         with open(sets_config_name, "w") as write_file:
             json.dump(sets_conf_struct, write_file, indent=4)
@@ -263,6 +272,10 @@ class StudyCardsApp:
                 self.filter_cards_val = self.running_study_set_conf["filter"]
                 #abb1
                 self.untagged_filter_list_size = self.running_study_set_conf["untagged_filter_list_size"]
+                self.high_filter_list_size = self.running_study_set_conf["high_filter_list_size"]
+                self.med_filter_list_size = self.running_study_set_conf["med_filter_list_size"]
+                self.low_filter_list_size = self.running_study_set_conf["low_filter_list_size"]
+                self.gen_filter_list_size = self.running_study_set_conf["gen_filter_list_size"]
                 break
 
     def use_s_set_default_conf(self):
