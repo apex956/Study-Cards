@@ -90,35 +90,3 @@ class Tag:
                 MedTag.d_txt: MedTag.val,
                 HighTag.d_txt: HighTag.val,
                 GenTag.d_txt: GenTag.val}
-
-
-class Cnf:
-    def str_to_bool(s):
-        if s == 'True':
-            return True
-        elif s == 'False':
-            return False
-        else:
-            raise ValueError
-
-    config_object = ConfigParser()
-    config_object.read("config.ini")
-
-    app_info = config_object["APP_INFO"]
-    term1 = app_info["term1"]
-    term2 = app_info["term2"]
-
-    file_import_info = config_object["FILE_IMPORT_INFO"]
-    import_file_request = str_to_bool(file_import_info["import_file_request"])
-    import_file_name = file_import_info["import_file_name"]
-    set_title = file_import_info["set_title"]  # The title of the study set
-    set_id = file_import_info["set_id"]  # The ID of the study set
-    w_file = "work_file_" + set_id + ".txt"
-    print("class Cnf is running")
-
-
-class Trm:
-    # from term index to term and vice versa
-    terms = [Cnf.term1, Cnf.term2]
-    # l_dir = {Cnf.term1: 0, Cnf.term2: 1}
-

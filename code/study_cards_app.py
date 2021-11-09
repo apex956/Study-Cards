@@ -5,13 +5,14 @@ import pathlib
 import sys
 from fileinput import FileInput
 import json
+from configparser import ConfigParser
 import config_frame as cfr
 import presnt_frame as prf
-from constants import Const, PopUpType, LnIdx, GuiTc, CrdOrdr, Cnf, Tag, Fltr
+from constants import Const, PopUpType, LnIdx, GuiTc, CrdOrdr, Tag, Fltr
 
 
 class StudyCardsApp:
-    def __init__(self):
+    def __init__(self, root):
         self.term_list = []  # list of terms and answers taken from the work file
         self.ab_sort_list = []  # list of indexes of the alphabetically sorted term list
         self.shuffled_list = []  # list of indexes of the shuffled term list
@@ -26,26 +27,60 @@ class StudyCardsApp:
         self.filtered_list_size = 0
         self.filter_cards_val = 0
         self.running_study_set_conf = {}
-        #self.study_set_conf_list = []
+        self.study_set_conf_list = []
         self.reset_cards_request = False
-        #abb1
         self.untagged_filter_list_size = 0
         self.high_filter_list_size = 0
         self.med_filter_list_size = 0
         self.low_filter_list_size = 0
         self.gen_filter_list_size = 0
-
-
         self.card_order = CrdOrdr.Alphabetical.val  # Terms are arranged alphabetically based on the 1st side only
+        self.term1 = None
+        self.term2 = None
+        self.terms = [None, None]
+        self.current_set_id = None
+        self.current_set_title = None
+        self.current_import_file_name = None
+        self.current_w_file = None
+        self.current_import_file_request = None
 
-        if Cnf.import_file_request:
-            self.import_term_file(Const.FILE_PATH, Cnf.import_file_name, Cnf.w_file)
+        self.read_configuration_file()
+
+
+    def read_shuffle_etc(self):  # refactor name !!!
+        if self.current_import_file_request:
+            self.import_term_file(Const.FILE_PATH, self.current_import_file_name, self.current_w_file)
 
         self.read_work_file()
 
         self.sort_and_shuffle_term_list()
 
         self.get_study_set_conf_from_file()
+
+
+    def read_configuration_file(self):
+        config_object = ConfigParser()
+        config_object.read("config.ini")
+
+        app_info = config_object["APP_INFO"]
+        self.term1 = app_info["term1"]
+        self.term2 = app_info["term2"]
+        self.terms = [self.term1, self.term2]
+
+        study_sets = config_object["STUDY_SETS_ID_LIST"]
+        id_list = study_sets["id_list"].split(",")
+
+        # read config of multiple sets
+        for s_set_id in id_list:
+            study_set_cnf = config_object["STUDY_SET_"+s_set_id]
+            study_set_cnf_dir = {}
+            study_set_cnf_dir["study_set_id"] = s_set_id
+            study_set_cnf_dir["import_file_request"] = self.str_to_bool(study_set_cnf["import_file_request"])
+            study_set_cnf_dir["import_file_name"] = study_set_cnf["import_file_name"]
+            study_set_cnf_dir["study_set_title"] = study_set_cnf["study_set_title"]
+            study_set_cnf_dir["w_file"] = "work_file_" + s_set_id + ".txt"
+            self.study_set_conf_list.append(study_set_cnf_dir)
+
 
     @staticmethod
     def display_pop_up(pu_type, txt):
@@ -126,15 +161,15 @@ class StudyCardsApp:
         for d_line in in_line_list:
             w_file_ref.write(d_line[LnIdx.TERM1_IDX].rstrip() + Const.F_SEPARATOR +
                              d_line[LnIdx.TERM2_IDX].strip() + Const.F_SEPARATOR +
-                             Cnf.term1 + " " + Tag.NoTag.d_txt + Const.F_SEPARATOR +
-                             Cnf.term2 + " " + Tag.NoTag.d_txt + "\n")
+                             self.term1 + " " + Tag.NoTag.d_txt + Const.F_SEPARATOR +
+                             self.term2 + " " + Tag.NoTag.d_txt + "\n")
         self.display_pop_up(PopUpType.INFO, "File was imported")
         w_file_ref.close()
 
     def read_work_file(self):
         # read the vocabulary list from the work-file
         try:
-            w_fl_ref = open(Const.FILE_PATH+Cnf.w_file, "r", encoding="utf8")
+            w_fl_ref = open(Const.FILE_PATH+self.current_w_file, "r", encoding="utf8")
         except OSError:
             disp_txt = "Couldn't open the work file. Exiting the application."
             print(disp_txt)
@@ -177,15 +212,17 @@ class StudyCardsApp:
         """ Returns the tag value for a line of data and the shown side  """
         term_idx = self.front_side
         data_text1 = self.term_list[line][term_idx + 2]
+        dbg_txt = self.term_list[line]
+
         # parse the text to remove the language
-        if data_text1.startswith(Cnf.term1):
-            pref_len = len(Cnf.term1) + 1
+        if data_text1.startswith(self.term1):
+            pref_len = len(self.term1) + 1
             data_text = data_text1[pref_len:]
-        elif data_text1.startswith(Cnf.term2):
-            pref_len = len(Cnf.term2) + 1
+        elif data_text1.startswith(self.term2):
+            pref_len = len(self.term2) + 1
             data_text = data_text1[pref_len:].rstrip()
         else:
-            raise ValueError
+            raise ValueError(dbg_txt)
         return data_text
 
     def set_act_line(self):
@@ -210,13 +247,13 @@ class StudyCardsApp:
         :param tag:
         :return:
         """
-        with FileInput(files=[Const.FILE_PATH+Cnf.w_file], inplace=True) as wf:
+        with FileInput(files=[Const.FILE_PATH+self.current_w_file], inplace=True) as wf:
             if term_idx == LnIdx.TERM1_IDX:
                 lang_tag_idx = LnIdx.TERM1_TAG_IDX
-                term = Cnf.term1
+                term = self.term1
             elif term_idx == LnIdx.TERM2_IDX:
                 lang_tag_idx = LnIdx.TERM2_TAG_IDX
-                term = Cnf.term2
+                term = self.term2
             else:
                 raise ValueError
             for idx, line in enumerate(wf):
@@ -235,7 +272,7 @@ class StudyCardsApp:
         sets_conf_struct[0]["no_of_terms"] = 25
         # -------- end of fake data -----------
 
-        sets_conf_struct.append({"ID": Cnf.set_id, "title": Cnf.set_title,
+        sets_conf_struct.append({"ID": self.current_set_id, "title": self.current_set_title,
                                 "no_of_terms": len(self.term_list), "cnf_front_side": self.front_side,
                                  "filter": self.filter_cards_val, "card_order": self.card_order,
                                  "last_card": self.line_number,
@@ -245,10 +282,10 @@ class StudyCardsApp:
                                  "low_filter_list_size": self.low_filter_list_size,
                                  "gen_filter_list_size": self.gen_filter_list_size
                                  })
-        # abb1
         sets_config_name = "sets_config.json"
         with open(sets_config_name, "w") as write_file:
             json.dump(sets_conf_struct, write_file, indent=4)
+        print("configuration saved to JSON")
 
     def get_study_set_conf_from_file(self):
         sets_config_name = "sets_config.json"
@@ -263,14 +300,13 @@ class StudyCardsApp:
             return
 
         for s_set_conf in sets_conf_struct:
-            if int(s_set_conf["ID"]) == int(Cnf.set_id):
+            if int(s_set_conf["ID"]) == int(self.current_set_id):
                 self.running_study_set_conf = s_set_conf
                 self.line_number = self.running_study_set_conf["last_card"]
                 self.card_order = self.running_study_set_conf["card_order"]
                 self.front_side = self.running_study_set_conf["cnf_front_side"]
                 self.back_side = 1 - self.front_side
                 self.filter_cards_val = self.running_study_set_conf["filter"]
-                #abb1
                 self.untagged_filter_list_size = self.running_study_set_conf["untagged_filter_list_size"]
                 self.high_filter_list_size = self.running_study_set_conf["high_filter_list_size"]
                 self.med_filter_list_size = self.running_study_set_conf["med_filter_list_size"]
@@ -287,24 +323,27 @@ class StudyCardsApp:
 
 
 class MainWin:
-    def __init__(self, window, app):
-        window.title("Study Cards")
+    def __init__(self, window):
+        main_title = "Study Cards"
+        window.title(main_title)
         window.geometry(str(GuiTc.MW_WIDTH)+'x700')
         window.resizable(False, False)
-        title1_txt = Cnf.term1 + " vs. " + Cnf.term2
+        window.attributes('-topmost', 'true')
+
+        app = StudyCardsApp(window)
+
+        title1_txt = main_title
         ltr_size = 16  # approx number of pixels per letter
         calc_relx = (1 - ((ltr_size * len(title1_txt)) / GuiTc.MW_WIDTH)) / 2
         tk.Label(window, text=title1_txt, font="Helvetica 20 bold").place(relx=calc_relx, rely=0.0)
-        title2_txt = "Study Set: %s (%s Cards)" % (Cnf.set_title, str(len(app.term_list)))
-        ltr_size = 12  # approx number of pixels per letter
-        calc_relx = (1 - ((ltr_size * len(title2_txt)) / GuiTc.MW_WIDTH)) / 2
-        tk.Label(window, text=title2_txt, font="Helvetica 16 bold").place(relx=calc_relx, rely=0.05)
 
-        window.attributes('-topmost', 'true')
-        self._conf_frame = cfr.ConfFrame(self, window, app)
-        self._prsnt_frame = prf.PresentationFrame(self, window, app)
+        self._select_frame = SelectionFrame(window, app, self)
         self._app = app
         self._window = window
+
+    def init_continued(self):
+        self._conf_frame = cfr.ConfFrame(self, self._window, self._app)
+        self._prsnt_frame = prf.PresentationFrame(self, self._window, self._app)
 
     def flash_cards_button_clicked(self):
         self._conf_frame.config_frame_obj.place_forget()
@@ -332,15 +371,119 @@ class MainWin:
             self._conf_frame.reset_cards()
             self._app.reset_cards_request = False
 
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+class SelectionFrame:
+    def __init__(self, root, app, main_win):
+        self._app = app
+        self.item_selected = False
+        self.selected_index = 0
+        self._main_win = main_win
+        self._root = root
+
+        title1_txt = "Study Card Sets"
+        select_frame = tk.LabelFrame(root, text=title1_txt, font="Helvetica 14",
+                                  width=900, height=600, bg="gray99", bd=1, relief=tk.SOLID)
+        select_frame.place(relx=0.1, rely=0.1)
+        print("select_frame is placed")
+        self._select_frame = select_frame
+
+        new_study_set_frame = tk.LabelFrame(select_frame, text="Add a New Study Card Set", font="Helvetica 14", width=320,
+                                            height=350, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+        new_study_set_frame.place(relx=0.6, rely=0.05)
+
+        list_of_study_sets_frame = tk.LabelFrame(select_frame, text="Select a Study Card Set", font="Helvetica 14",
+                                                 width=460,
+                                                 height=470, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+        list_of_study_sets_frame.place(relx=0.04, rely=0.05)
+
+        self.list_of_study_sets = []
+        for s_set_cnf in app.study_set_conf_list:
+            self.list_of_study_sets.append(s_set_cnf["study_set_title"])
+
+        langs_var = tk.StringVar(value=self.list_of_study_sets)
+        # tk.Label(list_of_study_sets_frame, text="List of Study Sets", font="Helvetica 14", bg="gray99").place(relx=0.2, rely=0.05)
+
+        self.listbox = tk.Listbox(list_of_study_sets_frame, listvariable=langs_var, height=13, width=35,
+                                  bg=GuiTc.L2_FRAME_BG, font=GuiTc.R_B_FONT, fg="gray20")
+        # self.listbox.configure(highlightbackground="black")
+        self.listbox.select_set(0)
+
+        self.listbox.place(relx=0.1, rely=0.05)
+
+        self.listbox.bind('<<ListboxSelect>>', self.items_selected)
+
+        # link a scrollbar to a list
+        scrollbar = tk.Scrollbar(list_of_study_sets_frame, orient='vertical', command=self.listbox.yview)
+        scrollbar.place(relx=0.05, rely=0.05, height=300)
+
+        title_label = tk.Label(new_study_set_frame, text='Title', font=('calibre', 12, 'bold'))
+        title_label.place(relx=0.05, rely=0.1)
+
+        self.title_var = tk.StringVar()
+        title_entry = tk.Entry(new_study_set_frame, textvariable=self.title_var, font=('calibre', 12, 'normal'))
+        title_entry.place(relx=0.35, rely=0.1)
+
+        f_name_label = tk.Label(new_study_set_frame, text='File Name', font=('calibre', 12, 'bold'))
+        f_name_label.place(relx=0.05, rely=0.3)
+
+        f_name_var = tk.StringVar()
+        f_name_entry = tk.Entry(new_study_set_frame, textvariable=f_name_var, font=('calibre', 12, 'normal'))
+        f_name_entry.place(relx=0.35, rely=0.3)
+
+        tk.Button(list_of_study_sets_frame, text="Show Flashcards", font=GuiTc.BUTTON_FONT,
+                  command=self.flash_cards_button_clicked).place(relx=0.2, rely=0.8)
+
+        tk.Button(new_study_set_frame, text="Import the file", font=GuiTc.BUTTON_FONT,
+                  command=self.import_study_set).place(relx=0.2, rely=0.8)
+
+    def items_selected(self, event):
+        self.selected_index = self.listbox.curselection()
+        self.item_selected = True
+
+    def flash_cards_button_clicked(self):
+        if not self.item_selected:
+            index = 0
+        else:
+            index = self.selected_index[0]
+        s_set_cnf = self._app.study_set_conf_list[index]
+        print("Selected info: ")
+        self._app.current_w_file = s_set_cnf["w_file"]
+        self._app.current_set_id = s_set_cnf["study_set_id"]
+        self._app.current_set_title = s_set_cnf["study_set_title"]
+        self._app.current_import_file_name = s_set_cnf["import_file_name"]
+        self._app.current_import_file_request = s_set_cnf["import_file_request"]
+        print(self._app.current_set_id, self._app.current_set_title, self._app.current_w_file,
+              self._app.current_import_file_name, self._app.current_import_file_request)
+        self._app.read_shuffle_etc()
+
+        title2_txt = "Study Set: %s (%s Cards)" % (self._app.current_set_title, str(len(self._app.term_list)))
+        ltr_size = 12  # approx number of pixels per letter
+        calc_relx = (1 - ((ltr_size * len(title2_txt)) / GuiTc.MW_WIDTH)) / 2
+        tk.Label(self._root, text=title2_txt, font="Helvetica 16 bold").place(relx=calc_relx, rely=0.05)
+
+        # Initialize the config and presentation frames
+        self._main_win.init_continued()
+
+        self._main_win._conf_frame.update_size_of_filtered_lists()  # refactor !!!
+
+        self._main_win._conf_frame.config_frame_obj.place(relx=0.1, rely=0.1)  # refactor !!!
+        self._select_frame.place_forget()
+
+    def import_study_set(self):
+        print(self.title_var.get())
+
+
+#+++++++++++++++++++++++++++++++++++++++++++++++
+
 def main():
     if sys.version_info[0] < 3:
         raise Exception("Must use Python 3")
-    app = StudyCardsApp()
+
     window = tk.Tk()  # The root
-    m_win = MainWin(window, app)
+    m_win = MainWin(window)
     window.protocol("WM_DELETE_WINDOW", m_win.on_close)
     window.mainloop()
-
 
 if __name__ == "__main__":
     main()

@@ -6,15 +6,20 @@
         "cnf_front_side": 1,
         "filter": 0,
         "card_order": 22,
-        "last_card": 2
+        "last_card": 0
     },
     {
-        "ID": "1001",
-        "title": "Test",
-        "no_of_terms": 3,
+        "ID": "1004",
+        "title": "Food",
+        "no_of_terms": 69,
         "cnf_front_side": 1,
         "filter": 0,
-        "card_order": 11,
-        "last_card": 2
+        "card_order": 33,
+        "last_card": 0,
+        "untagged_filter_list_size": 2,
+        "high_filter_list_size": 43,
+        "med_filter_list_size": 11,
+        "low_filter_list_size": 10,
+        "gen_filter_list_size": 3
     }
 ]

@@ -1,12 +1,11 @@
 import tkinter as tk
-from constants import Const,GuiTc, CrdOrdr, Cnf, Fltr, Tag
+from constants import Const,GuiTc, CrdOrdr, Fltr, Tag
 
 class ConfFrame:
     def __init__(self, main_win, window, app):
         self._app = app
         config_frame = tk.LabelFrame(window, text="Configuration", font="Helvetica 14",
                                      width=900, height=600, bg="gray99", bd=1, relief=tk.SOLID)
-        config_frame.place(relx=0.1, rely=0.1)
         self.config_frame_obj = config_frame
 
         card_order_frame = tk.LabelFrame(config_frame, text="Card Order", font="Helvetica 14", width=205,
@@ -16,7 +15,7 @@ class ConfFrame:
         self.card_order_v = tk.IntVar()
         self.card_order_v.set(app.card_order)  # set the default radio button
 
-        local_text = CrdOrdr.Alphabetical.txt + " (" +Cnf.term1+")"
+        local_text = CrdOrdr.Alphabetical.txt + " (" +self._app.term1+")"
         tk.Radiobutton(card_order_frame, text=local_text, variable=self.card_order_v,
                        value=CrdOrdr.Alphabetical.val, command=self.update_card_order,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.1)
@@ -36,7 +35,6 @@ class ConfFrame:
                                            width=280, height=220, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         filter_cards_frame.place(relx=0.6, rely=0.05)
 
-        #abb1
         local_txt = Fltr.NO_FLTR[Fltr.TXT] + " (" + str(len(self._app.term_list)) + " cards)"
         tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
                        value=Fltr.NO_FLTR[Fltr.VAL], command=self.update_filter,
@@ -65,7 +63,7 @@ class ConfFrame:
                        value=Fltr.GEN_FLTR[Fltr.VAL], command=self.update_filter,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
         self.gen_fltr_rb.place(relx=0.0, rely=0.65)
-        #abb1
+
         local_txt = Fltr.UNTAGGED_FLTR[Fltr.TXT] + " (" + str(self._app.untagged_filter_list_size) + " cards)"
         self.untagged_rb = tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
                                           value=Fltr.UNTAGGED_FLTR[Fltr.VAL], command=self.update_filter,
@@ -78,11 +76,11 @@ class ConfFrame:
 
         self.lang1_var = tk.IntVar()
 
-        tk.Radiobutton(front_side_frame, text=Cnf.term1, variable=self.lang1_var,
+        tk.Radiobutton(front_side_frame, text=self._app.term1, variable=self.lang1_var,
                        value=0, command=self.change_lang_order,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.05)
 
-        tk.Radiobutton(front_side_frame, text=Cnf.term2, variable=self.lang1_var,
+        tk.Radiobutton(front_side_frame, text=self._app.term2, variable=self.lang1_var,
                        value=1, command=self.change_lang_order,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.4)
 
@@ -112,7 +110,6 @@ class ConfFrame:
     def reset_cards(self):
         self._app.line_number = 0
 
-    #abb1
     def create_filtered_index_lists(self, app, filter_val, card_order):
         """Possible refactoring: move this function to the study_cards_app module"""
         app.filtered_ab_sort_list.clear()
@@ -158,7 +155,6 @@ class ConfFrame:
                 raise ValueError
 
     def update_size_of_filtered_lists(self):
-        # abb1
         """To be called only in the config frame"""
         self.create_filtered_index_lists(self._app, Fltr.UNTAGGED_FLTR[Fltr.VAL], CrdOrdr.Original.val)
         self._app.untagged_filter_list_size = self._app.filtered_list_size
@@ -184,4 +180,3 @@ class ConfFrame:
         self._app.gen_filter_list_size = self._app.filtered_list_size
         local_txt = Fltr.GEN_FLTR[Fltr.TXT] + " (" + str(self._app.gen_filter_list_size) + " cards)"
         self.gen_fltr_rb.config(text=local_txt)
-

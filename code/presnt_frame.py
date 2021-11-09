@@ -1,5 +1,5 @@
 import tkinter as tk
-from constants import Const, LnIdx, GuiTc, Trm, Tag, Fltr
+from constants import Const, LnIdx, GuiTc, Tag, Fltr
 
 
 class PresentationFrame:
@@ -93,10 +93,11 @@ class PresentationFrame:
             lang_idx = LnIdx.TERM2_IDX
         else:
             lang_idx = -1
+            print("unexpected value")  # refactor!
 
         d_txt = Tag.tvdt_dir[self.tagging_var.get()]
         app.update_tag_in_w_file(app.act_ln, lang_idx, d_txt)  # use act_line
-        app.term_list[app.act_ln][lang_idx+2] = Trm.terms[lang_idx]+" "+d_txt
+        app.term_list[app.act_ln][lang_idx+2] = app.terms[lang_idx]+" "+d_txt
         app.reset_cards_request = True
 
     def nxt_button_clicked(self):
