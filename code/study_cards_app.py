@@ -44,6 +44,7 @@ class StudyCardsApp:
         self.current_w_file = None
         self.current_import_file_request = None
         self.state_of_study_sets = []
+        self.allow_to_save_the_state_of_study_sets = False
 
         self.read_configuration_file()
 
@@ -177,6 +178,7 @@ class StudyCardsApp:
             self.display_pop_up(PopUpType.ERROR, disp_txt)
             sys.exit()
 
+        self.term_list = []
         for r_line in w_fl_ref:
             line_content = r_line.split(Const.F_SEPARATOR)
             self.term_list.append(line_content)
@@ -203,6 +205,7 @@ class StudyCardsApp:
             sort_lst.append([line[0], ln_idx])
 
         sort_lst.sort(key=self.use_1st_str)
+        self.ab_sort_list = []
         for line in sort_lst:
             self.ab_sort_list.append(line[1])
 
@@ -274,9 +277,6 @@ class StudyCardsApp:
                 study_set["filter"] = self.filter_cards_val
                 study_set["card_order"] = self.card_order
                 study_set["last_card"] = self.line_number
-
-
-
 
         if not study_set_found:
             self.state_of_study_sets.append({"ID": self.current_set_id, "title": self.current_set_title,
@@ -369,10 +369,17 @@ class MainWin:
         self._conf_frame.config_frame_obj.place(relx=0.1, rely=0.1)
         self._prsnt_frame.presentation_frame_obj.place_forget()
 
+    def set_selection_button_clicked(self):
+        self._app.save_state_of_study_sets()
+        self._conf_frame.config_frame_obj.place_forget()
+        self._select_frame._select_frame.place(relx=0.1, rely=0.1)
+
+
     def on_close(self):
         self.handle_card_location()
         print("Main Window is closing. Writing the configuration to JSON file")
-        self._app.save_state_of_study_sets()
+        if self._app.allow_to_save_the_state_of_study_sets:
+            self._app.save_state_of_study_sets()
         self._window.destroy()
 
     def handle_card_location(self):
@@ -442,7 +449,7 @@ class SelectionFrame:
         f_name_entry = tk.Entry(new_study_set_frame, textvariable=f_name_var, font=('calibre', 12, 'normal'))
         f_name_entry.place(relx=0.35, rely=0.3)
 
-        tk.Button(list_of_study_sets_frame, text="Show Flashcards", font=GuiTc.BUTTON_FONT,
+        tk.Button(list_of_study_sets_frame, text="Go to selected set", font=GuiTc.BUTTON_FONT,
                   command=self.flash_cards_button_clicked).place(relx=0.2, rely=0.8)
 
         tk.Button(new_study_set_frame, text="Import the file", font=GuiTc.BUTTON_FONT,
@@ -452,26 +459,25 @@ class SelectionFrame:
         self.selected_index = self.listbox.curselection()
         self.item_selected = True
 
-    def flash_cards_button_clicked(self):
-        if not self.item_selected:
+    def flash_cards_button_clicked(self):  # Rename!
+        if not self.item_selected:  # reverse the logic!
             index = 0
         else:
             index = self.selected_index[0]
         s_set_cnf = self._app.study_set_conf_list[index]
-        print("Selected info: ")
         self._app.current_w_file = s_set_cnf["w_file"]
         self._app.current_set_id = s_set_cnf["study_set_id"]
         self._app.current_set_title = s_set_cnf["study_set_title"]
         self._app.current_import_file_name = s_set_cnf["import_file_name"]
         self._app.current_import_file_request = s_set_cnf["import_file_request"]
-        print(self._app.current_set_id, self._app.current_set_title, self._app.current_w_file,
-              self._app.current_import_file_name, self._app.current_import_file_request)
         self._app.read_shuffle_etc()
 
         title2_txt = "Study Set: %s (%s Cards)" % (self._app.current_set_title, str(len(self._app.term_list)))
         ltr_size = 12  # approx number of pixels per letter
         calc_relx = (1 - ((ltr_size * len(title2_txt)) / GuiTc.MW_WIDTH)) / 2
         tk.Label(self._root, text=title2_txt, font="Helvetica 16 bold").place(relx=calc_relx, rely=0.05)
+
+        self._app.allow_to_save_the_state_of_study_sets = True
 
         # Initialize the config and presentation frames
         self._main_win.init_continued()

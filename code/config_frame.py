@@ -87,10 +87,14 @@ class ConfFrame:
         self.lang1_var.set(self._app.front_side)
 
         tk.Button(config_frame, text="Show Flashcards", font=GuiTc.BUTTON_FONT,
-                  command=main_win.flash_cards_button_clicked).place(relx=0.6, rely=0.8)
+                  command=main_win.flash_cards_button_clicked).place(relx=0.7, rely=0.8)
 
         tk.Button(config_frame, text="Reset Flashcards", font=GuiTc.BUTTON_FONT,
-                  command=self.reset_cards).place(relx=0.1, rely=0.8)
+                  command=self.reset_cards).place(relx=0.4, rely=0.8)
+
+
+        tk.Button(config_frame, text="Go to set selection", font=GuiTc.BUTTON_FONT,
+                  command=main_win.set_selection_button_clicked).place(relx=0.1, rely=0.8)
 
     def update_card_order(self):
         self._app.card_order = self.card_order_v.get()
