@@ -1,25 +1,44 @@
 [
     {
-        "ID": 1005,
-        "title": "Verbs",
-        "no_of_terms": 25,
+        "ID": "1002",
+        "title": "Time Days Months",
+        "no_of_terms": 64,
         "cnf_front_side": 1,
-        "filter": 0,
+        "filter": 1,
         "card_order": 22,
-        "last_card": 0
+        "last_card": 2,
+        "untagged_filter_list_size": 63,
+        "high_filter_list_size": 0,
+        "med_filter_list_size": 0,
+        "low_filter_list_size": 1,
+        "gen_filter_list_size": 0
+    },
+    {
+        "ID": "1003",
+        "title": "Verbs",
+        "no_of_terms": 312,
+        "cnf_front_side": 0,
+        "filter": 1,
+        "card_order": 22,
+        "last_card": 0,
+        "untagged_filter_list_size": 241,
+        "high_filter_list_size": 38,
+        "med_filter_list_size": 16,
+        "low_filter_list_size": 17,
+        "gen_filter_list_size": 0
     },
     {
         "ID": "1004",
         "title": "Food",
         "no_of_terms": 69,
         "cnf_front_side": 1,
-        "filter": 0,
-        "card_order": 33,
-        "last_card": 0,
-        "untagged_filter_list_size": 2,
-        "high_filter_list_size": 43,
-        "med_filter_list_size": 11,
-        "low_filter_list_size": 10,
-        "gen_filter_list_size": 3
+        "filter": 1,
+        "card_order": 22,
+        "last_card": 4,
+        "untagged_filter_list_size": 3,
+        "high_filter_list_size": 50,
+        "med_filter_list_size": 14,
+        "low_filter_list_size": 2,
+        "gen_filter_list_size": 0
     }
 ]

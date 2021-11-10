@@ -43,6 +43,7 @@ class StudyCardsApp:
         self.current_import_file_name = None
         self.current_w_file = None
         self.current_import_file_request = None
+        self.state_of_study_sets = []
 
         self.read_configuration_file()
 
@@ -264,27 +265,33 @@ class StudyCardsApp:
                 line = Const.F_SEPARATOR.join(str(x) for x in info)
                 print(line)
 
-    def save_config_to_file(self):
-        # ------- Fake data to test a list with multiple entries ---------
-        sets_conf_struct = [{"ID": 1005, "title": "Verbs", "no_of_terms": 30,
-                                  "cnf_front_side": self.front_side, "filter": 0,
-                                  "card_order": 22, "last_card": self.line_number}]
-        sets_conf_struct[0]["no_of_terms"] = 25
-        # -------- end of fake data -----------
+    def save_state_of_study_sets(self):
+        study_set_found = False
+        for study_set in self.state_of_study_sets:
+            if self.current_set_id == study_set["ID"]:
+                study_set_found = True
+                study_set["cnf_front_side"] = self.front_side
+                study_set["filter"] = self.filter_cards_val
+                study_set["card_order"] = self.card_order
+                study_set["last_card"] = self.line_number
 
-        sets_conf_struct.append({"ID": self.current_set_id, "title": self.current_set_title,
-                                "no_of_terms": len(self.term_list), "cnf_front_side": self.front_side,
-                                 "filter": self.filter_cards_val, "card_order": self.card_order,
-                                 "last_card": self.line_number,
-                                 "untagged_filter_list_size": self.untagged_filter_list_size,
-                                 "high_filter_list_size": self.high_filter_list_size,
-                                 "med_filter_list_size": self.med_filter_list_size,
-                                 "low_filter_list_size": self.low_filter_list_size,
-                                 "gen_filter_list_size": self.gen_filter_list_size
-                                 })
+
+
+
+        if not study_set_found:
+            self.state_of_study_sets.append({"ID": self.current_set_id, "title": self.current_set_title,
+                                            "no_of_terms": len(self.term_list), "cnf_front_side": self.front_side,
+                                             "filter": self.filter_cards_val, "card_order": self.card_order,
+                                             "last_card": self.line_number,
+                                             "untagged_filter_list_size": self.untagged_filter_list_size,
+                                             "high_filter_list_size": self.high_filter_list_size,
+                                             "med_filter_list_size": self.med_filter_list_size,
+                                             "low_filter_list_size": self.low_filter_list_size,
+                                             "gen_filter_list_size": self.gen_filter_list_size
+                                             })
         sets_config_name = "sets_config.json"
         with open(sets_config_name, "w") as write_file:
-            json.dump(sets_conf_struct, write_file, indent=4)
+            json.dump(self.state_of_study_sets, write_file, indent=4)
         print("configuration saved to JSON")
 
     def get_study_set_conf_from_file(self):
@@ -299,8 +306,11 @@ class StudyCardsApp:
             self.use_s_set_default_conf()
             return
 
+        self.state_of_study_sets = sets_conf_struct
+        study_set_found = False
         for s_set_conf in sets_conf_struct:
             if int(s_set_conf["ID"]) == int(self.current_set_id):
+                study_set_found = True
                 self.running_study_set_conf = s_set_conf
                 self.line_number = self.running_study_set_conf["last_card"]
                 self.card_order = self.running_study_set_conf["card_order"]
@@ -313,6 +323,8 @@ class StudyCardsApp:
                 self.low_filter_list_size = self.running_study_set_conf["low_filter_list_size"]
                 self.gen_filter_list_size = self.running_study_set_conf["gen_filter_list_size"]
                 break
+        if not study_set_found:
+            self.use_s_set_default_conf()
 
     def use_s_set_default_conf(self):
         self.line_number = 0
@@ -360,7 +372,7 @@ class MainWin:
     def on_close(self):
         self.handle_card_location()
         print("Main Window is closing. Writing the configuration to JSON file")
-        self._app.save_config_to_file()
+        self._app.save_state_of_study_sets()
         self._window.destroy()
 
     def handle_card_location(self):
@@ -371,7 +383,6 @@ class MainWin:
             self._conf_frame.reset_cards()
             self._app.reset_cards_request = False
 
-#+++++++++++++++++++++++++++++++++++++++++++++++++++
 
 class SelectionFrame:
     def __init__(self, root, app, main_win):
@@ -474,8 +485,6 @@ class SelectionFrame:
         print(self.title_var.get())
 
 
-#+++++++++++++++++++++++++++++++++++++++++++++++
-
 def main():
     if sys.version_info[0] < 3:
         raise Exception("Must use Python 3")
@@ -484,6 +493,7 @@ def main():
     m_win = MainWin(window)
     window.protocol("WM_DELETE_WINDOW", m_win.on_close)
     window.mainloop()
+
 
 if __name__ == "__main__":
     main()
