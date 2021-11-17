@@ -1,0 +1,74 @@
+aggressivo;aggressive;Italian tagged high;English not tagged
+allegro;glad;Italian not tagged;English not tagged
+alto;tall;Italian not tagged;English not tagged
+altro;other;Italian not tagged;English not tagged
+americano;American;Italian not tagged;English not tagged
+antipatico;unfriendly;Italian not tagged;English not tagged
+anziano;old (of a person);Italian not tagged;English not tagged
+arancione;orange (color);Italian not tagged;English not tagged
+attivo;active;Italian not tagged;English not tagged
+azzurro;light blue;Italian not tagged;English not tagged
+basso;short (of a person);Italian not tagged;English not tagged
+bello;beautiful, great;Italian not tagged;English not tagged
+bianco;white;Italian not tagged;English not tagged
+biondo;blond;Italian not tagged;English not tagged
+brutto;ugly;Italian not tagged;English not tagged
+buono;good;Italian not tagged;English not tagged
+calmo;calm;Italian not tagged;English not tagged
+cattivo;bad;Italian not tagged;English not tagged
+peggio, peggiore;worse;Italian not tagged;English not tagged
+cinese;Chinese;Italian not tagged;English not tagged
+contento;satisfied, glad;Italian not tagged;English not tagged
+corto;short;Italian not tagged;English not tagged
+difficile;difficult;Italian not tagged;English not tagged
+disordinato;messy;Italian not tagged;English not tagged
+divertente;fun, enjoyable;Italian not tagged;English not tagged
+facile;easy;Italian not tagged;English not tagged
+felice;happy;Italian not tagged;English not tagged
+francese;French;Italian not tagged;English not tagged
+generoso;generous;Italian not tagged;English not tagged
+giallo;yellow;Italian not tagged;English not tagged
+giovane;young;Italian not tagged;English not tagged
+grande;big, great;Italian not tagged;English not tagged
+grasso;fat;Italian not tagged;English not tagged
+grigio;gray;Italian not tagged;English not tagged
+interessante;interesting;Italian not tagged;English not tagged
+irlandese;Irish;Italian not tagged;English not tagged
+italiano;Italian;Italian not tagged;English not tagged
+lungo;long;Italian not tagged;English not tagged
+magro;thin (of a person);Italian not tagged;English not tagged
+marrone;brown;Italian not tagged;English not tagged
+nero;black;Italian not tagged;English not tagged
+nervoso;nervous, irritable;Italian not tagged;English not tagged
+noioso;boring;Italian not tagged;English not tagged
+nuovo;new;Italian not tagged;English not tagged
+occupato;taken, busy, occupied;Italian not tagged;English not tagged
+ordinato;neat, tidy;Italian not tagged;English not tagged
+piccolo;small;Italian not tagged;English not tagged
+pigro;lazy;Italian not tagged;English not tagged
+povero;poor;Italian not tagged;English not tagged
+responsabile;responsible;Italian not tagged;English not tagged
+ricco;rich;Italian not tagged;English not tagged
+rilassato;relaxed;Italian not tagged;English not tagged
+rosa;pink;Italian not tagged;English not tagged
+rosso;red;Italian not tagged;English not tagged
+simpatico;friendly, nice;Italian not tagged;English not tagged
+socievole;friendly, sociable;Italian not tagged;English not tagged
+spagnolo;Spanish;Italian not tagged;English not tagged
+sportivo;athletic;Italian not tagged;English not tagged
+stesso;same;Italian not tagged;English not tagged
+tedesco;German;Italian not tagged;English not tagged
+triste;sad;Italian not tagged;English not tagged
+vecchio;old;Italian not tagged;English not tagged
+verde;green;Italian not tagged;English not tagged
+viola;purple;Italian not tagged;English not tagged
+avaro;stingy;Italian not tagged;English not tagged
+comodo;comfortable, convenient;Italian not tagged;English not tagged
+bravo;good, skilled;Italian not tagged;English not tagged
+migliore;best or better;Italian not tagged;English not tagged
+debole;weak;Italian not tagged;English not tagged
+forte;strong;Italian not tagged;English not tagged
+diverso;different;Italian not tagged;English not tagged
+Serio;serious;Italian not tagged;English not tagged
+pesante;heavy (also: boring);Italian not tagged;English not tagged
+blu;blue;Italian not tagged;English not tagged

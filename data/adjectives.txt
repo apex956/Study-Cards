@@ -1,0 +1,74 @@
+aggressivo ;aggressive
+allegro ;glad
+alto ;tall
+altro ;other
+americano ;American
+antipatico ;unfriendly
+anziano ;old (of a person)
+arancione ;orange (color)
+attivo ;active
+azzurro ;light blue
+basso ;short (of a person)
+bello ;beautiful, great
+bianco ;white
+biondo ;blond
+brutto ;ugly
+buono ;good
+calmo ;calm
+cattivo ;bad
+peggio, peggiore ;worse
+cinese ;Chinese
+contento ;satisfied, glad
+corto ;short
+difficile ;difficult
+disordinato ;messy
+divertente ;fun, enjoyable
+facile ;easy
+felice ;happy
+francese ;French
+generoso ;generous
+giallo ;yellow
+giovane ;young
+grande ;big, great
+grasso ;fat
+grigio ;gray
+interessante ;interesting
+irlandese ;Irish
+italiano ;Italian
+lungo ;long
+magro ;thin (of a person)
+marrone ;brown
+nero ;black
+nervoso ;nervous, irritable
+noioso ;boring
+nuovo ;new
+occupato ;taken, busy, occupied
+ordinato ;neat, tidy
+piccolo ;small
+pigro ;lazy
+povero ;poor
+responsabile ;responsible
+ricco ;rich
+rilassato ;relaxed
+rosa ;pink
+rosso ;red
+simpatico ;friendly, nice
+socievole ;friendly, sociable
+spagnolo ;Spanish
+sportivo ;athletic
+stesso ;same
+tedesco ;German
+triste ;sad
+vecchio ;old
+verde ;green
+viola ;purple
+avaro ;stingy
+comodo ;comfortable, convenient
+bravo ;good, skilled
+migliore ;best or better
+debole ;weak
+forte ;strong
+diverso ;different
+Serio ;serious
+pesante ;heavy (also: boring)
+blu ;blue

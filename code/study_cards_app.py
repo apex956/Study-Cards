@@ -45,6 +45,7 @@ class StudyCardsApp:
         self.current_import_file_request = None
         self.state_of_study_sets = []
         self.allow_to_save_the_state_of_study_sets = False
+        self.id_list = None
 
         self.read_configuration_file()
 
@@ -61,20 +62,27 @@ class StudyCardsApp:
 
 
     def read_configuration_file(self):
-        config_object = ConfigParser()
-        config_object.read("config.ini")
+        """
+        Reading the configuration of all the study sets in the config.ini file
+        Each study set configuration is read into a dictionary.
+        All these dictionaries are appended into a list
+        :return: None
+        """
+        self.study_set_conf_list = []
+        self.config_object = ConfigParser()
+        self.config_object.read("config.ini")
 
-        app_info = config_object["APP_INFO"]
+        app_info = self.config_object["APP_INFO"]
         self.term1 = app_info["term1"]
         self.term2 = app_info["term2"]
         self.terms = [self.term1, self.term2]
 
-        study_sets = config_object["STUDY_SETS_ID_LIST"]
-        id_list = study_sets["id_list"].split(",")
+        study_sets = self.config_object["STUDY_SETS_ID_LIST"]
+        self.id_list = study_sets["id_list"].split(",")
 
         # read config of multiple sets
-        for s_set_id in id_list:
-            study_set_cnf = config_object["STUDY_SET_"+s_set_id]
+        for s_set_id in self.id_list:
+            study_set_cnf = self.config_object["STUDY_SET_"+s_set_id]
             study_set_cnf_dir = {}
             study_set_cnf_dir["study_set_id"] = s_set_id
             study_set_cnf_dir["import_file_request"] = self.str_to_bool(study_set_cnf["import_file_request"])
@@ -356,6 +364,7 @@ class MainWin:
     def init_continued(self):
         self._conf_frame = cfr.ConfFrame(self, self._window, self._app)
         self._prsnt_frame = prf.PresentationFrame(self, self._window, self._app)
+        return self._conf_frame
 
     def flash_cards_button_clicked(self):
         self._conf_frame.config_frame_obj.place_forget()
@@ -372,8 +381,7 @@ class MainWin:
     def set_selection_button_clicked(self):
         self._app.save_state_of_study_sets()
         self._conf_frame.config_frame_obj.place_forget()
-        self._select_frame._select_frame.place(relx=0.1, rely=0.1)
-
+        self._select_frame._select_frame.place(relx=0.1, rely=0.1)  # refactor!
 
     def on_close(self):
         self.handle_card_location()
@@ -398,6 +406,7 @@ class SelectionFrame:
         self.selected_index = 0
         self._main_win = main_win
         self._root = root
+        self.import_study_set_clicked = False
 
         title1_txt = "Study Card Sets"
         select_frame = tk.LabelFrame(root, text=title1_txt, font="Helvetica 14",
@@ -419,10 +428,10 @@ class SelectionFrame:
         for s_set_cnf in app.study_set_conf_list:
             self.list_of_study_sets.append(s_set_cnf["study_set_title"])
 
-        langs_var = tk.StringVar(value=self.list_of_study_sets)
+        lbox_var = tk.StringVar(value=self.list_of_study_sets)
         # tk.Label(list_of_study_sets_frame, text="List of Study Sets", font="Helvetica 14", bg="gray99").place(relx=0.2, rely=0.05)
 
-        self.listbox = tk.Listbox(list_of_study_sets_frame, listvariable=langs_var, height=13, width=35,
+        self.listbox = tk.Listbox(list_of_study_sets_frame, listvariable=lbox_var, height=13, width=35,
                                   bg=GuiTc.L2_FRAME_BG, font=GuiTc.R_B_FONT, fg="gray20")
         # self.listbox.configure(highlightbackground="black")
         self.listbox.select_set(0)
@@ -445,12 +454,12 @@ class SelectionFrame:
         f_name_label = tk.Label(new_study_set_frame, text='File Name', font=('calibre', 12, 'bold'))
         f_name_label.place(relx=0.05, rely=0.3)
 
-        f_name_var = tk.StringVar()
-        f_name_entry = tk.Entry(new_study_set_frame, textvariable=f_name_var, font=('calibre', 12, 'normal'))
+        self.f_name_var = tk.StringVar()
+        f_name_entry = tk.Entry(new_study_set_frame, textvariable=self.f_name_var, font=('calibre', 12, 'normal'))
         f_name_entry.place(relx=0.35, rely=0.3)
 
         tk.Button(list_of_study_sets_frame, text="Go to selected set", font=GuiTc.BUTTON_FONT,
-                  command=self.flash_cards_button_clicked).place(relx=0.2, rely=0.8)
+                  command=self.go_to_selected_set_button_clicked).place(relx=0.2, rely=0.8)
 
         tk.Button(new_study_set_frame, text="Import the file", font=GuiTc.BUTTON_FONT,
                   command=self.import_study_set).place(relx=0.2, rely=0.8)
@@ -459,7 +468,7 @@ class SelectionFrame:
         self.selected_index = self.listbox.curselection()
         self.item_selected = True
 
-    def flash_cards_button_clicked(self):  # Rename!
+    def go_to_selected_set_button_clicked(self):
         if not self.item_selected:  # reverse the logic!
             index = 0
         else:
@@ -480,15 +489,52 @@ class SelectionFrame:
         self._app.allow_to_save_the_state_of_study_sets = True
 
         # Initialize the config and presentation frames
-        self._main_win.init_continued()
-
-        self._main_win._conf_frame.update_size_of_filtered_lists()  # refactor !!!
-
-        self._main_win._conf_frame.config_frame_obj.place(relx=0.1, rely=0.1)  # refactor !!!
+        conf_frame = self._main_win.init_continued()
+        conf_frame.update_size_of_filtered_lists()
+        conf_frame.config_frame_obj.place(relx=0.1, rely=0.1)
         self._select_frame.place_forget()
 
     def import_study_set(self):
-        print(self.title_var.get())
+        if self.import_study_set_clicked:
+            print("Can click only once")
+            # Need to disable the button!!
+            return
+        self.import_study_set_clicked = True
+        study_set_title = self.title_var.get()
+        import_file_name = self.f_name_var.get()
+        # Check valid title
+        if len(study_set_title.replace(' ', '')) < 3:
+            print("Invalid study set title")
+            return
+
+        new_set_id = None
+        # find an available ID
+        self._app.read_configuration_file()  # Should not be called twice!
+        for potential_new_id in range(1002, 1100):
+            if str(potential_new_id) not in self._app.id_list:
+                new_set_id = potential_new_id
+                break
+
+        # update the config.ini file with data of new study set
+        config_object = self._app.config_object
+        study_sets = config_object["STUDY_SETS_ID_LIST"]
+        id_list = study_sets["id_list"]
+        id_list = id_list + ","+(str(new_set_id))
+        config_object["STUDY_SETS_ID_LIST"] = {"id_list": id_list}
+        config_object['STUDY_SET_'+str(new_set_id)] = {'study_set_title': study_set_title,
+                                                       'import_file_name': import_file_name,
+                                                       'import_file_request': 'True'}
+        with open('config.ini', 'w') as configfile:
+            config_object.write(configfile)
+
+        self._app.read_configuration_file()  # Should not be called twice! Refactor!
+
+        self.list_of_study_sets = []
+        for s_set_cnf in self._app.study_set_conf_list:
+            self.list_of_study_sets.append(s_set_cnf["study_set_title"])
+
+        lbox_var = tk.StringVar(value=self.list_of_study_sets)
+        self.listbox.configure(listvariable=lbox_var)
 
 
 def main():
