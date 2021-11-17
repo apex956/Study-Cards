@@ -63,8 +63,8 @@ class StudyCardsApp:
 
     def read_configuration_file(self):
         """
-        Reading the configuration of all the study sets in the config.ini file
-        Each study set configuration is read into a dictionary.
+        The function reads the configuration of all the study sets in the "config.ini" file
+        The configuration of each study set is read into a dictionary.
         All these dictionaries are appended into a list
         :return: None
         """
@@ -352,10 +352,9 @@ class MainWin:
 
         app = StudyCardsApp(window)
 
-        title1_txt = main_title
         ltr_size = 16  # approx number of pixels per letter
-        calc_relx = (1 - ((ltr_size * len(title1_txt)) / GuiTc.MW_WIDTH)) / 2
-        tk.Label(window, text=title1_txt, font="Helvetica 20 bold").place(relx=calc_relx, rely=0.0)
+        calc_relx = (1 - ((ltr_size * len(main_title)) / GuiTc.MW_WIDTH)) / 2
+        tk.Label(window, text=main_title, font="Helvetica 20 bold").place(relx=calc_relx, rely=0.0)
 
         self._select_frame = SelectionFrame(window, app, self)
         self._app = app
@@ -382,6 +381,7 @@ class MainWin:
         self._app.save_state_of_study_sets()
         self._conf_frame.config_frame_obj.place_forget()
         self._select_frame._select_frame.place(relx=0.1, rely=0.1)  # refactor!
+        self._select_frame.main_sec_ttl.place_forget()
 
     def on_close(self):
         self.handle_card_location()
@@ -433,7 +433,6 @@ class SelectionFrame:
 
         self.listbox = tk.Listbox(list_of_study_sets_frame, listvariable=lbox_var, height=13, width=35,
                                   bg=GuiTc.L2_FRAME_BG, font=GuiTc.R_B_FONT, fg="gray20")
-        # self.listbox.configure(highlightbackground="black")
         self.listbox.select_set(0)
 
         self.listbox.place(relx=0.1, rely=0.05)
@@ -484,7 +483,8 @@ class SelectionFrame:
         title2_txt = "Study Set: %s (%s Cards)" % (self._app.current_set_title, str(len(self._app.term_list)))
         ltr_size = 12  # approx number of pixels per letter
         calc_relx = (1 - ((ltr_size * len(title2_txt)) / GuiTc.MW_WIDTH)) / 2
-        tk.Label(self._root, text=title2_txt, font="Helvetica 16 bold").place(relx=calc_relx, rely=0.05)
+        self.main_sec_ttl = tk.Label(self._root, text=title2_txt, font="Helvetica 16 bold")
+        self.main_sec_ttl.place(relx=calc_relx, rely=0.05)
 
         self._app.allow_to_save_the_state_of_study_sets = True
 
@@ -509,7 +509,7 @@ class SelectionFrame:
 
         new_set_id = None
         # find an available ID
-        self._app.read_configuration_file()  # Should not be called twice!
+        self._app.read_configuration_file()
         for potential_new_id in range(1002, 1100):
             if str(potential_new_id) not in self._app.id_list:
                 new_set_id = potential_new_id
