@@ -136,7 +136,8 @@ class StudyCardsApp:
         in_line_list = []  # list of lines read from the import file
         p_line = -1
         try:
-            in_file_ref = open(in_file_path, "r")
+            #in_file_ref = open(in_file_path, "r")
+            in_file_ref = open(in_file_path, "r", encoding="utf8")
         except OSError as e:
             wrn_txt = "Couldn't open a file to be imported"
             print(e, wrn_txt)
@@ -184,7 +185,9 @@ class StudyCardsApp:
     def read_work_file(self):
         # read the vocabulary list from the work-file
         try:
-            w_fl_ref = open(Const.FILE_PATH+self.current_w_file, "r", encoding="utf8")
+            #w_fl_ref = open(Const.FILE_PATH+self.current_w_file, "r", encoding="utf8")
+            w_fl_ref = open(Const.FILE_PATH+self.current_w_file, "r")
+
         except OSError:
             disp_txt = "Couldn't open the work file. Exiting the application."
             print(disp_txt)
@@ -283,10 +286,9 @@ class StudyCardsApp:
 
     def save_state_of_study_sets(self):
         study_set_found = False
-        # for random order the last card is meaningless after the app runs again so it is reset
+        # for random order the last card is reset since cards are reshuffled after the app runs again
         if self.card_order == CrdOrdr.Random.val:
             last_card = 0
-            print("Random!")
         else:
             last_card = self.line_number
 
@@ -421,7 +423,6 @@ class SelectionFrame:
         self.selected_index = 0
         self._main_win = main_win
         self._root = root
-        self.import_study_set_clicked = False
 
         title1_txt = "Study Card Sets"
         select_frame = tk.LabelFrame(root, text=title1_txt, font="Helvetica 14",
@@ -462,31 +463,33 @@ class SelectionFrame:
         title_label.place(relx=0.05, rely=0.1)
 
         self.title_var = tk.StringVar()
-        title_entry = tk.Entry(new_study_set_frame, textvariable=self.title_var, font=('calibre', 12, 'normal'))
-        title_entry.place(relx=0.35, rely=0.1)
+        self.title_entry = tk.Entry(new_study_set_frame, textvariable=self.title_var, font=('calibre', 12, 'normal'))
+        self.title_entry.place(relx=0.35, rely=0.1)
 
         f_name_label = tk.Label(new_study_set_frame, text='File Name', font=('calibre', 12, 'bold'))
         f_name_label.place(relx=0.05, rely=0.3)
 
         self.f_name_var = tk.StringVar()
-        f_name_entry = tk.Entry(new_study_set_frame, textvariable=self.f_name_var, font=('calibre', 12, 'normal'))
-        f_name_entry.place(relx=0.35, rely=0.3)
+        self.f_name_entry = tk.Entry(new_study_set_frame, textvariable=self.f_name_var, font=('calibre', 12, 'normal'))
+        self.f_name_entry.place(relx=0.35, rely=0.3)
 
         tk.Button(list_of_study_sets_frame, text="Go to selected set", font=GuiTc.BUTTON_FONT,
                   command=self.go_to_selected_set_button_clicked).place(relx=0.2, rely=0.8)
 
-        tk.Button(new_study_set_frame, text="Import the file", font=GuiTc.BUTTON_FONT,
-                  command=self.import_study_set).place(relx=0.2, rely=0.8)
+        self.file_import_button = tk.Button(new_study_set_frame, text="Import the file",
+                                            font=GuiTc.BUTTON_FONT, command=self.import_study_set)
+        self.file_import_button.place(relx=0.2, rely=0.8)
 
     def items_selected(self, event):
         self.selected_index = self.listbox.curselection()
         self.item_selected = True
 
     def go_to_selected_set_button_clicked(self):
-        if not self.item_selected:  # reverse the logic!
-            index = 0
-        else:
+        if self.item_selected:
             index = self.selected_index[0]
+        else:
+            index = 0
+
         s_set_cnf = self._app.study_set_conf_list[index]
         self._app.current_w_file = s_set_cnf["w_file"]
         self._app.current_set_id = s_set_cnf["study_set_id"]
@@ -510,17 +513,22 @@ class SelectionFrame:
         self._select_frame.place_forget()
 
     def import_study_set(self):
-        if self.import_study_set_clicked:
-            print("Can click only once")
-            # Need to disable the button!!
-            return
-        self.import_study_set_clicked = True
         study_set_title = self.title_var.get()
         import_file_name = self.f_name_var.get()
         # Check valid title
         if len(study_set_title.replace(' ', '')) < 3:
             print("Invalid study set title")
+            self.clear_entries()
             return
+        if len(import_file_name.replace(' ', '')) < 3:
+            wrn_txt = "Invalid import file name"
+            print(wrn_txt)
+            # add a pop-up !
+            #self._app.display_pop_up(PopUpType.WARNING, wrn_txt)
+
+            self.clear_entries()
+            return
+        self.clear_entries()
 
         new_set_id = None
         # find an available ID
@@ -551,6 +559,10 @@ class SelectionFrame:
         lbox_var = tk.StringVar(value=self.list_of_study_sets)
         self.listbox.configure(listvariable=lbox_var)
 
+    def clear_entries(self):
+        # allow a new entry
+        self.title_entry.delete(0, tk.END)
+        self.f_name_entry.delete(0, tk.END)
 
 def main():
     if sys.version_info[0] < 3:

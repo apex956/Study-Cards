@@ -1,3 +1,0 @@
-accendere;to turn on;Italian tagged low;English tagged minor
-Conoscere;to know;Italian tagged med;English tagged high
-Dormire;to sleep;Italian tagged high;English tagged med

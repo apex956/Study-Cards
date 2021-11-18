@@ -1,0 +1,34 @@
+il bisnonno ;the great grandfather
+famiglia ;family
+il cognato ;the brother-in-law
+il cugino/ la cugina ;the cousin
+il figlio / la figlia ;the son / daughter
+il fratello ;the brother
+i genitori ;the parents
+la mamma ;the mom
+il marito ;the husband
+la moglie ;the wife
+il nipote ;the nephew
+il nonno ;the grandfather
+i parenti ;the relatives
+la sorella ;the sister
+lo zio ;the uncle
+la zia ;the aunt
+la bisnonna ;the great grandmother
+la nipote ;the niece
+la nipote ;the granddaughter
+il nipote ;the grandson
+la cognata ;the sister-in-law
+la nonna ;the grandmother
+genitore ;parent
+i nonni ;the grandparents
+il genero ;the son-in-law
+la nuora ;the daughter-in-law
+la madre ;mother
+il padre ;father
+il papà, il babbo ;dad, daddy
+il padrino ;the godfather
+suocero ;father-in-law
+suocera ;mother-in-law
+i gemelli ;the twins
+generazione ;generation

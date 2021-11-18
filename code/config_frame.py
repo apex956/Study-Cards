@@ -137,8 +137,7 @@ class ConfFrame:
             elif filter_val == Fltr.GEN_FLTR[Fltr.VAL]:
                 expected_tag_dt_txt = Tag.GenTag.d_txt
             else:
-                print("Filter not found!")
-                raise ValueError
+                raise ValueError("Filter not found")
 
             if card_order == CrdOrdr.Alphabetical.val:
                 for m_idx in app.ab_sort_list:

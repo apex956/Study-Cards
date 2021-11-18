@@ -1,0 +1,100 @@
+andare ;to go
+vado ;I go
+vai ;you (s) go
+va ;He goes
+andiamo ;We go
+andate ;You (p) go
+vanno ;They go
+fare ;to do
+faccio ;I do
+fai ;you (s) do
+fa ;she does
+facciamo ;we do
+fate ;you (p) do
+fanno ;they do
+potere ;to be able , can, may
+posso ;I can
+puoi ;you (s) can
+puo ;She can
+potete ;you (p) can
+possiamo ;we can
+possono ;they can
+dovere ;must / have to
+devo ;I must
+devi ;you (s) must
+deve ;he must
+dobbiamo ;we must
+dovete ;you (p) must
+devono ;they must
+dare ;to give
+do ;I give
+dai ;you (s) give
+dà ;she gives
+diamo ;we give
+date ;you (p) give
+danno ;they give
+hai ;you (s) have
+ha ;he/she has
+abbiamo ;we have
+avete ;you (p) have
+hanno ;they have
+dire ;to say, to tell
+dico ;I say
+dici ;you (s) say
+dice ;he/she says
+diciamo ;we say
+dite ;you (p) say
+dicono ;they say
+sapere ;to know
+so ;I know
+sai ;You (s) know
+sa ;He/she knows
+sappiamo ;We know
+sapete ;You (p) know
+sanno ;They know
+stare ;To stay
+sto ;I stay
+stai ;You (s) stay
+sta ;He/she stays
+stiamo ;We stay
+state ;You (p) stay
+stanno ;They stay
+bere ;to drink
+bevo ;I drink
+bevi ;You (s) drink
+beve ;He/She drinks
+beviamo ;We drink
+bevete ;You (p) drink
+bevono ;They drink
+avere ;to have
+ho ;I have
+essere ;to be
+sono ;I am
+sei ;you (s) are
+è ;he / she / it is
+siamo ;we are
+siete ;you (p) are
+sono ;they are
+uscire ;to go out
+esco ;I go out
+esci ;you (s) go out
+esce ;he goes out
+usciamo ;we go out
+uscite ;you (p) go out
+escono ;they go out
+venire ;to come
+vengo ;I come
+vieni ;you (s) come
+viene ;he comes
+veniamo ;we come
+venite ;you (p) come
+vengono ;they come
+volere ;to want
+voglio ;I want
+vuoi ;you (s) want
+vuole ;she wants
+vogliamo ;we want
+volete ;you (pl) want
+vogliono ;they want
+introdurre ;to introduce, insert
+introduco ;I introduce

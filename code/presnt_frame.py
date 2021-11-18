@@ -97,8 +97,7 @@ class PresentationFrame:
         elif app.front_side == 1:
             lang_idx = LnIdx.TERM2_IDX
         else:
-            lang_idx = -1
-            print("unexpected value")  # refactor!
+            raise ValueError
 
         d_txt = Tag.tvdt_dir[self.tagging_var.get()]
         app.update_tag_in_w_file(app.act_ln, lang_idx, d_txt)  # use act_line
@@ -159,7 +158,7 @@ class PresentationFrame:
 
     def set_tag_rb(self, line):
         """
-        Set tagging radio buttons to values in the data structure!
+        Set tagging radio buttons to values in the data structure
         set the tag radio button of the requested line
         to be called when changing the line
         :param line: the current actual line
