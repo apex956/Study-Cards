@@ -45,12 +45,18 @@ class StudyCardsApp:
         self.current_import_file_request = None
         self.state_of_study_sets = []
         self.allow_to_save_the_state_of_study_sets = False
-        self.id_list = None
+        self.id_list = None  # list of the IDs of all the study sets
 
         self.read_configuration_file()
 
-
-    def read_shuffle_etc(self):  # refactor name !!!
+    def initialize_study_set(self):
+        """
+        Initialization operations that are performed only after a study set is selected.
+        Performs import if needed, reads the terms and their tags from the work-file,
+        creates sorted list and shuffled list and retrieves the last configuration of the study set
+        when the app was last exited.
+        :return: None
+        """
         if self.current_import_file_request:
             self.import_term_file(Const.FILE_PATH, self.current_import_file_name, self.current_w_file)
 
@@ -59,7 +65,6 @@ class StudyCardsApp:
         self.sort_and_shuffle_term_list()
 
         self.get_study_set_conf_from_file()
-
 
     def read_configuration_file(self):
         """
@@ -278,19 +283,26 @@ class StudyCardsApp:
 
     def save_state_of_study_sets(self):
         study_set_found = False
+        # for random order the last card is meaningless after the app runs again so it is reset
+        if self.card_order == CrdOrdr.Random.val:
+            last_card = 0
+            print("Random!")
+        else:
+            last_card = self.line_number
+
         for study_set in self.state_of_study_sets:
             if self.current_set_id == study_set["ID"]:
                 study_set_found = True
                 study_set["cnf_front_side"] = self.front_side
                 study_set["filter"] = self.filter_cards_val
                 study_set["card_order"] = self.card_order
-                study_set["last_card"] = self.line_number
+                study_set["last_card"] = last_card
 
-        if not study_set_found:
+        if not study_set_found:  # This is a new study-set
             self.state_of_study_sets.append({"ID": self.current_set_id, "title": self.current_set_title,
                                             "no_of_terms": len(self.term_list), "cnf_front_side": self.front_side,
                                              "filter": self.filter_cards_val, "card_order": self.card_order,
-                                             "last_card": self.line_number,
+                                             "last_card": last_card,
                                              "untagged_filter_list_size": self.untagged_filter_list_size,
                                              "high_filter_list_size": self.high_filter_list_size,
                                              "med_filter_list_size": self.med_filter_list_size,
@@ -478,7 +490,7 @@ class SelectionFrame:
         self._app.current_set_title = s_set_cnf["study_set_title"]
         self._app.current_import_file_name = s_set_cnf["import_file_name"]
         self._app.current_import_file_request = s_set_cnf["import_file_request"]
-        self._app.read_shuffle_etc()
+        self._app.initialize_study_set()
 
         title2_txt = "Study Set: %s (%s Cards)" % (self._app.current_set_title, str(len(self._app.term_list)))
         ltr_size = 12  # approx number of pixels per letter
