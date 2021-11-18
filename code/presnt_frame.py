@@ -5,6 +5,7 @@ from constants import Const, LnIdx, GuiTc, Tag, Fltr
 class PresentationFrame:
     def __init__(self, main_win, window, app):
         self._app = app
+        self._main_win = main_win
         self.card_text = []  # The text of both sides of the current card
 
         presentation_frame = tk.LabelFrame(window, text="Flashcards", font="Helvetica 14", width=900,
@@ -73,16 +74,20 @@ class PresentationFrame:
         window.bind("<Down>", self.down_arrow_key)
 
     def space_bar_key(self, event):
-        self.flip_button_clicked()
+        if self._main_win.active_presentation_frame:
+            self.flip_button_clicked()
 
     def down_arrow_key(self, event):
-        self.flip_button_clicked()
+        if self._main_win.active_presentation_frame:
+            self.flip_button_clicked()
 
     def right_arrow_key(self, event):
-        self.nxt_button_clicked()
+        if self._main_win.active_presentation_frame:
+            self.nxt_button_clicked()
 
     def left_arrow_key(self, event):
-        self.back_button_clicked()
+        if self._main_win.active_presentation_frame:
+            self.back_button_clicked()
 
     def item_tagging(self):
         app = self._app

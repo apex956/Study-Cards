@@ -371,6 +371,7 @@ class MainWin:
         self._select_frame = SelectionFrame(window, app, self)
         self._app = app
         self._window = window
+        self.active_presentation_frame = False
 
     def init_continued(self):
         self._conf_frame = cfr.ConfFrame(self, self._window, self._app)
@@ -383,11 +384,13 @@ class MainWin:
         self._conf_frame.create_filtered_index_lists(self._app, self._app.filter_cards_val, self._app.card_order)
         self.handle_card_location()
         self._prsnt_frame.nxt_back_button_clicked(nxt=True, continue_cards=True)
+        self.active_presentation_frame = True
 
     def config_button_clicked(self):
         self._conf_frame.update_size_of_filtered_lists()
         self._conf_frame.config_frame_obj.place(relx=0.1, rely=0.1)
         self._prsnt_frame.presentation_frame_obj.place_forget()
+        self.active_presentation_frame = False
 
     def set_selection_button_clicked(self):
         self._app.save_state_of_study_sets()
