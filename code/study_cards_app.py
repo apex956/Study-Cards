@@ -515,17 +515,17 @@ class SelectionFrame:
     def import_study_set(self):
         study_set_title = self.title_var.get()
         import_file_name = self.f_name_var.get()
-        # Check valid title
+        # Check valid title and file name
         if len(study_set_title.replace(' ', '')) < 3:
-            print("Invalid study set title")
-            self.clear_entries()
-            return
-        if len(import_file_name.replace(' ', '')) < 3:
-            wrn_txt = "Invalid import file name"
-            print(wrn_txt)
-            # add a pop-up !
-            #self._app.display_pop_up(PopUpType.WARNING, wrn_txt)
+            wrn_txt = "Invalid study set title. Should be at least 3 characters"
+        elif len(import_file_name.replace(' ', '')) < 3:
+            wrn_txt = "Invalid import file name. Should be at least 3 characters"
+        else:
+            wrn_txt = ""
 
+        if len(wrn_txt) > 0:
+            print(wrn_txt)
+            self._app.display_pop_up(PopUpType.WARNING, wrn_txt)
             self.clear_entries()
             return
         self.clear_entries()
