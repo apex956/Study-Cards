@@ -15,7 +15,7 @@ fanno;they do;Italian not tagged;English not tagged
 potere;to be able , can, may;Italian not tagged;English not tagged
 posso;I can;Italian not tagged;English not tagged
 puoi;you (s) can;Italian not tagged;English not tagged
-puo;She can;Italian not tagged;English not tagged
+puo;She can;Italian not tagged;English tagged high
 potete;you (p) can;Italian not tagged;English not tagged
 possiamo;we can;Italian not tagged;English not tagged
 possono;they can;Italian not tagged;English not tagged
@@ -28,8 +28,8 @@ dovete;you (p) must;Italian not tagged;English not tagged
 devono;they must;Italian not tagged;English not tagged
 dare;to give;Italian not tagged;English not tagged
 do;I give;Italian not tagged;English not tagged
-dai;you (s) give;Italian not tagged;English not tagged
-dà;she gives;Italian not tagged;English not tagged
+dai;you (s) give;Italian not tagged;English tagged high
+dà;she gives;Italian not tagged;English tagged high
 diamo;we give;Italian not tagged;English not tagged
 date;you (p) give;Italian not tagged;English not tagged
 danno;they give;Italian not tagged;English not tagged
@@ -38,7 +38,7 @@ ha;he/she has;Italian not tagged;English not tagged
 abbiamo;we have;Italian not tagged;English not tagged
 avete;you (p) have;Italian not tagged;English not tagged
 hanno;they have;Italian not tagged;English not tagged
-dire;to say, to tell;Italian not tagged;English not tagged
+dire;to say, to tell;Italian not tagged;English tagged high
 dico;I say;Italian not tagged;English not tagged
 dici;you (s) say;Italian not tagged;English not tagged
 dice;he/she says;Italian not tagged;English not tagged
@@ -83,7 +83,7 @@ usciamo;we go out;Italian not tagged;English not tagged
 uscite;you (p) go out;Italian not tagged;English not tagged
 escono;they go out;Italian not tagged;English not tagged
 venire;to come;Italian not tagged;English not tagged
-vengo;I come;Italian not tagged;English not tagged
+vengo;I come;Italian not tagged;English tagged high
 vieni;you (s) come;Italian not tagged;English not tagged
 viene;he comes;Italian not tagged;English not tagged
 veniamo;we come;Italian not tagged;English not tagged
@@ -95,6 +95,6 @@ vuoi;you (s) want;Italian not tagged;English not tagged
 vuole;she wants;Italian not tagged;English not tagged
 vogliamo;we want;Italian not tagged;English not tagged
 volete;you (pl) want;Italian not tagged;English not tagged
-vogliono;they want;Italian not tagged;English not tagged
+vogliono;they want;Italian not tagged;English tagged high
 introdurre;to introduce, insert;Italian not tagged;English not tagged
 introduco;I introduce;Italian not tagged;English not tagged

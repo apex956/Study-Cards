@@ -411,6 +411,7 @@ class MainWin:
         """ If the filtered list has changed due to tagging then the location of the last card needs to change.
             For now, just reset to beginning.
         """
+        # Fix issue #42
         if self._app.reset_cards_request:
             self._conf_frame.reset_cards()
             self._app.reset_cards_request = False
@@ -550,7 +551,7 @@ class SelectionFrame:
         with open('config.ini', 'w') as configfile:
             config_object.write(configfile)
 
-        self._app.read_configuration_file()  # Should not be called twice! Refactor!
+        self._app.read_configuration_file()  # Should not be called twice. Refactor!
 
         self.list_of_study_sets = []
         for s_set_cnf in self._app.study_set_conf_list:

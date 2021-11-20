@@ -1,0 +1,100 @@
+preferisco;I prefer;Italian not tagged;English not tagged
+vendo;I sell;Italian not tagged;English not tagged
+parliamo;we speak;Italian not tagged;English tagged high
+parlate;you (p) speak;Italian not tagged;English not tagged
+parlano;they speak;Italian not tagged;English not tagged
+dormite;you (p) sleep;Italian not tagged;English not tagged
+finiscono;they finish;Italian not tagged;English not tagged
+preferisci;you (s) prefer;Italian not tagged;English not tagged
+dorme;she sleeps;Italian not tagged;English not tagged
+cerco;I look for;Italian not tagged;English not tagged
+paghi;you (s) pay;Italian not tagged;English not tagged
+comincio;I start;Italian not tagged;English not tagged
+mangi;you (s) eat;Italian not tagged;English tagged high
+capiscono;they understand;Italian not tagged;English not tagged
+guardano;they watch;Italian not tagged;English not tagged
+spero;I hope;Italian not tagged;English not tagged
+penso;I think;Italian not tagged;English not tagged
+sembra;it seems;Italian not tagged;English not tagged
+scriviamo;we write;Italian not tagged;English not tagged
+gioca;she plays (a game);Italian not tagged;English not tagged
+giochi;you (s) play (a game);Italian not tagged;English not tagged
+chiedo;I ask for;Italian not tagged;English not tagged
+finisco;I finish;Italian not tagged;English not tagged
+dimentichi;you (s) forget;Italian not tagged;English not tagged
+canto;I sing;Italian not tagged;English not tagged
+guida;he drives;Italian not tagged;English not tagged
+insegna;she teaches;Italian not tagged;English not tagged
+studiamo;we study;Italian not tagged;English not tagged
+comprate;you (p) buy;Italian not tagged;English not tagged
+iniziamo;we start (let's begin);Italian not tagged;English not tagged
+conosciamo;we know (someone);Italian not tagged;English not tagged
+chiudono;they close;Italian not tagged;English not tagged
+corro;I run;Italian not tagged;English not tagged
+decidi;you (s) decide;Italian not tagged;English tagged low
+dipingiamo;we paint;Italian not tagged;English not tagged
+dipingo;I paint;Italian not tagged;English tagged high
+discutono;They discuss;Italian not tagged;English not tagged
+nasconde;He hides;Italian not tagged;English not tagged
+ricevo;I receive;Italian not tagged;English not tagged
+ridono;they laugh;Italian not tagged;English not tagged
+rispondi;you (s) respond;Italian not tagged;English tagged high
+temete;you (p) fear;Italian not tagged;English not tagged
+chiudete;you (p) close;Italian not tagged;English tagged high
+crede;he believes;Italian not tagged;English not tagged
+leggono;they read;Italian not tagged;English not tagged
+vince;she wins;Italian not tagged;English not tagged
+vinco;I win;Italian not tagged;English not tagged
+perde;he loses;Italian not tagged;English not tagged
+prende;he takes;Italian not tagged;English not tagged
+aprono;they open;Italian not tagged;English not tagged
+aprite;you (p) open;Italian not tagged;English not tagged
+chiude;he/she closes;Italian not tagged;English tagged high
+offro;I offer;Italian not tagged;English not tagged
+sento;I hear;Italian not tagged;English not tagged
+seguo;I follow;Italian not tagged;English not tagged
+segui;you (s) follow;Italian not tagged;English not tagged
+preferite;you (pl) prefer;Italian not tagged;English not tagged
+pulisce;(he/she) cleans;Italian not tagged;English not tagged
+leggi;you (s) read;Italian not tagged;English not tagged
+pulisco;I clean;Italian not tagged;English not tagged
+finisce;it finishes;Italian not tagged;English not tagged
+seguono;they follow;Italian not tagged;English not tagged
+ricevete;you (p) receive;Italian not tagged;English not tagged
+rispondo;I answer;Italian not tagged;English not tagged
+diventa;it becomes;Italian not tagged;English not tagged
+cambiamo;we change;Italian not tagged;English not tagged
+piove;it is raining;Italian not tagged;English not tagged
+spieghiamo;we explain;Italian not tagged;English not tagged
+proviamo insieme;Let's try together;Italian not tagged;English not tagged
+si accomodi;Make yourself comfortable, Sit down;Italian not tagged;English not tagged
+mi alzo alle sette;I get up at seven;Italian not tagged;English tagged low
+Non vi preoccupate;don't worry (you, p);Italian not tagged;English not tagged
+ci prepariamo;We're getting ready;Italian not tagged;English not tagged
+studia;he studies;Italian not tagged;English not tagged
+accettate;you (p) accept;Italian not tagged;English not tagged
+accetto;I accept;Italian not tagged;English not tagged
+lei si accomoda;she sits down;Italian not tagged;English not tagged
+acquista;he buys;Italian not tagged;English not tagged
+si alzano;they get up;Italian not tagged;English not tagged
+aspetti;you (s) wait;Italian not tagged;English not tagged
+attraversa;she crosses;Italian not tagged;English not tagged
+ha 30 anni;he is 30 years old;Italian not tagged;English not tagged
+ho caldo;I am hot;Italian not tagged;English not tagged
+Ci sentiamo domani;see you tomorrow (not vedere);Italian not tagged;English not tagged
+Voi non vi vedete da molto, vero?;You haven't seen each other for quite a while, right?;Italian not tagged;English not tagged
+Loro si parlano spesso;They speak to each other often;Italian not tagged;English not tagged
+loro si svegliano;they are getting up;Italian not tagged;English tagged low
+noi ci riposiamo;we rest;Italian not tagged;English not tagged
+io mi preparo;I am getting ready;Italian not tagged;English not tagged
+abito;I live;Italian not tagged;English not tagged
+si addormenta;he falls asleep;Italian not tagged;English not tagged
+programmo;I plan;Italian not tagged;English not tagged
+restituisco;I give back;Italian not tagged;English not tagged
+che cosa mi consigli?;What do you (s) recommend?;Italian not tagged;English not tagged
+scio;I ski;Italian not tagged;English not tagged
+sciano;they ski;Italian not tagged;English not tagged
+Come ti senti?;How do you feel?;Italian not tagged;English not tagged
+sognate;you (p) dream;Italian not tagged;English not tagged
+manda;He sends;Italian not tagged;English not tagged
+prova questo gelato;try this ice cream;Italian not tagged;English not tagged

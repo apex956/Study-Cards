@@ -17,9 +17,9 @@
         "ID": "1003",
         "title": "Verbs",
         "no_of_terms": 312,
-        "cnf_front_side": 1,
-        "filter": 0,
-        "card_order": 11,
+        "cnf_front_side": 0,
+        "filter": 5,
+        "card_order": 22,
         "last_card": 0,
         "untagged_filter_list_size": 218,
         "high_filter_list_size": 61,
@@ -81,6 +81,34 @@
         "high_filter_list_size": 2,
         "med_filter_list_size": 0,
         "low_filter_list_size": 2,
+        "gen_filter_list_size": 0
+    },
+    {
+        "ID": "1007",
+        "title": "Conjugation of Regular Verbs",
+        "no_of_terms": 100,
+        "cnf_front_side": 1,
+        "filter": 5,
+        "card_order": 22,
+        "last_card": 0,
+        "untagged_filter_list_size": 100,
+        "high_filter_list_size": 0,
+        "med_filter_list_size": 0,
+        "low_filter_list_size": 0,
+        "gen_filter_list_size": 0
+    },
+    {
+        "ID": "1008",
+        "title": "Direct Object Pronouns",
+        "no_of_terms": 88,
+        "cnf_front_side": 0,
+        "filter": 0,
+        "card_order": 11,
+        "last_card": 56,
+        "untagged_filter_list_size": 88,
+        "high_filter_list_size": 0,
+        "med_filter_list_size": 0,
+        "low_filter_list_size": 0,
         "gen_filter_list_size": 0
     }
 ]

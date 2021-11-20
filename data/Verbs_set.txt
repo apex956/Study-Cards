@@ -1,0 +1,312 @@
+accendere ;to turn on, to light a fire
+unire ;to merge, join, combine
+abituarsi ;to get used to
+esistere ;to exist
+dubitare ;to doubt
+sperare ;to hope (to do something)
+bere ;to drink
+Cadere ;to fall
+Chiedere ;to ask (1 of 2)
+domandare ;to ask (2 of 2)
+chiedersi ;to wonder
+Chiudere ;to close
+Conoscere ;to know, be familiar with a person or place, to meet (for the 1st time)
+Correre ;to run
+Credere ;to believe
+Decidere ;to decide
+Dipingere ;to paint
+Discutere ;to discuss, argue
+Leggere ;to read
+Nascondere ;to hide
+Perdere ;to lose, miss (i.e. the bus)
+Piangere ;to cry
+Prendere ;to take, get, have (a snack)
+Ricevere ;to receive
+Ridere ;to laugh
+Ripetere ;to repeat
+Rispondere ;to reply, to answer
+Rompere ;to break
+Scegliere ;to choose
+Scendere ;to go down, descend, get off (transportation)
+Scrivere ;to write
+Smettere ;to stop, quit (4 of 4)
+Sorridere ;to smile
+Spegnere ;to turn off, put out fire
+Spendere ;to spend money
+Spingere ;to push
+Succedere ;to happen, occur
+Vedere ;to see
+vedersi ;to see each other
+Vendere ;to sell
+Vincere ;to win
+Vivere ;to live
+abitare ;to live
+aiutare ;to help
+amare ;to love
+arrivare ;to arrive
+ascoltare ;to listen to
+aspettare ;to wait for
+attraversare ;to cross
+ballare ;to dance
+camminare ;to walk
+cantare ;to sing
+cercare ;to search for
+chiamare ;to call
+chiamarsi ;to call oneself, to be called
+comprare ;to buy, to purchase
+contare ;to count
+costare ;to cost
+cucinare ;to cook
+desiderare ;to wish for, desire
+dimenticare ;to forget
+disegnare ;to draw
+entrare ;to enter
+festeggiare ;to celebrate
+frequentare ;to attend
+giocare a ;to play (sport or game)
+guardare ;to watch, look at
+guidare ;to drive
+imparare ;to learn
+cominciare ;to start, to begin (1 of 3)
+incominciare ;to start, to begin (2 of 3)
+iniziare ;to start, to begin (3 of 3)
+insegnare ;to teach
+lasciare ;to leave behind, break up, (ex: to leave a tip)
+lavare ;to wash
+lavorare ;to work
+mangiare ;to eat
+odiare ;to hate
+ordinare ;to order, put in order
+pagare ;to pay
+parlare ;to speak, to talk
+parlarsi ;to talk to each other
+pensare ;to think
+portare ;to bring, carry
+ricordare ;to remember
+riposare ;to rest (1 of 2)
+riposarsi ;to rest (2 of 2)
+ritornare ;to return, go back (1 of 2)
+tornare ;to return, go back (1 of 2)
+saltare ;to jump, to skip (a meal)
+salutare ;to greet
+sciare ;to ski
+spiegare ;to explain
+studiare ;to study
+suonare ;to play (instrument)
+tagliare ;to cut
+tirare ;to throw, pull
+trovare ;to find
+viaggiare ;to travel
+visitare ;to visit
+volare ;to fly
+Aprire ;to open
+Capire ;to understand
+capirsi ;to understand each other
+Colpire ;to hit
+Coprire ;to cover
+Costruire ;to build
+Dormire ;to sleep
+Finire ;to finish
+Fuggire ;to escape
+mentire ;to lie
+Offrire ;to offer
+Partire ;to leave, depart
+Preferire ;to prefer
+Proibire ;to prohibit, forbid
+Pulire ;to clean
+Punire ;to punish
+Restituire ;to give back, return
+Salire ;to go up, to climb (stairs), get on (transport)
+Scoprire ;to discover
+Seguire ;to follow, to take a course or class
+Sentire ;to hear, feel
+Servire ;to serve
+Soffrire ;to suffer
+Spedire ;to send (1 of 2)
+mandare ;to send (2 of 2)
+Suggerire ;to suggest
+obbedire ;to obey
+avere fame ;to be hungry
+avere freddo ;to be cold
+avere sete ;to be thirsty
+avere caldo ;to be hot
+avere paura di ;to be afraid of
+avere sonno ;to be sleepy
+avere torto ;to be wrong
+avere ragione ;to be right, to be correct
+avere bisogno di ;to need
+avere voglia di ;to want, to feel like
+volere ;to want
+avere fretta ;to be in a hurry
+avere ... anni ;to be ... years old
+fare attenzione ;to pay attention
+fare il bagno ;to take a bath
+fare il biglietto ;to buy a ticket
+fare una domanda ;to ask a question
+fare i compiti ;to do homework
+fare la doccia ;to take a shower
+fare una foto ;to take a photo
+fare colazione ;to have breakfast
+fare un giro ;to take a ride or a walk
+fare una passeggiata ;to take a walk
+fare un picnic ;to have a picnic
+fare la professoressa ;to be a teacher (f)
+fare male ;to hurt
+fare una pausa ;to take a break
+fare un regalo ;to give a gift
+fare le spese ;to go shopping (1 of 2)
+fare compere ;to go shopping (2 of 2)
+fare la spesa ;to go grocery shopping
+fare sport ;to exercise
+fare la valigia ;to pack a suitcase
+fare un viaggio ;to take a trip
+dare del "tu" ;to address informally
+dare del "Lei" ;to address formally
+dare la mano ;to shake hands
+dare una mano ;to give a hand, to help
+stare attento ;to be careful, pay attention
+stare zitto ;to be quiet
+stare fermo ;to stay still
+andare via ;to go away, to leave
+andare ;to go
+andare a piedi ;to walk, to go on foot
+stare in piedi ;to stand
+andare in macchina ;to go by car, to drive
+andare in bici ;to go by bike
+fare ;to do, to make
+dare ;to give
+stare ;to stay, be
+potere ;to be able to, can, may
+dovere ;to have to, must
+sapere ;to know facts, how to do something
+uscire ;to go out, exit
+venire ;to come
+dire ;to say, to tell
+migliorare ;to improve
+incontrare ;to meet
+guadagnare ;to earn
+mettere ;to put, place, to wear
+provare ;to try, to taste, to try on, to prove
+noleggiare ;to rent (a car)
+dividere ;to share, divide
+aggregarsi ;to join
+addormentarsi ;to fall asleep, to go to sleep
+accettare ;to accept, to agree to
+temere ;to fear, to be afraid
+usare ;to use
+continuare ;to continue
+completare ;to complete
+nascere ;to be born
+diventare ;to become
+sembrare ;to seem
+consigliare ;to recommend, to advise
+morire ;to die
+rimanere ;to remain, stay (1 of 3)
+restare ;to stay, remain (2 of 3)
+piovere ;to rain
+litigare ;to quarrel, to fight verbally
+prepararsi ;to get ready
+tenere ;to keep, hold
+comprendere ;to comprehend, understand
+introdurre ;to introduce
+dipendere ;to depend
+sbagliare ;to make a mistake
+sbaliarsi ;to be wrong, to make a mistake
+considerare ;to consider
+cambiare ;to change, to exchange
+alzare ;to raise
+alzarsi ;to stand, get up
+invitare ;to invite
+evitare ;to avoid
+intendere ;to intend
+rivedere ;to review
+identificare ;to identify
+accomodarsi ;to sit down, to take a seat
+divertirsi ;to have fun, to enjoy oneself
+lavarsi ;to wash oneself
+preoccuparsi ;to worry
+vestirsi ;to get dressed
+tendere a ;to tend to
+rubare ;to steal
+bisognare ;to be necessary, to have to, must, need
+lamentarsi ;to complain
+tradurre ;to translate
+creare ;to create, to make
+fumare ;to smoke
+nuotare ;to swim
+dare un passaggio ;to give a ride
+parcheggiare ;to park (a car)
+raccontare ;to tell , to recount (story)
+venire a trovare ;to visit, to come to visit
+passare ;to pass, go by
+ringraziare ;to thank
+prenotare ;to make a reservation, to book
+supportare ;to support (1 of 2)
+sostenere ;to support (2 of 2)
+sostituire ;to substitute, replace
+combattere ;to fight
+piacere ;to like, to please
+controllare ;to control
+apparire ;to appear (ireg)
+girare ;to turn
+crescere ;to grow
+riparare ;to repair, to fix
+rimuovere ;to remove
+aggiungere ;to add
+partecipare ;to participate
+condividere ;to share
+sposare ;to marry
+permettere ;to permit, to allow
+essere d'accordo ;to agree
+possedere ;to own, possess
+annunciare ;to announce
+spostare ;to move
+spostarsi ;to move oneself
+opporre ;to oppose
+preparare ;to prepare, to make (food)
+rilassarsi ;to relax
+sentirsi ;to feel
+scalare ;to climb
+mancare ;to miss
+correggere ;to correct
+mantenere ;to maintain
+criticare ;to criticize
+scherzare ;to joke, to kid
+organizzare ;to organize, arrange
+assegnare ;to assign
+inspezionare ;to inspect
+indicare ;to indicate
+dedicare ;to dedicate
+superare ;to pass (exam)
+descrivere ;to describe
+ottenere ;to obtain
+mostrare ;to show, demonstrate
+sognare ;to dream
+programmare ;to plan
+svegliare ;to wake up
+svegliarsi ;to wake up
+eleggere ;to elect
+circolare ;to move around, to circulate
+situare ;to situate, place, locate
+praticare ;to practice
+fornire ;to provide
+acquistare ;to buy, to purchase
+essere in ritardo ;to be late
+andare a prendere ;to go get, to fetch
+riempire ;to fill
+prestare ;to lend
+affittare ;to rent (apartments, houses)
+rendere ;to return, to yield, to make
+sostare ;to stop, pause (1 of 4)
+fermare ;to stop (2 of 4)
+fermarsi ;to stop (3 of 4)
+esprimere ;to express
+sedersi ;to sit down
+uccidere ;to kill
+immaginare ;to imagine
+combinare ;to combine
+interrogare ;to question, interrogate
+curare ;to cure, treat
+significare ;to mean
+impiegare ;to use, to employ
+utilizzare ;to use, utilize

@@ -1,14 +1,14 @@
-accendere;to turn on, to light a fire;Italian not tagged;English tagged low
+accendere;to turn on, to light a fire;Italian not tagged;English not tagged
 unire;to merge, join, combine;Italian not tagged;English not tagged
 abituarsi;to get used to;Italian not tagged;English not tagged
 esistere;to exist;Italian not tagged;English not tagged
 dubitare;to doubt;Italian not tagged;English not tagged
 sperare;to hope (to do something);Italian not tagged;English not tagged
-bere;to drink;Italian not tagged;English tagged high
+bere;to drink;Italian not tagged;English not tagged
 Cadere;to fall;Italian not tagged;English not tagged
 Chiedere;to ask (1 of 2);Italian not tagged;English not tagged
 domandare;to ask (2 of 2);Italian not tagged;English not tagged
-chiedersi;to wonder;Italian not tagged;English tagged med
+chiedersi;to wonder;Italian not tagged;English not tagged
 Chiudere;to close;Italian not tagged;English not tagged
 Conoscere;to know, be familiar with a person or place, to meet (for the 1st time);Italian not tagged;English not tagged
 Correre;to run;Italian not tagged;English not tagged
@@ -20,7 +20,7 @@ Leggere;to read;Italian not tagged;English not tagged
 Nascondere;to hide;Italian not tagged;English not tagged
 Perdere;to lose, miss (i.e. the bus);Italian not tagged;English not tagged
 Piangere;to cry;Italian not tagged;English not tagged
-Prendere;to take, get, have (a snack);Italian not tagged;English tagged high
+Prendere;to take, get, have (a snack);Italian not tagged;English not tagged
 Ricevere;to receive;Italian not tagged;English not tagged
 Ridere;to laugh;Italian not tagged;English not tagged
 Ripetere;to repeat;Italian not tagged;English not tagged
@@ -28,9 +28,9 @@ Rispondere;to reply, to answer;Italian not tagged;English not tagged
 Rompere;to break;Italian not tagged;English not tagged
 Scegliere;to choose;Italian not tagged;English not tagged
 Scendere;to go down, descend, get off (transportation);Italian not tagged;English not tagged
-Scrivere;to write;Italian not tagged;English tagged high
+Scrivere;to write;Italian not tagged;English not tagged
 Smettere;to stop, quit (4 of 4);Italian not tagged;English not tagged
-Sorridere;to smile;Italian not tagged;English tagged high
+Sorridere;to smile;Italian not tagged;English not tagged
 Spegnere;to turn off, put out fire;Italian not tagged;English not tagged
 Spendere;to spend money;Italian not tagged;English not tagged
 Spingere;to push;Italian not tagged;English not tagged
@@ -40,13 +40,13 @@ vedersi;to see each other;Italian not tagged;English not tagged
 Vendere;to sell;Italian not tagged;English not tagged
 Vincere;to win;Italian not tagged;English not tagged
 Vivere;to live;Italian not tagged;English not tagged
-abitare;to live;Italian not tagged;English tagged med
+abitare;to live;Italian not tagged;English not tagged
 aiutare;to help;Italian not tagged;English not tagged
-amare;to love;Italian not tagged;English tagged high
-arrivare;to arrive;Italian not tagged;English tagged high
+amare;to love;Italian not tagged;English not tagged
+arrivare;to arrive;Italian not tagged;English not tagged
 ascoltare;to listen to;Italian not tagged;English not tagged
 aspettare;to wait for;Italian not tagged;English not tagged
-attraversare;to cross;Italian not tagged;English tagged high
+attraversare;to cross;Italian not tagged;English not tagged
 ballare;to dance;Italian not tagged;English not tagged
 camminare;to walk;Italian not tagged;English not tagged
 cantare;to sing;Italian not tagged;English not tagged
@@ -56,21 +56,21 @@ chiamarsi;to call oneself, to be called;Italian not tagged;English not tagged
 comprare;to buy, to purchase;Italian not tagged;English not tagged
 contare;to count;Italian not tagged;English not tagged
 costare;to cost;Italian not tagged;English not tagged
-cucinare;to cook;Italian not tagged;English tagged high
+cucinare;to cook;Italian not tagged;English not tagged
 desiderare;to wish for, desire;Italian not tagged;English not tagged
 dimenticare;to forget;Italian not tagged;English not tagged
 disegnare;to draw;Italian not tagged;English not tagged
-entrare;to enter;Italian not tagged;English tagged high
-festeggiare;to celebrate;Italian not tagged;English tagged med
-frequentare;to attend;Italian not tagged;English tagged low
+entrare;to enter;Italian not tagged;English not tagged
+festeggiare;to celebrate;Italian not tagged;English not tagged
+frequentare;to attend;Italian not tagged;English not tagged
 giocare a;to play (sport or game);Italian not tagged;English not tagged
-guardare;to watch, look at;Italian not tagged;English tagged high
+guardare;to watch, look at;Italian not tagged;English not tagged
 guidare;to drive;Italian not tagged;English not tagged
 imparare;to learn;Italian not tagged;English not tagged
 cominciare;to start, to begin (1 of 3);Italian not tagged;English not tagged
 incominciare;to start, to begin (2 of 3);Italian not tagged;English not tagged
-iniziare;to start, to begin (3 of 3);Italian not tagged;English tagged low
-insegnare;to teach;Italian not tagged;English tagged high
+iniziare;to start, to begin (3 of 3);Italian not tagged;English not tagged
+insegnare;to teach;Italian not tagged;English not tagged
 lasciare;to leave behind, break up, (ex: to leave a tip);Italian not tagged;English not tagged
 lavare;to wash;Italian not tagged;English not tagged
 lavorare;to work;Italian not tagged;English not tagged
@@ -82,65 +82,65 @@ parlare;to speak, to talk;Italian not tagged;English not tagged
 parlarsi;to talk to each other;Italian not tagged;English not tagged
 pensare;to think;Italian not tagged;English not tagged
 portare;to bring, carry;Italian not tagged;English not tagged
-ricordare;to remember;Italian not tagged;English not tagged
+ricordare;to remember;Italian tagged high;English not tagged
 riposare;to rest (1 of 2);Italian not tagged;English not tagged
 riposarsi;to rest (2 of 2);Italian not tagged;English not tagged
 ritornare;to return, go back (1 of 2);Italian not tagged;English not tagged
 tornare;to return, go back (1 of 2);Italian not tagged;English not tagged
 saltare;to jump, to skip (a meal);Italian not tagged;English not tagged
 salutare;to greet;Italian not tagged;English not tagged
-sciare;to ski;Italian not tagged;English tagged high
+sciare;to ski;Italian not tagged;English not tagged
 spiegare;to explain;Italian not tagged;English not tagged
 studiare;to study;Italian not tagged;English not tagged
 suonare;to play (instrument);Italian not tagged;English not tagged
-tagliare;to cut;Italian not tagged;English tagged med
+tagliare;to cut;Italian not tagged;English not tagged
 tirare;to throw, pull;Italian not tagged;English not tagged
-trovare;to find;Italian not tagged;English tagged high
+trovare;to find;Italian not tagged;English not tagged
 viaggiare;to travel;Italian not tagged;English not tagged
-visitare;to visit;Italian not tagged;English tagged high
-volare;to fly;Italian not tagged;English tagged high
+visitare;to visit;Italian not tagged;English not tagged
+volare;to fly;Italian not tagged;English not tagged
 Aprire;to open;Italian not tagged;English not tagged
 Capire;to understand;Italian not tagged;English not tagged
 capirsi;to understand each other;Italian not tagged;English not tagged
 Colpire;to hit;Italian not tagged;English not tagged
-Coprire;to cover;Italian not tagged;English tagged high
+Coprire;to cover;Italian not tagged;English not tagged
 Costruire;to build;Italian not tagged;English not tagged
 Dormire;to sleep;Italian not tagged;English not tagged
 Finire;to finish;Italian not tagged;English not tagged
-Fuggire;to escape;Italian not tagged;English tagged high
+Fuggire;to escape;Italian not tagged;English not tagged
 mentire;to lie;Italian not tagged;English not tagged
 Offrire;to offer;Italian not tagged;English not tagged
 Partire;to leave, depart;Italian not tagged;English not tagged
 Preferire;to prefer;Italian not tagged;English not tagged
-Proibire;to prohibit, forbid;Italian not tagged;English tagged high
+Proibire;to prohibit, forbid;Italian not tagged;English not tagged
 Pulire;to clean;Italian not tagged;English not tagged
 Punire;to punish;Italian not tagged;English not tagged
 Restituire;to give back, return;Italian not tagged;English not tagged
 Salire;to go up, to climb (stairs), get on (transport);Italian not tagged;English not tagged
 Scoprire;to discover;Italian not tagged;English not tagged
-Seguire;to follow, to take a course or class;Italian not tagged;English tagged high
+Seguire;to follow, to take a course or class;Italian not tagged;English not tagged
 Sentire;to hear, feel;Italian not tagged;English not tagged
 Servire;to serve;Italian not tagged;English not tagged
 Soffrire;to suffer;Italian not tagged;English not tagged
-Spedire;to send (1 of 2);Italian not tagged;English tagged med
+Spedire;to send (1 of 2);Italian not tagged;English not tagged
 mandare;to send (2 of 2);Italian not tagged;English not tagged
 Suggerire;to suggest;Italian not tagged;English not tagged
 obbedire;to obey;Italian not tagged;English not tagged
-avere fame;to be hungry;Italian not tagged;English tagged high
+avere fame;to be hungry;Italian not tagged;English not tagged
 avere freddo;to be cold;Italian not tagged;English not tagged
-avere sete;to be thirsty;Italian not tagged;English tagged high
+avere sete;to be thirsty;Italian not tagged;English not tagged
 avere caldo;to be hot;Italian not tagged;English not tagged
 avere paura di;to be afraid of;Italian not tagged;English not tagged
-avere sonno;to be sleepy;Italian not tagged;English tagged low
+avere sonno;to be sleepy;Italian not tagged;English not tagged
 avere torto;to be wrong;Italian not tagged;English not tagged
 avere ragione;to be right, to be correct;Italian not tagged;English not tagged
-avere bisogno di;to need;Italian not tagged;English tagged high
-avere voglia di;to want, to feel like;Italian not tagged;English tagged high
+avere bisogno di;to need;Italian not tagged;English not tagged
+avere voglia di;to want, to feel like;Italian not tagged;English not tagged
 volere;to want;Italian not tagged;English not tagged
 avere fretta;to be in a hurry;Italian not tagged;English not tagged
-avere ... anni;to be ... years old;Italian not tagged;English tagged high
+avere ... anni;to be ... years old;Italian not tagged;English not tagged
 fare attenzione;to pay attention;Italian not tagged;English not tagged
-fare il bagno;to take a bath;Italian not tagged;English tagged high
+fare il bagno;to take a bath;Italian not tagged;English not tagged
 fare il biglietto;to buy a ticket;Italian not tagged;English not tagged
 fare una domanda;to ask a question;Italian not tagged;English not tagged
 fare i compiti;to do homework;Italian not tagged;English not tagged
@@ -159,34 +159,34 @@ fare compere;to go shopping (2 of 2);Italian not tagged;English not tagged
 fare la spesa;to go grocery shopping;Italian not tagged;English not tagged
 fare sport;to exercise;Italian not tagged;English not tagged
 fare la valigia;to pack a suitcase;Italian not tagged;English not tagged
-fare un viaggio;to take a trip;Italian not tagged;English tagged med
+fare un viaggio;to take a trip;Italian not tagged;English not tagged
 dare del "tu";to address informally;Italian not tagged;English not tagged
-dare del "Lei";to address formally;Italian not tagged;English tagged low
+dare del "Lei";to address formally;Italian not tagged;English not tagged
 dare la mano;to shake hands;Italian not tagged;English not tagged
 dare una mano;to give a hand, to help;Italian not tagged;English not tagged
 stare attento;to be careful, pay attention;Italian not tagged;English not tagged
 stare zitto;to be quiet;Italian not tagged;English not tagged
-stare fermo;to stay still;Italian not tagged;English tagged med
+stare fermo;to stay still;Italian not tagged;English not tagged
 andare via;to go away, to leave;Italian not tagged;English not tagged
 andare;to go;Italian not tagged;English not tagged
 andare a piedi;to walk, to go on foot;Italian not tagged;English not tagged
 stare in piedi;to stand;Italian not tagged;English not tagged
-andare in macchina;to go by car, to drive;Italian not tagged;English tagged high
+andare in macchina;to go by car, to drive;Italian not tagged;English not tagged
 andare in bici;to go by bike;Italian not tagged;English not tagged
 fare;to do, to make;Italian not tagged;English not tagged
 dare;to give;Italian not tagged;English not tagged
-stare;to stay, be;Italian not tagged;English tagged high
+stare;to stay, be;Italian not tagged;English not tagged
 potere;to be able to, can, may;Italian not tagged;English not tagged
-dovere;to have to, must;Italian not tagged;English tagged high
-sapere;to know facts, how to do something;Italian not tagged;English tagged high
-uscire;to go out, exit;Italian not tagged;English tagged high
+dovere;to have to, must;Italian not tagged;English not tagged
+sapere;to know facts, how to do something;Italian not tagged;English not tagged
+uscire;to go out, exit;Italian not tagged;English not tagged
 venire;to come;Italian not tagged;English not tagged
 dire;to say, to tell;Italian not tagged;English not tagged
 migliorare;to improve;Italian not tagged;English not tagged
 incontrare;to meet;Italian not tagged;English not tagged
-guadagnare;to earn;Italian not tagged;English tagged high
+guadagnare;to earn;Italian not tagged;English not tagged
 mettere;to put, place, to wear;Italian not tagged;English not tagged
-provare;to try, to taste, to try on, to prove;Italian not tagged;English tagged high
+provare;to try, to taste, to try on, to prove;Italian not tagged;English not tagged
 noleggiare;to rent (a car);Italian not tagged;English not tagged
 dividere;to share, divide;Italian not tagged;English not tagged
 aggregarsi;to join;Italian not tagged;English not tagged
@@ -198,59 +198,59 @@ continuare;to continue;Italian not tagged;English not tagged
 completare;to complete;Italian not tagged;English not tagged
 nascere;to be born;Italian not tagged;English not tagged
 diventare;to become;Italian not tagged;English not tagged
-sembrare;to seem;Italian not tagged;English tagged med
+sembrare;to seem;Italian not tagged;English not tagged
 consigliare;to recommend, to advise;Italian not tagged;English not tagged
-morire;to die;Italian not tagged;English tagged high
+morire;to die;Italian not tagged;English not tagged
 rimanere;to remain, stay (1 of 3);Italian not tagged;English not tagged
 restare;to stay, remain (2 of 3);Italian not tagged;English not tagged
 piovere;to rain;Italian not tagged;English not tagged
 litigare;to quarrel, to fight verbally;Italian not tagged;English not tagged
 prepararsi;to get ready;Italian not tagged;English not tagged
-tenere;to keep, hold;Italian not tagged;English tagged high
+tenere;to keep, hold;Italian not tagged;English not tagged
 comprendere;to comprehend, understand;Italian not tagged;English not tagged
 introdurre;to introduce;Italian not tagged;English not tagged
 dipendere;to depend;Italian not tagged;English not tagged
 sbagliare;to make a mistake;Italian not tagged;English not tagged
 sbaliarsi;to be wrong, to make a mistake;Italian not tagged;English not tagged
 considerare;to consider;Italian not tagged;English not tagged
-cambiare;to change, to exchange;Italian not tagged;English tagged high
+cambiare;to change, to exchange;Italian not tagged;English not tagged
 alzare;to raise;Italian not tagged;English not tagged
-alzarsi;to stand, get up;Italian not tagged;English tagged med
-invitare;to invite;Italian not tagged;English tagged med
+alzarsi;to stand, get up;Italian not tagged;English not tagged
+invitare;to invite;Italian not tagged;English not tagged
 evitare;to avoid;Italian not tagged;English not tagged
 intendere;to intend;Italian not tagged;English not tagged
 rivedere;to review;Italian not tagged;English not tagged
 identificare;to identify;Italian not tagged;English not tagged
-accomodarsi;to sit down, to take a seat;Italian tagged low;English not tagged
+accomodarsi;to sit down, to take a seat;Italian not tagged;English not tagged
 divertirsi;to have fun, to enjoy oneself;Italian not tagged;English not tagged
-lavarsi;to wash oneself;Italian not tagged;English tagged high
+lavarsi;to wash oneself;Italian not tagged;English not tagged
 preoccuparsi;to worry;Italian not tagged;English not tagged
 vestirsi;to get dressed;Italian not tagged;English not tagged
 tendere a;to tend to;Italian not tagged;English not tagged
 rubare;to steal;Italian not tagged;English not tagged
 bisognare;to be necessary, to have to, must, need;Italian not tagged;English not tagged
-lamentarsi;to complain;Italian not tagged;English tagged low
+lamentarsi;to complain;Italian not tagged;English not tagged
 tradurre;to translate;Italian not tagged;English not tagged
 creare;to create, to make;Italian not tagged;English not tagged
-fumare;to smoke;Italian not tagged;English tagged high
+fumare;to smoke;Italian not tagged;English not tagged
 nuotare;to swim;Italian not tagged;English not tagged
-dare un passaggio;to give a ride;Italian not tagged;English tagged low
+dare un passaggio;to give a ride;Italian not tagged;English not tagged
 parcheggiare;to park (a car);Italian not tagged;English not tagged
 raccontare;to tell , to recount (story);Italian not tagged;English not tagged
-venire a trovare;to visit, to come to visit;Italian not tagged;English tagged low
-passare;to pass, go by;Italian not tagged;English tagged low
+venire a trovare;to visit, to come to visit;Italian not tagged;English not tagged
+passare;to pass, go by;Italian not tagged;English not tagged
 ringraziare;to thank;Italian not tagged;English not tagged
 prenotare;to make a reservation, to book;Italian not tagged;English not tagged
 supportare;to support (1 of 2);Italian not tagged;English not tagged
 sostenere;to support (2 of 2);Italian not tagged;English not tagged
-sostituire;to substitute, replace;Italian not tagged;English tagged low
+sostituire;to substitute, replace;Italian not tagged;English not tagged
 combattere;to fight;Italian not tagged;English not tagged
 piacere;to like, to please;Italian not tagged;English not tagged
-controllare;to control;Italian not tagged;English tagged low
+controllare;to control;Italian not tagged;English not tagged
 apparire;to appear (ireg);Italian not tagged;English not tagged
 girare;to turn;Italian not tagged;English not tagged
 crescere;to grow;Italian not tagged;English not tagged
-riparare;to repair, to fix;Italian not tagged;English tagged low
+riparare;to repair, to fix;Italian not tagged;English not tagged
 rimuovere;to remove;Italian not tagged;English not tagged
 aggiungere;to add;Italian not tagged;English not tagged
 partecipare;to participate;Italian not tagged;English not tagged
@@ -260,17 +260,17 @@ permettere;to permit, to allow;Italian not tagged;English not tagged
 essere d'accordo;to agree;Italian not tagged;English not tagged
 possedere;to own, possess;Italian not tagged;English not tagged
 annunciare;to announce;Italian not tagged;English not tagged
-spostare;to move;Italian not tagged;English tagged low
+spostare;to move;Italian not tagged;English not tagged
 spostarsi;to move oneself;Italian not tagged;English not tagged
 opporre;to oppose;Italian not tagged;English not tagged
-preparare;to prepare, to make (food);Italian not tagged;English tagged high
+preparare;to prepare, to make (food);Italian not tagged;English not tagged
 rilassarsi;to relax;Italian not tagged;English not tagged
 sentirsi;to feel;Italian not tagged;English not tagged
-scalare;to climb;Italian not tagged;English tagged med
+scalare;to climb;Italian not tagged;English not tagged
 mancare;to miss;Italian not tagged;English not tagged
 correggere;to correct;Italian not tagged;English not tagged
 mantenere;to maintain;Italian not tagged;English not tagged
-criticare;to criticize;Italian not tagged;English tagged med
+criticare;to criticize;Italian not tagged;English not tagged
 scherzare;to joke, to kid;Italian not tagged;English not tagged
 organizzare;to organize, arrange;Italian not tagged;English not tagged
 assegnare;to assign;Italian not tagged;English not tagged
@@ -281,19 +281,19 @@ superare;to pass (exam);Italian not tagged;English not tagged
 descrivere;to describe;Italian not tagged;English not tagged
 ottenere;to obtain;Italian not tagged;English not tagged
 mostrare;to show, demonstrate;Italian not tagged;English not tagged
-sognare;to dream;Italian not tagged;English tagged low
+sognare;to dream;Italian not tagged;English not tagged
 programmare;to plan;Italian not tagged;English not tagged
 svegliare;to wake up;Italian not tagged;English not tagged
 svegliarsi;to wake up;Italian not tagged;English not tagged
 eleggere;to elect;Italian not tagged;English not tagged
-circolare;to move around, to circulate;Italian not tagged;English tagged med
+circolare;to move around, to circulate;Italian not tagged;English not tagged
 situare;to situate, place, locate;Italian not tagged;English not tagged
-praticare;to practice;Italian not tagged;English not tagged
+praticare;to practice;Italian tagged high;English not tagged
 fornire;to provide;Italian not tagged;English not tagged
 acquistare;to buy, to purchase;Italian not tagged;English not tagged
 essere in ritardo;to be late;Italian not tagged;English not tagged
 andare a prendere;to go get, to fetch;Italian not tagged;English not tagged
-riempire;to fill;Italian not tagged;English tagged low
+riempire;to fill;Italian not tagged;English not tagged
 prestare;to lend;Italian not tagged;English not tagged
 affittare;to rent (apartments, houses);Italian not tagged;English not tagged
 rendere;to return, to yield, to make;Italian not tagged;English not tagged
@@ -301,12 +301,12 @@ sostare;to stop, pause (1 of 4);Italian not tagged;English not tagged
 fermare;to stop (2 of 4);Italian not tagged;English not tagged
 fermarsi;to stop (3 of 4);Italian not tagged;English not tagged
 esprimere;to express;Italian not tagged;English not tagged
-sedersi;to sit down;Italian not tagged;English tagged low
+sedersi;to sit down;Italian not tagged;English not tagged
 uccidere;to kill;Italian not tagged;English not tagged
-immaginare;to imagine;Italian not tagged;English tagged low
-combinare;to combine;Italian not tagged;English tagged med
+immaginare;to imagine;Italian not tagged;English not tagged
+combinare;to combine;Italian not tagged;English not tagged
 interrogare;to question, interrogate;Italian not tagged;English not tagged
-curare;to cure, treat;Italian not tagged;English tagged med
+curare;to cure, treat;Italian not tagged;English not tagged
 significare;to mean;Italian not tagged;English not tagged
 impiegare;to use, to employ;Italian not tagged;English not tagged
-utilizzare;to use, utilize;Italian not tagged;English tagged med
+utilizzare;to use, utilize;Italian not tagged;English not tagged
