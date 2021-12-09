@@ -410,8 +410,13 @@ class MainWin:
     def handle_card_location(self):
         """ If the filtered list has changed due to tagging then the location of the last card needs to change.
             For now, just reset to beginning.
+            For unfiltered list there is no need to reset the last card after tagging
         """
-        # Fix issue #42
+        #print("self._app.filtered_list_size", self._app.filtered_list_size)
+        #print("len(self._app.term_list)", len(self._app.term_list))
+        if self._app.filtered_list_size == len(self._app.term_list):
+            return
+
         if self._app.reset_cards_request:
             self._conf_frame.reset_cards()
             self._app.reset_cards_request = False
@@ -432,7 +437,7 @@ class SelectionFrame:
         print("select_frame is placed")
         self._select_frame = select_frame
 
-        new_study_set_frame = tk.LabelFrame(select_frame, text="Add a New Study Card Set", font="Helvetica 14", width=320,
+        new_study_set_frame = tk.LabelFrame(select_frame, text="Add a New Set of Study Cards", font="Helvetica 14", width=320,
                                             height=350, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         new_study_set_frame.place(relx=0.6, rely=0.05)
 
