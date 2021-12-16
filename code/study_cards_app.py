@@ -3,6 +3,7 @@ import tkinter as tk
 import tkinter.messagebox
 import pathlib
 import sys
+import re
 from fileinput import FileInput
 import json
 from configparser import ConfigParser
@@ -355,6 +356,56 @@ class StudyCardsApp:
         self.back_side = 1 - self.front_side
         self.filter_cards_val = 0
 
+    def check_for_duplicate_terms(self):
+        """
+        This function is used to check if a study set has duplicate terms
+        Check only within a single study set. Check only for Italian (for now)
+        The basic idea:
+        Create a new list that contains the stripped terms of the original list
+        For each of the terms in the new list compare to each of the following terms in that list
+        If a match is found, display the two lines.
+        There may be terms that have two entries because there are two meanings
+        so in this case duplicates are OK.
+        For now, run this function when a study set is selected.
+
+        """
+        skip_words_italian = ["il ", "la ", "le ", "lo ", "gli ", "l'", "i ", "un ", "una "]
+        terms = []
+
+        def strip_term(in_term):
+            """
+            This function changes the string to lower-case.
+            It remove non-essential characters such as ")"
+            It removes Italian words for "the" and "a" at the beginning of the term
+            It removes spaces
+            """
+            filtered_term_1 = in_term.lower()
+            filtered_term_2 = re.sub('[.,)(?!]', '', filtered_term_1)
+            filtered_term_3 = filtered_term_2
+            for skip_word in skip_words_italian:
+                if filtered_term_2.startswith(skip_word):
+                    filtered_term_3 = filtered_term_2[len(skip_word):]
+            filtered_term_4 = filtered_term_3.replace(" ", "")
+            return filtered_term_4
+
+        print("Checking for duplicates")
+
+        # Create a stripped list of terms
+        for line in self.term_list:
+            term = line[0]
+            terms.append(strip_term(term))
+
+        duplicates_found = False
+        for t_idx, term in enumerate(terms):
+            for c_idx, c_term in enumerate(terms[t_idx+1:]):
+                if term == c_term:
+                    print("Possible duplicate terms found:")
+                    print("line number", t_idx, self.term_list[t_idx][0])
+                    print("line number", t_idx+1+c_idx, self.term_list[t_idx+1+c_idx][0])
+                    duplicates_found = True
+        if duplicates_found is False:
+            print("No duplicate terms found")
+
 
 class MainWin:
     def __init__(self, window):
@@ -378,6 +429,7 @@ class MainWin:
     def init_continued(self):
         self._conf_frame = cfr.ConfFrame(self, self._window, self._app)
         self._prsnt_frame = prf.PresentationFrame(self, self._window, self._app)
+        self._app.check_for_duplicate_terms()
         return self._conf_frame
 
     def flash_cards_button_clicked(self):
@@ -430,18 +482,18 @@ class SelectionFrame:
         self._main_win = main_win
         self._root = root
 
-        title1_txt = "Study Card Sets"
+        title1_txt = "Study Sets"
         select_frame = tk.LabelFrame(root, text=title1_txt, font="Helvetica 14",
                                   width=900, height=600, bg="gray99", bd=1, relief=tk.SOLID)
         select_frame.place(relx=0.1, rely=0.1)
         print("select_frame is placed")
         self._select_frame = select_frame
 
-        new_study_set_frame = tk.LabelFrame(select_frame, text="Add a New Set of Study Cards", font="Helvetica 14", width=320,
+        new_study_set_frame = tk.LabelFrame(select_frame, text="Add a New Study Set", font="Helvetica 14", width=320,
                                             height=350, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         new_study_set_frame.place(relx=0.6, rely=0.05)
 
-        list_of_study_sets_frame = tk.LabelFrame(select_frame, text="Select a Study Card Set", font="Helvetica 14",
+        list_of_study_sets_frame = tk.LabelFrame(select_frame, text="Select a Study Set", font="Helvetica 14",
                                                  width=460,
                                                  height=470, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         list_of_study_sets_frame.place(relx=0.04, rely=0.05)
@@ -479,7 +531,7 @@ class SelectionFrame:
         self.f_name_entry = tk.Entry(new_study_set_frame, textvariable=self.f_name_var, font=('calibre', 12, 'normal'))
         self.f_name_entry.place(relx=0.35, rely=0.3)
 
-        tk.Button(list_of_study_sets_frame, text="Go to selected set", font=GuiTc.BUTTON_FONT,
+        tk.Button(list_of_study_sets_frame, text="Go to the selected study set", font=GuiTc.BUTTON_FONT,
                   command=self.go_to_selected_set_button_clicked).place(relx=0.2, rely=0.8)
 
         self.file_import_button = tk.Button(new_study_set_frame, text="Import the file",

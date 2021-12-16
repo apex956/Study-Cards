@@ -110,7 +110,6 @@ class ConfFrame:
         self.reset_cards()
         self.update_size_of_filtered_lists()
 
-
     def reset_cards(self):
         self._app.line_number = 0
 
