@@ -4,6 +4,6 @@ The Study Cards application provides a simple way to study subjects such as lang
 ## Status
 Work in progress
 ## Comments
-The repository includes examples of config.ini file, an import file for Italian vs. English language study, and the corresponding work file
+The repository includes examples of config.ini file, a few import files for Italian vs. English language study, and the corresponding work files
 ## Python Version
 3.9 or higher
