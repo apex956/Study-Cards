@@ -25,6 +25,7 @@ class PresentationFrame:
                                   value=Tag.NoTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
         tag_rad1.place(relx=0.1, rely=0.1)
+        tag_rad1.config(state=tk.DISABLED)
 
         tag_rad2 = tk.Radiobutton(tagging_frame, text=Tag.LowTag.rb_txt, variable=self.tagging_var,
                                   value=Tag.LowTag.val, command=self.item_tagging,
