@@ -6,7 +6,9 @@ class PresentationFrame:
     def __init__(self, main_win, window, app):
         self._app = app
         self._main_win = main_win
+        self._tag_was_changed = False
         self.card_text = []  # The text of both sides of the current card
+        self.max_length_of_tag_history = 5
 
         presentation_frame = tk.LabelFrame(window, text="Flashcards", font="Helvetica 14", width=900,
                                            height=600, bg="gray99",  bd=1, relief=tk.SOLID)
@@ -89,8 +91,15 @@ class PresentationFrame:
         if self._main_win.active_presentation_frame:
             self.back_button_clicked()
 
-    def item_tagging(self):
+    def item_tagging(self, tag_changed=True):
+        """
+        This method is called when a tag radio button is clicked or
+        when the Next button is clicked
+        Tagging history is updated and saved
+        It updates the tag and the history in the work file and in term_list[]
+        """
         app = self._app
+        self._tag_was_changed = True
 
         if app.front_side == 0:
             lang_idx = LnIdx.TERM1_IDX
@@ -100,12 +109,40 @@ class PresentationFrame:
             raise ValueError
 
         d_txt = Tag.tvdt_dir[self.tagging_var.get()]
+
+        # DEBUG CODE +++++++++
+        #old_tag_txt = app.term_list[app.act_ln][lang_idx + 2]
+        #old_tag_number = Tag.tdtv_dir[" ".join(app.term_list[app.act_ln][lang_idx + 2].split()[-2:])]
+        #new_tag_txt = app.terms[lang_idx] + " " + d_txt
+
+        new_tag_number = self.tagging_var.get()
+        tag_history = app.get_tag_dt_txt(line=app.act_ln, get_tag_history=True)
+        if len(tag_history) >= self.max_length_of_tag_history:
+            tag_history = tag_history[:-1]
+
+        # DEBUG CODE +++++++++
+        #print(f"Tag was changed from {old_tag_txt} [{old_tag_number}] to {new_tag_txt}[{new_tag_number}]")
+        #print(f"Tag history is {tag_history}")
+
+        addition_to_d_txt = "{" + str(new_tag_number) + tag_history + "}"
+        d_txt += addition_to_d_txt
+
         app.update_tag_in_w_file(app.act_ln, lang_idx, d_txt)  # use act_line
         app.term_list[app.act_ln][lang_idx+2] = app.terms[lang_idx]+" "+d_txt
-        app.reset_cards_request = True
+
+        if tag_changed:  # do not reset the cards if just the Next button was clicked
+            app.reset_cards_request = True
 
     def nxt_button_clicked(self):
+        """
+        Note: recording tag history only in the forward direction.
+        Presumably going backward is done only for checking
+        """
         nxt = True
+        self.tag_stability_score()
+        if not self._tag_was_changed:  # avoid calling the method again
+            self.item_tagging(False)
+        self._tag_was_changed = False
         self.nxt_back_button_clicked(nxt)
 
     def back_button_clicked(self):
@@ -164,6 +201,37 @@ class PresentationFrame:
         :param line: the current actual line
         :return: none
         """
-        data_text = self._app.get_tag_dt_txt(line)
+        data_text = self._app.get_tag_dt_txt(line=line, get_tag_history=False)
         val = Tag.tdtv_dir[data_text]
         self.tagging_var.set(val)
+
+    def tag_stability_score(self):
+        """
+        A somewhat arbitrary set of rules for stability scores
+        Toggling between the "good" and "minor" tags does not affect the stability score
+
+        """
+        tag_history = self._app.get_tag_dt_txt(line=self._app.act_ln, get_tag_history=True)
+        # remove "no tag" and replace "minor" with "good"
+        tag_history1 = tag_history.replace("0", "")
+        tag_history2 = tag_history1.replace("4", "3")
+        print("tag history", tag_history2)
+        if len(tag_history2) < 4:
+            outcome = "Undetermined stability score"
+        elif len(tag_history2) > self.max_length_of_tag_history:
+            outcome = "Error!"
+        else:
+            if len(tag_history2) == self.max_length_of_tag_history:
+                tag_history3 = tag_history2[:-1]  # never mind the oldest one
+            else:
+                tag_history3 = tag_history2
+            # if last 4 are the same
+            if tag_history3 == len(tag_history3)*tag_history3[0]:
+                outcome = "high stability score"
+            # if last 3 are the same
+            elif tag_history2[0] == tag_history2[1] and tag_history2[0] == tag_history2[2]:
+                outcome = "medium stability score"
+            else:
+                outcome = "low stability score"
+        print(outcome)
+        return outcome

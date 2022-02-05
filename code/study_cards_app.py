@@ -229,8 +229,12 @@ class StudyCardsApp:
         self.shuffled_list = list(range(len(self.term_list)))
         random.shuffle(self.shuffled_list)
 
-    def get_tag_dt_txt(self, line):
-        """ Returns the tag value for a line of data and the shown side  """
+    def get_tag_dt_txt(self, line, get_tag_history):
+        """
+        For a line of data and the shown side returns either the tag value
+        or the tag history.
+        If history is requested but does not exist, it returns an empty string
+        """
         term_idx = self.front_side
         data_text1 = self.term_list[line][term_idx + 2]
         dbg_txt = self.term_list[line]
@@ -244,7 +248,20 @@ class StudyCardsApp:
             data_text = data_text1[pref_len:].rstrip()
         else:
             raise ValueError(dbg_txt)
-        return data_text
+
+        # parse the text to remove the tagging history
+        start_position = data_text.find("{")
+        end_position = data_text.find("}")
+        if start_position != -1:  # history info exists
+            data_text_f = data_text[:start_position]  # remove the history
+            if get_tag_history:
+                tag_history = data_text[start_position+1:end_position]
+                return tag_history
+        else:
+            data_text_f = data_text
+            if get_tag_history:
+                return ""
+        return data_text_f
 
     def set_act_line(self):
         """
@@ -388,7 +405,7 @@ class StudyCardsApp:
             filtered_term_4 = filtered_term_3.replace(" ", "")
             return filtered_term_4
 
-        print("Checking for duplicates")
+        print("Checking for duplicates in study set:", self.current_set_title)
 
         # Create a stripped list of terms
         for line in self.term_list:

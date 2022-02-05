@@ -140,17 +140,17 @@ class ConfFrame:
 
             if card_order == CrdOrdr.Alphabetical.val:
                 for m_idx in app.ab_sort_list:
-                    if app.get_tag_dt_txt(m_idx) == expected_tag_dt_txt:
+                    if app.get_tag_dt_txt(line=m_idx, get_tag_history=False) == expected_tag_dt_txt:
                         app.filtered_ab_sort_list.append(m_idx)
                 app.filtered_list_size = len(app.filtered_ab_sort_list)
             elif card_order == CrdOrdr.Random.val:
                 for m_idx in app.shuffled_list:
-                    if app.get_tag_dt_txt(m_idx) == expected_tag_dt_txt:
+                    if app.get_tag_dt_txt(line=m_idx, get_tag_history=False) == expected_tag_dt_txt:
                         app.filtered_shuffled_list.append(m_idx)
                 app.filtered_list_size = len(app.filtered_shuffled_list)
             elif card_order == CrdOrdr.Original.val:
                 for a_idx in range(len(app.term_list)):
-                    if app.get_tag_dt_txt(a_idx) == expected_tag_dt_txt:
+                    if app.get_tag_dt_txt(line=a_idx, get_tag_history=False) == expected_tag_dt_txt:
                         app.filtered_term_list.append(a_idx)
                 app.filtered_list_size = len(app.filtered_term_list)
             else:
