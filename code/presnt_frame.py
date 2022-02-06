@@ -177,7 +177,17 @@ class PresentationFrame:
 
             # loop forever
             if app.line_number > app.filtered_list_size - 1:
-                app.line_number = 0
+                msg = tk.Tk()
+                msg.withdraw()
+                msg_box = tk.messagebox.askquestion('', 'Start Over?')
+                if msg_box == 'yes':
+                    app.line_number = 0
+                    msg.destroy()
+                else:
+                    # consider going to config frame here
+                    msg.destroy()
+                    return
+
             elif app.line_number < 0:
                 app.line_number = app.filtered_list_size - 1
 
