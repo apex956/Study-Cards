@@ -179,12 +179,12 @@ class PresentationFrame:
             if app.line_number > app.filtered_list_size - 1:
                 msg = tk.Tk()
                 msg.withdraw()
-                msg_box = tk.messagebox.askquestion('', 'Start Over?')
-                if msg_box == 'yes':
+                msg_box = tk.messagebox.askyesnocancel('Flash Cards', 'Start Over?')
+                if msg_box:
                     app.line_number = 0
                     msg.destroy()
                 else:
-                    # consider going to config frame here
+                    app.line_number -= 1
                     msg.destroy()
                     return
 
