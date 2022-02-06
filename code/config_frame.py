@@ -158,27 +158,48 @@ class ConfFrame:
 
     def update_size_of_filtered_lists(self):
         """To be called only in the config frame"""
+
         self.create_filtered_index_lists(self._app, Fltr.UNTAGGED_FLTR[Fltr.VAL], CrdOrdr.Original.val)
         self._app.untagged_filter_list_size = self._app.filtered_list_size
         local_txt = Fltr.UNTAGGED_FLTR[Fltr.TXT] + " (" + str(self._app.untagged_filter_list_size) + " cards)"
         self.untagged_rb.config(text=local_txt)
+        if self._app.untagged_filter_list_size <= 0:
+            self.untagged_rb.config(state=tk.DISABLED)
+        else:
+            self.untagged_rb.config(state=tk.NORMAL)
 
         self.create_filtered_index_lists(self._app, Fltr.HIGH_FLTR[Fltr.VAL], CrdOrdr.Original.val)
         self._app.high_filter_list_size = self._app.filtered_list_size
         local_txt = Fltr.HIGH_FLTR[Fltr.TXT] + " (" + str(self._app.high_filter_list_size) + " cards)"
         self.high_fltr_rb.config(text=local_txt)
+        if self._app.high_filter_list_size <= 0:
+            self.high_fltr_rb.config(state=tk.DISABLED)
+        else:
+            self.high_fltr_rb.config(state=tk.NORMAL)
 
         self.create_filtered_index_lists(self._app, Fltr.MED_FLTR[Fltr.VAL], CrdOrdr.Original.val)
         self._app.med_filter_list_size = self._app.filtered_list_size
         local_txt = Fltr.MED_FLTR[Fltr.TXT] + " (" + str(self._app.med_filter_list_size) + " cards)"
         self.med_fltr_rb.config(text=local_txt)
+        if self._app.med_filter_list_size <= 0:
+            self.med_fltr_rb.config(state=tk.DISABLED)
+        else:
+            self.med_fltr_rb.config(state=tk.NORMAL)
 
         self.create_filtered_index_lists(self._app, Fltr.LOW_FLTR[Fltr.VAL], CrdOrdr.Original.val)
         self._app.low_filter_list_size = self._app.filtered_list_size
         local_txt = Fltr.LOW_FLTR[Fltr.TXT] + " (" + str(self._app.low_filter_list_size) + " cards)"
         self.low_fltr_rb.config(text=local_txt)
+        if self._app.low_filter_list_size <= 0:
+            self.low_fltr_rb.config(state=tk.DISABLED)
+        else:
+            self.low_fltr_rb.config(state=tk.NORMAL)
 
         self.create_filtered_index_lists(self._app, Fltr.GEN_FLTR[Fltr.VAL], CrdOrdr.Original.val)
         self._app.gen_filter_list_size = self._app.filtered_list_size
         local_txt = Fltr.GEN_FLTR[Fltr.TXT] + " (" + str(self._app.gen_filter_list_size) + " cards)"
         self.gen_fltr_rb.config(text=local_txt)
+        if self._app.gen_filter_list_size <= 0:
+            self.gen_fltr_rb.config(state=tk.DISABLED)
+        else:
+            self.gen_fltr_rb.config(state=tk.NORMAL)
