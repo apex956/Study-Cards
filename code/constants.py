@@ -72,9 +72,9 @@ class Fltr:
 class Tag:
     TagInfo = namedtuple("TagInfo", ["d_txt", "val", "rb_txt"])
     NoTag = TagInfo("not tagged", 0, "No tags")
-    LowTag = TagInfo("tagged low", 1, "No knowl.")
-    MedTag = TagInfo("tagged med", 2, "Med knowl.")
-    HighTag = TagInfo("tagged high", 3, "Good knowl.")
+    LowTag = TagInfo("tagged low", 1, "No knowl.(1)")
+    MedTag = TagInfo("tagged med", 2, "Med knowl.(2)")
+    HighTag = TagInfo("tagged high", 3, "Good knowl.(3)")
     GenTag = TagInfo("tagged minor", 4, "Minor issues")
 
     # value to data text dictionary

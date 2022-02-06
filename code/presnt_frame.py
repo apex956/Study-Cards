@@ -16,15 +16,19 @@ class PresentationFrame:
         self.presentation_frame_obj = presentation_frame
 
         tagging_frame = tk.LabelFrame(presentation_frame, text="Tagging", font="Helvetica 14", width=180,
-                                      height=300, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+                                      height=200, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         tagging_frame.place(relx=0.75, rely=0.2)
-        
+
+        consistency_frame = tk.LabelFrame(presentation_frame, text="Consistency", font="Helvetica 14", width=180,
+                                      height=100, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+        consistency_frame.place(relx=0.75, rely=0.55)
+
         self.tagging_var = tk.IntVar()
         
         tag_rad1 = tk.Radiobutton(tagging_frame, text=Tag.NoTag.rb_txt, variable=self.tagging_var,
                                   value=Tag.NoTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
-        tag_rad1.place(relx=0.1, rely=0.1)
+        tag_rad1.place(relx=0.1, rely=0.05)
         tag_rad1.config(state=tk.DISABLED)
 
         tag_rad2 = tk.Radiobutton(tagging_frame, text=Tag.LowTag.rb_txt, variable=self.tagging_var,
@@ -35,17 +39,17 @@ class PresentationFrame:
         tag_rad3 = tk.Radiobutton(tagging_frame, text=Tag.MedTag.rb_txt, variable=self.tagging_var,
                                   value=Tag.MedTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
-        tag_rad3.place(relx=0.1, rely=0.3)
+        tag_rad3.place(relx=0.1, rely=0.35)
 
         tag_rad4 = tk.Radiobutton(tagging_frame, text=Tag.HighTag.rb_txt, variable=self.tagging_var,
                                   value=Tag.HighTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
-        tag_rad4.place(relx=0.1, rely=0.4)
+        tag_rad4.place(relx=0.1, rely=0.5)
         
         tag_rad5 = tk.Radiobutton(tagging_frame, text=Tag.GenTag.rb_txt, variable=self.tagging_var,
                                   value=Tag.GenTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
-        tag_rad5.place(relx=0.1, rely=0.5)
+        tag_rad5.place(relx=0.1, rely=0.65)
         
         cards_frame = tk.LabelFrame(presentation_frame, text="Cards", font="Helvetica 14", width=600,
                                     height=300, bg=GuiTc.L2_FRAME_BG,  bd=1, relief=tk.SOLID)
@@ -70,6 +74,13 @@ class PresentationFrame:
         self.shown_l_word = tk.Label(cards_frame, font="Helvetica 18 ", justify=tk.CENTER,
                                      wraplength=450, width=39, height=9)
         self.shown_l_word.place(relx=0.045, rely=0.05)  # width and height in characters not pixels
+
+        self.label2 = tk.Label(consistency_frame, text="", font="Helvetica 14")
+        self.label2.place(relx=0.05, rely=0.1)
+
+        self.label3 = tk.Label(consistency_frame, text="", font="Helvetica 14")
+        self.label3.place(relx=0.05, rely=0.5)
+
 
         window.bind("<space>", self.space_bar_key)
         window.bind("<Right>", self.right_arrow_key)
@@ -140,7 +151,6 @@ class PresentationFrame:
         Presumably going backward is done only for checking
         """
         nxt = True
-        self.tag_stability_score()
         if not self._tag_was_changed:  # avoid calling the method again
             self.item_tagging(False)
         self._tag_was_changed = False
@@ -181,6 +191,11 @@ class PresentationFrame:
 
             label1_txt = "Card number " + str(app.line_number + 1) + " of " + \
                          str(app.filtered_list_size) + " cards" + txt_filter
+
+            consistency, tag_history = self.tag_stability_score()
+            self.label2.configure(text=consistency)
+            self.label3.configure(text=tag_history)
+
         self.label1.configure(text=label1_txt)
 
     def flip_button_clicked(self):
@@ -216,9 +231,8 @@ class PresentationFrame:
         # remove "no tag" and replace "minor" with "good"
         tag_history1 = tag_history.replace("0", "")
         tag_history2 = tag_history1.replace("4", "3")
-        print("tag history", tag_history2)
         if len(tag_history2) < 4:
-            outcome = "Undetermined stability score"
+            outcome = "Undetermined"
         elif len(tag_history2) > self.max_length_of_tag_history:
             outcome = "Error!"
         else:
@@ -228,11 +242,10 @@ class PresentationFrame:
                 tag_history3 = tag_history2
             # if last 4 are the same
             if tag_history3 == len(tag_history3)*tag_history3[0]:
-                outcome = "high stability score"
+                outcome = "High"
             # if last 3 are the same
             elif tag_history2[0] == tag_history2[1] and tag_history2[0] == tag_history2[2]:
-                outcome = "medium stability score"
+                outcome = "Medium"
             else:
-                outcome = "low stability score"
-        print(outcome)
-        return outcome
+                outcome = "Low"
+        return outcome, tag_history2
