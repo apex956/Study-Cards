@@ -44,12 +44,12 @@ class PresentationFrame:
         tag_rad4 = tk.Radiobutton(tagging_frame, text=Tag.HighTag.rb_txt, variable=self.tagging_var,
                                   value=Tag.HighTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
-        tag_rad4.place(relx=0.1, rely=0.53)
+        tag_rad4.place(relx=0.1, rely=0.54)
         
         tag_rad5 = tk.Radiobutton(tagging_frame, text=Tag.GenTag.rb_txt, variable=self.tagging_var,
                                   value=Tag.GenTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
-        tag_rad5.place(relx=0.1, rely=0.72)
+        tag_rad5.place(relx=0.1, rely=0.71)
         
         cards_frame = tk.LabelFrame(presentation_frame, text="Cards", font="Helvetica 14", width=600,
                                     height=300, bg=GuiTc.L2_FRAME_BG,  bd=1, relief=tk.SOLID)
