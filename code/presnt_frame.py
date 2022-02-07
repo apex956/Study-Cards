@@ -16,7 +16,7 @@ class PresentationFrame:
         self.presentation_frame_obj = presentation_frame
 
         tagging_frame = tk.LabelFrame(presentation_frame, text="Tagging", font="Helvetica 14", width=180,
-                                      height=200, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+                                      height=190, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         tagging_frame.place(relx=0.75, rely=0.2)
 
         consistency_frame = tk.LabelFrame(presentation_frame, text="Consistency", font="Helvetica 14", width=180,
@@ -28,7 +28,7 @@ class PresentationFrame:
         tag_rad1 = tk.Radiobutton(tagging_frame, text=Tag.NoTag.rb_txt, variable=self.tagging_var,
                                   value=Tag.NoTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
-        tag_rad1.place(relx=0.1, rely=0.05)
+        tag_rad1.place(relx=0.1, rely=0.03)
         tag_rad1.config(state=tk.DISABLED)
 
         tag_rad2 = tk.Radiobutton(tagging_frame, text=Tag.LowTag.rb_txt, variable=self.tagging_var,
@@ -39,17 +39,17 @@ class PresentationFrame:
         tag_rad3 = tk.Radiobutton(tagging_frame, text=Tag.MedTag.rb_txt, variable=self.tagging_var,
                                   value=Tag.MedTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
-        tag_rad3.place(relx=0.1, rely=0.35)
+        tag_rad3.place(relx=0.1, rely=0.37)
 
         tag_rad4 = tk.Radiobutton(tagging_frame, text=Tag.HighTag.rb_txt, variable=self.tagging_var,
                                   value=Tag.HighTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
-        tag_rad4.place(relx=0.1, rely=0.5)
+        tag_rad4.place(relx=0.1, rely=0.53)
         
         tag_rad5 = tk.Radiobutton(tagging_frame, text=Tag.GenTag.rb_txt, variable=self.tagging_var,
                                   value=Tag.GenTag.val, command=self.item_tagging,
                                   font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
-        tag_rad5.place(relx=0.1, rely=0.65)
+        tag_rad5.place(relx=0.1, rely=0.72)
         
         cards_frame = tk.LabelFrame(presentation_frame, text="Cards", font="Helvetica 14", width=600,
                                     height=300, bg=GuiTc.L2_FRAME_BG,  bd=1, relief=tk.SOLID)
@@ -64,7 +64,7 @@ class PresentationFrame:
         tk.Button(presentation_frame, text="Flip side", font=GuiTc.BUTTON_FONT,
                   command=self.flip_button_clicked).place(relx=0.5, rely=0.8)
 
-        tk.Button(presentation_frame, text="Go to Config", font=GuiTc.BUTTON_FONT,
+        tk.Button(presentation_frame, text="Go to config.", font=GuiTc.BUTTON_FONT,
                   command=main_win.config_button_clicked).place(relx=0.8, rely=0.8)
         
         # show the card number sequentially:

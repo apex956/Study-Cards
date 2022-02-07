@@ -31,7 +31,7 @@ class ConfFrame:
         self._filter_cards = tk.IntVar()
         self._filter_cards.set(app.filter_cards_val)
 
-        filter_cards_frame = tk.LabelFrame(config_frame, text="Show cards", font="Helvetica 14",
+        filter_cards_frame = tk.LabelFrame(config_frame, text="Show Cards", font="Helvetica 14",
                                            width=280, height=220, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         filter_cards_frame.place(relx=0.6, rely=0.05)
 
@@ -70,7 +70,7 @@ class ConfFrame:
                                           font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
         self.untagged_rb.place(relx=0.0, rely=0.8)
 
-        front_side_frame = tk.LabelFrame(config_frame, text="Cards front side", font="Helvetica 14",
+        front_side_frame = tk.LabelFrame(config_frame, text="Cards Front Side", font="Helvetica 14",
                                          width=170, height=120, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         front_side_frame.place(relx=0.1, rely=0.5)
 
@@ -86,10 +86,10 @@ class ConfFrame:
 
         self.lang1_var.set(self._app.front_side)
 
-        tk.Button(config_frame, text="Show Flashcards", font=GuiTc.BUTTON_FONT,
+        tk.Button(config_frame, text="Show flashcards", font=GuiTc.BUTTON_FONT,
                   command=main_win.flash_cards_button_clicked).place(relx=0.7, rely=0.8)
 
-        tk.Button(config_frame, text="Reset Flashcards", font=GuiTc.BUTTON_FONT,
+        tk.Button(config_frame, text="Reset flashcards", font=GuiTc.BUTTON_FONT,
                   command=self.reset_cards).place(relx=0.4, rely=0.8)
 
 
