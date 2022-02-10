@@ -405,7 +405,7 @@ class StudyCardsApp:
             filtered_term_4 = filtered_term_3.replace(" ", "")
             return filtered_term_4
 
-        print("Checking for duplicates in study set:", self.current_set_title)
+        #print("Checking for duplicates in study set:", self.current_set_title)
 
         # Create a stripped list of terms
         for line in self.term_list:
@@ -421,7 +421,8 @@ class StudyCardsApp:
                     print("line number", t_idx+1+c_idx, self.term_list[t_idx+1+c_idx][0])
                     duplicates_found = True
         if duplicates_found is False:
-            print("No duplicate terms found")
+            #print("No duplicate terms found")
+            pass
 
 
 class MainWin:
@@ -481,8 +482,6 @@ class MainWin:
             For now, just reset to beginning.
             For unfiltered list there is no need to reset the last card after tagging
         """
-        #print("self._app.filtered_list_size", self._app.filtered_list_size)
-        #print("len(self._app.term_list)", len(self._app.term_list))
         if self._app.filtered_list_size == len(self._app.term_list):
             return
 
@@ -501,9 +500,8 @@ class SelectionFrame:
 
         title1_txt = "Study Sets"
         select_frame = tk.LabelFrame(root, text=title1_txt, font="Helvetica 14",
-                                  width=900, height=600, bg="gray99", bd=1, relief=tk.SOLID)
+                                     width=900, height=600, bg="gray99", bd=1, relief=tk.SOLID)
         select_frame.place(relx=0.1, rely=0.1)
-        print("select_frame is placed")
         self._select_frame = select_frame
 
         new_study_set_frame = tk.LabelFrame(select_frame, text="Add a New Study Set", font="Helvetica 14", width=320,

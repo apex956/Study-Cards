@@ -15,13 +15,17 @@ class PresentationFrame:
 
         self.presentation_frame_obj = presentation_frame
 
-        tagging_frame = tk.LabelFrame(presentation_frame, text="Tagging", font="Helvetica 14", width=180,
+        tagging_frame = tk.LabelFrame(presentation_frame, text="Tagging", font="Helvetica 14", width=185,
                                       height=190, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
-        tagging_frame.place(relx=0.75, rely=0.2)
+        tagging_frame.place(relx=0.75, rely=0.15)
 
-        consistency_frame = tk.LabelFrame(presentation_frame, text="Consistency", font="Helvetica 14", width=180,
-                                      height=100, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
-        consistency_frame.place(relx=0.75, rely=0.55)
+        consistency_frame = tk.LabelFrame(presentation_frame, text="Consistency", font="Helvetica 14", width=185,
+                                      height=70, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+        consistency_frame.place(relx=0.75, rely=0.5)
+
+        history_frame = tk.LabelFrame(presentation_frame, text="Tagging History", font="Helvetica 14", width=185,
+                                      height=72, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+        history_frame.place(relx=0.75, rely=0.65)
 
         self.tagging_var = tk.IntVar()
         
@@ -52,34 +56,34 @@ class PresentationFrame:
         tag_rad5.place(relx=0.1, rely=0.71)
         
         cards_frame = tk.LabelFrame(presentation_frame, text="Cards", font="Helvetica 14", width=600,
-                                    height=300, bg=GuiTc.L2_FRAME_BG,  bd=1, relief=tk.SOLID)
-        cards_frame.place(relx=0.05, rely=0.2)
+                                    height=360, bg=GuiTc.L2_FRAME_BG,  bd=1, relief=tk.SOLID)
+        cards_frame.place(relx=0.05, rely=0.15)
 
         tk.Button(presentation_frame, text="Next card", font=GuiTc.BUTTON_FONT,
-                  command=self.nxt_button_clicked).place(relx=0.3, rely=0.8)
+                  command=self.nxt_button_clicked).place(relx=0.3, rely=0.85)
         
         tk.Button(presentation_frame, text="Previous card", font=GuiTc.BUTTON_FONT,
-                  command=self.back_button_clicked).place(relx=0.05, rely=0.8)
+                  command=self.back_button_clicked).place(relx=0.05, rely=0.85)
         
         tk.Button(presentation_frame, text="Flip side", font=GuiTc.BUTTON_FONT,
-                  command=self.flip_button_clicked).place(relx=0.5, rely=0.8)
+                  command=self.flip_button_clicked).place(relx=0.5, rely=0.85)
 
         tk.Button(presentation_frame, text="Go to config.", font=GuiTc.BUTTON_FONT,
-                  command=main_win.config_button_clicked).place(relx=0.8, rely=0.8)
+                  command=main_win.config_button_clicked).place(relx=0.8, rely=0.85)
         
         # show the card number sequentially:
         self.label1 = tk.Label(presentation_frame, text="", font="Helvetica 16")
-        self.label1.place(relx=0.05, rely=0.1)
+        self.label1.place(relx=0.05, rely=0.05)
         
         self.shown_l_word = tk.Label(cards_frame, font="Helvetica 18 ", justify=tk.CENTER,
-                                     wraplength=450, width=39, height=9)
+                                     wraplength=450, width=39, height=10)
         self.shown_l_word.place(relx=0.045, rely=0.05)  # width and height in characters not pixels
 
         self.label2 = tk.Label(consistency_frame, text="", font="Helvetica 14")
         self.label2.place(relx=0.05, rely=0.1)
 
-        self.label3 = tk.Label(consistency_frame, text="", font="Helvetica 14")
-        self.label3.place(relx=0.05, rely=0.5)
+        self.label3 = tk.Label(history_frame, text="", font="Helvetica 14")
+        self.label3.place(relx=0.05, rely=0.2)
 
 
         window.bind("<space>", self.space_bar_key)
@@ -258,4 +262,8 @@ class PresentationFrame:
                 outcome = "Medium"
             else:
                 outcome = "Low"
-        return outcome, tag_history2
+
+        tag_history_letters1 =tag_history2.replace("1", "N ")
+        tag_history_letters2 =tag_history_letters1.replace("2", "M ")
+        tag_history_letters3 =tag_history_letters2.replace("3", "G ")
+        return outcome, tag_history_letters3
