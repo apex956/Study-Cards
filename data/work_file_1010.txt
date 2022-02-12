@@ -1,0 +1,9 @@
+(il) Conoscere;to know;Italian not tagged;English not tagged
+Dormire;to sleep;Italian not tagged;English not tagged
+    conoscere;to know;Italian not tagged;English not tagged
+cominciare;to start, to begin (1 of 3);Italian not tagged;English not tagged
+incominciare;to start, to begin (2 of 3);Italian not tagged;English not tagged
+ Kuku tz;a;Italian not tagged;English not tagged
+kuku;b;Italian not tagged;English not tagged
+la te;rr;Italian not tagged;English not tagged
+ te;pp;Italian not tagged{0};English not tagged

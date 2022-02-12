@@ -1,81 +1,81 @@
-andare;to go;Italian not tagged;English tagged high
-vado;I go;Italian not tagged;English tagged high
-vai;you (s) go;Italian tagged high;English tagged high
-va;He goes;Italian not tagged;English tagged high
-andiamo;We go;Italian not tagged;English tagged high
-andate;You (p) go;Italian not tagged;English not tagged
+andare;to go;Italian tagged high{33};English not tagged
+vado;I go;Italian tagged high;English not tagged
+vai;you (s) go;Italian tagged low;English not tagged
+va;He goes;Italian tagged minor;English not tagged
+andiamo;We go;Italian tagged low{1};English not tagged
+andate;You (p) go;Italian tagged high{3};English not tagged
 vanno;They go;Italian not tagged;English not tagged
 fare;to do;Italian not tagged;English not tagged
-faccio;I do;Italian not tagged;English not tagged
+faccio;I do;Italian tagged high{3};English not tagged
 fai;you (s) do;Italian not tagged;English not tagged
 fa;she does;Italian not tagged;English not tagged
-facciamo;we do;Italian not tagged;English not tagged
+facciamo;we do;Italian tagged high{33};English not tagged
 fate;you (p) do;Italian not tagged;English not tagged
 fanno;they do;Italian not tagged;English not tagged
 potere;to be able , can, may;Italian not tagged;English not tagged
-posso;I can;Italian not tagged;English not tagged
-puoi;you (s) can;Italian not tagged;English not tagged
-puo;She can;Italian not tagged;English tagged high
-potete;you (p) can;Italian not tagged;English not tagged
-possiamo;we can;Italian not tagged;English not tagged
+posso;I can;Italian tagged high{3};English not tagged
+puoi;you (s) can;Italian not tagged{0};English not tagged
+puo;She can;Italian not tagged{0};English not tagged
+potete;you (p) can;Italian not tagged{0};English not tagged
+possiamo;we can;Italian tagged high{3};English not tagged
 possono;they can;Italian not tagged;English not tagged
-dovere;must / have to;Italian not tagged;English not tagged
+dovere;must / have to;Italian tagged low{1};English not tagged
 devo;I must;Italian not tagged;English not tagged
-devi;you (s) must;Italian not tagged;English not tagged
-deve;he must;Italian not tagged;English not tagged
-dobbiamo;we must;Italian not tagged;English not tagged
+devi;you (s) must;Italian tagged high{3};English not tagged
+deve;he must;Italian tagged low{11};English not tagged
+dobbiamo;we must;Italian tagged high{3};English not tagged
 dovete;you (p) must;Italian not tagged;English not tagged
-devono;they must;Italian not tagged;English not tagged
-dare;to give;Italian not tagged;English not tagged
-do;I give;Italian not tagged;English not tagged
-dai;you (s) give;Italian not tagged;English tagged high
-dà;she gives;Italian not tagged;English tagged high
+devono;they must;Italian not tagged{0};English not tagged
+dare;to give;Italian tagged high{33};English not tagged
+do;I give;Italian tagged low{10};English not tagged
+dai;you (s) give;Italian not tagged;English not tagged
+dà;she gives;Italian tagged high{3};English not tagged
 diamo;we give;Italian not tagged;English not tagged
 date;you (p) give;Italian not tagged;English not tagged
 danno;they give;Italian not tagged;English not tagged
-hai;you (s) have;Italian not tagged;English not tagged
+hai;you (s) have;Italian not tagged{0};English not tagged
 ha;he/she has;Italian not tagged;English not tagged
 abbiamo;we have;Italian not tagged;English not tagged
-avete;you (p) have;Italian not tagged;English not tagged
+avete;you (p) have;Italian not tagged{0};English not tagged
 hanno;they have;Italian not tagged;English not tagged
-dire;to say, to tell;Italian not tagged;English tagged high
+dire;to say, to tell;Italian tagged high{3};English not tagged
 dico;I say;Italian not tagged;English not tagged
 dici;you (s) say;Italian not tagged;English not tagged
 dice;he/she says;Italian not tagged;English not tagged
-diciamo;we say;Italian not tagged;English not tagged
+diciamo;we say;Italian tagged high{3};English not tagged
 dite;you (p) say;Italian not tagged;English not tagged
-dicono;they say;Italian not tagged;English not tagged
+dicono;they say;Italian tagged low{1};English not tagged
 sapere;to know;Italian not tagged;English not tagged
 so;I know;Italian not tagged;English not tagged
 sai;You (s) know;Italian not tagged;English not tagged
 sa;He/she knows;Italian not tagged;English not tagged
-sappiamo;We know;Italian not tagged;English not tagged
-sapete;You (p) know;Italian not tagged;English not tagged
-sanno;They know;Italian not tagged;English not tagged
-stare;To stay;Italian not tagged;English not tagged
+sappiamo;We know;Italian not tagged{0};English not tagged
+sapete;You (p) know;Italian tagged high{3};English not tagged
+sanno;They know;Italian tagged low{1};English not tagged
+stare;To stay;Italian tagged high{3};English not tagged
 sto;I stay;Italian not tagged;English not tagged
 stai;You (s) stay;Italian not tagged;English not tagged
-sta;He/she stays;Italian not tagged;English not tagged
+sta;He/she stays;Italian not tagged{0};English not tagged
 stiamo;We stay;Italian not tagged;English not tagged
 state;You (p) stay;Italian not tagged;English not tagged
 stanno;They stay;Italian not tagged;English not tagged
-bere;to drink;Italian not tagged;English not tagged
+bere;to drink;Italian tagged high{30};English not tagged
 bevo;I drink;Italian not tagged;English not tagged
 bevi;You (s) drink;Italian not tagged;English not tagged
-beve;He/She drinks;Italian not tagged;English not tagged
-beviamo;We drink;Italian not tagged;English not tagged
-bevete;You (p) drink;Italian not tagged;English not tagged
+beve;He/She drinks;Italian tagged high{3};English not tagged
+beviamo;We drink;Italian tagged high{3};English not tagged
+bevete;You (p) drink;Italian tagged high{3};English not tagged
 bevono;They drink;Italian not tagged;English not tagged
 avere;to have;Italian not tagged;English not tagged
 ho;I have;Italian not tagged;English not tagged
-essere;to be;Italian not tagged;English not tagged
-sono;I am;Italian not tagged;English not tagged
+essere;to be;Italian not tagged{0};English not tagged
+sono;I am;Italian tagged high{3};English not tagged
 sei;you (s) are;Italian not tagged;English not tagged
 è;he / she / it is;Italian not tagged;English not tagged
 siamo;we are;Italian not tagged;English not tagged
 siete;you (p) are;Italian not tagged;English not tagged
-sono;they are;Italian not tagged;English not tagged
-uscire;to go out;Italian not tagged;English not tagged
+sono;they are;Italian tagged low{11};English not tagged
+uscire;to go out;Italian tagged high{3};English not tagged
 esco;I go out;Italian not tagged;English not tagged
 esci;you (s) go out;Italian not tagged;English not tagged
 esce;he goes out;Italian not tagged;English not tagged
@@ -83,18 +83,18 @@ usciamo;we go out;Italian not tagged;English not tagged
 uscite;you (p) go out;Italian not tagged;English not tagged
 escono;they go out;Italian not tagged;English not tagged
 venire;to come;Italian not tagged;English not tagged
-vengo;I come;Italian not tagged;English tagged high
+vengo;I come;Italian not tagged{0};English not tagged
 vieni;you (s) come;Italian not tagged;English not tagged
 viene;he comes;Italian not tagged;English not tagged
-veniamo;we come;Italian not tagged;English not tagged
+veniamo;we come;Italian tagged high{33};English not tagged
 venite;you (p) come;Italian not tagged;English not tagged
 vengono;they come;Italian not tagged;English not tagged
-volere;to want;Italian not tagged;English not tagged
-voglio;I want;Italian not tagged;English not tagged
+volere;to want;Italian tagged high{3};English not tagged
+voglio;I want;Italian tagged high{3};English not tagged
 vuoi;you (s) want;Italian not tagged;English not tagged
 vuole;she wants;Italian not tagged;English not tagged
 vogliamo;we want;Italian not tagged;English not tagged
 volete;you (pl) want;Italian not tagged;English not tagged
-vogliono;they want;Italian not tagged;English tagged high
+vogliono;they want;Italian not tagged;English not tagged
 introdurre;to introduce, insert;Italian not tagged;English not tagged
-introduco;I introduce;Italian not tagged;English not tagged
+introduco;I introduce;Italian not tagged{0};English not tagged

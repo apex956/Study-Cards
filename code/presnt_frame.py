@@ -1,6 +1,6 @@
 import tkinter as tk
 from constants import Const, LnIdx, GuiTc, Tag, Fltr
-
+import logging
 
 class PresentationFrame:
     def __init__(self, main_win, window, app):

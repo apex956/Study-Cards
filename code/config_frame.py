@@ -1,5 +1,6 @@
 import tkinter as tk
 from constants import Const,GuiTc, CrdOrdr, Fltr, Tag
+import logging
 
 class ConfFrame:
     def __init__(self, main_win, window, app):

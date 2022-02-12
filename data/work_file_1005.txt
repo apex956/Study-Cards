@@ -1,74 +1,74 @@
-aggressivo;aggressive;Italian tagged high;English not tagged
-allegro;glad;Italian not tagged;English not tagged
-alto;tall;Italian not tagged;English not tagged
-altro;other;Italian not tagged;English not tagged
-americano;American;Italian not tagged;English not tagged
-antipatico;unfriendly;Italian not tagged;English not tagged
-anziano;old (of a person);Italian not tagged;English not tagged
-arancione;orange (color);Italian not tagged;English not tagged
-attivo;active;Italian not tagged;English not tagged
-azzurro;light blue;Italian not tagged;English not tagged
-basso;short (of a person);Italian not tagged;English not tagged
-bello;beautiful, great;Italian not tagged;English not tagged
-bianco;white;Italian not tagged;English not tagged
-biondo;blond;Italian not tagged;English not tagged
-brutto;ugly;Italian not tagged;English not tagged
-buono;good;Italian not tagged;English not tagged
-calmo;calm;Italian not tagged;English not tagged
-cattivo;bad;Italian not tagged;English not tagged
-peggio, peggiore;worse;Italian not tagged;English not tagged
-cinese;Chinese;Italian not tagged;English not tagged
-contento;satisfied, glad;Italian not tagged;English not tagged
-corto;short;Italian not tagged;English not tagged
-difficile;difficult;Italian not tagged;English not tagged
-disordinato;messy;Italian not tagged;English not tagged
-divertente;fun, enjoyable;Italian not tagged;English not tagged
-facile;easy;Italian not tagged;English not tagged
-felice;happy;Italian not tagged;English not tagged
-francese;French;Italian not tagged;English not tagged
-generoso;generous;Italian not tagged;English not tagged
-giallo;yellow;Italian not tagged;English not tagged
-giovane;young;Italian not tagged;English not tagged
-grande;big, great;Italian not tagged;English not tagged
-grasso;fat;Italian not tagged;English not tagged
-grigio;gray;Italian not tagged;English not tagged
-interessante;interesting;Italian not tagged;English not tagged
-irlandese;Irish;Italian not tagged;English not tagged
-italiano;Italian;Italian not tagged;English not tagged
-lungo;long;Italian not tagged;English not tagged
-magro;thin (of a person);Italian not tagged;English not tagged
-marrone;brown;Italian not tagged;English not tagged
-nero;black;Italian not tagged;English not tagged
-nervoso;nervous, irritable;Italian not tagged;English not tagged
-noioso;boring;Italian not tagged;English not tagged
-nuovo;new;Italian not tagged;English not tagged
-occupato;taken, busy, occupied;Italian not tagged;English not tagged
-ordinato;neat, tidy;Italian not tagged;English not tagged
-piccolo;small;Italian not tagged;English not tagged
-pigro;lazy;Italian not tagged;English not tagged
-povero;poor;Italian not tagged;English not tagged
-responsabile;responsible;Italian not tagged;English not tagged
-ricco;rich;Italian not tagged;English not tagged
-rilassato;relaxed;Italian not tagged;English not tagged
-rosa;pink;Italian not tagged;English not tagged
-rosso;red;Italian not tagged;English not tagged
-simpatico;friendly, nice;Italian not tagged;English not tagged
-socievole;friendly, sociable;Italian not tagged;English not tagged
-spagnolo;Spanish;Italian not tagged;English not tagged
-sportivo;athletic;Italian not tagged;English not tagged
-stesso;same;Italian not tagged;English not tagged
-tedesco;German;Italian not tagged;English not tagged
-triste;sad;Italian not tagged;English not tagged
-vecchio;old;Italian not tagged;English not tagged
-verde;green;Italian not tagged;English not tagged
-viola;purple;Italian not tagged;English not tagged
-avaro;stingy;Italian not tagged;English not tagged
-comodo;comfortable, convenient;Italian not tagged;English not tagged
-bravo;good, skilled;Italian not tagged;English not tagged
-migliore;best or better;Italian not tagged;English not tagged
-debole;weak;Italian not tagged;English not tagged
-forte;strong;Italian not tagged;English not tagged
-diverso;different;Italian not tagged;English not tagged
-Serio;serious;Italian not tagged;English not tagged
-pesante;heavy (also: boring);Italian not tagged;English not tagged
-blu;blue;Italian not tagged;English not tagged
+aggressivo;aggressive;Italian tagged high{33};English tagged high{3}
+allegro;glad;Italian tagged med{22};English tagged high{3}
+alto;tall;Italian tagged med{22};English tagged med{2}
+altro;other;Italian tagged high{33};English tagged med{2}
+americano;American;Italian tagged high{33};English tagged high{3}
+antipatico;unfriendly;Italian tagged high{330};English tagged high{3}
+anziano;old (of a person);Italian tagged high{33};English tagged low{1}
+arancione;orange (color);Italian tagged high{330};English tagged med{2}
+attivo;active;Italian tagged low{11};English tagged high{3}
+azzurro;light blue;Italian tagged high{33};English tagged high{3}
+basso;short (of a person);Italian tagged high{33};English tagged med{2}
+bello;beautiful, great;Italian tagged high{33};English tagged high{3}
+bianco;white;Italian tagged high{33};English tagged med{2}
+biondo;blond;Italian tagged high{33};English tagged high{3}
+brutto;ugly;Italian tagged high{33};English tagged high{3}
+buono;good;Italian tagged high{33};English tagged high{3}
+calmo;calm;Italian tagged high{33};English tagged high{3}
+cattivo;bad;Italian tagged med{22};English tagged med{2}
+peggio, peggiore;worse;Italian tagged low{11};English tagged low{1}
+cinese;Chinese;Italian tagged high{33};English tagged high{3}
+contento;satisfied, glad;Italian tagged high{33};English tagged low{1}
+corto;short;Italian tagged high{33};English tagged high{3}
+difficile;difficult;Italian tagged high{33};English tagged high{3}
+disordinato;messy;Italian tagged high{33};English tagged low{1}
+divertente;fun, enjoyable;Italian tagged high{33};English tagged med{2}
+facile;easy;Italian tagged high{33};English tagged high{3}
+felice;happy;Italian tagged high{33};English tagged low{1}
+francese;French;Italian tagged high{33};English tagged high{3}
+generoso;generous;Italian tagged high{33};English tagged high{3}
+giallo;yellow;Italian tagged high{33};English tagged high{3}
+giovane;young;Italian tagged high{330};English tagged med{2}
+grande;big, great;Italian tagged high{33};English tagged high{3}
+grasso;fat;Italian tagged low{13};English tagged med{2}
+grigio;gray;Italian tagged high{33};English tagged high{3}
+interessante;interesting;Italian tagged high{33};English tagged high{3}
+irlandese;Irish;Italian tagged high{33};English tagged high{3}
+italiano;Italian;Italian tagged high{33};English tagged high{3}
+lungo;long;Italian tagged high{33};English tagged high{3}
+magro;thin (of a person);Italian tagged high{33};English tagged high{3}
+marrone;brown;Italian tagged high{33};English tagged low{1}
+nero;black;Italian tagged high{33};English tagged high{3}
+nervoso;nervous, irritable;Italian tagged high{33};English tagged high{3}
+noioso;boring;Italian tagged med{231};English tagged med{2}
+nuovo;new;Italian tagged high{33};English tagged high{3}
+occupato;taken, busy, occupied;Italian tagged high{33};English tagged high{3}
+ordinato;neat, tidy;Italian tagged low{11};English tagged low{1}
+piccolo;small;Italian tagged high{33};English tagged high{3}
+pigro;lazy;Italian tagged high{33};English tagged high{3}
+povero;poor;Italian tagged high{33};English tagged high{3}
+responsabile;responsible;Italian tagged high{333};English tagged high{3}
+ricco;rich;Italian tagged high{33};English tagged high{3}
+rilassato;relaxed;Italian tagged high{33};English tagged med{2}
+rosa;pink;Italian tagged high{33};English tagged high{3}
+rosso;red;Italian tagged high{33};English tagged high{3}
+simpatico;friendly, nice;Italian tagged high{33};English tagged high{3}
+socievole;friendly, sociable;Italian tagged high{33};English tagged high{3}
+spagnolo;Spanish;Italian tagged high{33};English tagged high{3}
+sportivo;athletic;Italian tagged high{33};English tagged high{3}
+stesso;same;Italian tagged med{21};English tagged high{3}
+tedesco;German;Italian tagged high{33};English tagged high{3}
+triste;sad;Italian tagged high{33};English tagged low{1}
+vecchio;old;Italian tagged high{33};English tagged high{3}
+verde;green;Italian tagged high{33};English tagged high{3}
+viola;purple;Italian tagged high{33};English tagged low{1}
+avaro;stingy;Italian tagged low{11};English tagged low{1}
+comodo;comfortable, convenient;Italian tagged high{33};English tagged med{2}
+bravo;good, skilled;Italian tagged high{33};English tagged high{3}
+migliore;best or better;Italian tagged high{33};English tagged low{1}
+debole;weak;Italian tagged low{11};English tagged med{2}
+forte;strong;Italian tagged high{333};English tagged low{1}
+diverso;different;Italian tagged med{22};English tagged low{1}
+Serio;serious;Italian tagged high{33};English tagged med{2}
+pesante;heavy (also: boring);Italian tagged med{22};English tagged med{2}
+blu;blue;Italian tagged high{330};English tagged high{3}

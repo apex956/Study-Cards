@@ -1,39 +1,39 @@
-sono più alto di te;I am taller than you;Italian not tagged;English not tagged
-Ragazzi, cosa volete fare stasera? Ci dispiace ma stasera dobbiamo studiare italiano, non possiamo venire alla festa.;Guys, what do you want to do tonight? We are sorry but tonight we have to study Italian, we can't come to the party.;Italian not tagged;English not tagged
-Mi faresti un favore?;Would you do me a favor?;Italian not tagged;English not tagged
-tu sei meno alto di me;You are less tall than me;Italian not tagged;English not tagged
-sei troppo buono;you are too good;Italian not tagged;English not tagged
-Ho perso la mia penna;I have lost my pen;Italian not tagged;English not tagged
-Hanno rubato la mia automobile!;They have stolen my car!;Italian not tagged;English not tagged
-Un mio amico mi ha detto che...;A friend of mine told me that...;Italian not tagged;English not tagged
-Laura è mia sorella;Laura is my sister;Italian not tagged;English not tagged
-È colpa sua;It is his/her fault;Italian not tagged;English not tagged
-Oh dio mio!;Oh, my god!;Italian not tagged;English not tagged
-Vorresti andare a casa mia?;Would you like to come over to my house?;Italian not tagged;English not tagged
-Davide la lascia in ufficio;David leaves it in the office;Italian not tagged;English not tagged
-Gino, Lei è un bravo ingegnere. Marco, Lei è un bravo architetto. Insieme, voi sarete una gran bella squadra;Gino, you are a good engineer. Marco, you are a good architect. Together, you will make a very good team;Italian not tagged;English not tagged
-vorrei;I would like;Italian not tagged;English not tagged
-vorresti;you would like;Italian not tagged;English not tagged
-Davide è arrivato in ufficio;David has arrived at the office;Italian not tagged;English not tagged
-cosa;thing, matter, what;Italian not tagged;English not tagged
-Lo conosci?;Do you know him?;Italian not tagged;English not tagged
-Il tuo gatto si lava sul mio letto;Your cat cleans himself/itself on my bed;Italian not tagged;English not tagged
-Marco si è rotto il braccio;Marco has broken his arm;Italian not tagged;English not tagged
-In Italia si pranza intorno all'una;In Italy they eat lunch around 13;Italian not tagged;English not tagged
-In Italia si tende ad andare a letto tardi;In Italy, people tend to go to bed late;Italian not tagged;English not tagged
-Da questa finestra si vede la banca;From this window, one can see the bank;Italian not tagged;English not tagged
-Non si accettano carte di credito;Credit cards are not accepted;Italian not tagged;English not tagged
-Loro ci conoscono;They know us;Italian not tagged;English not tagged
-Ci amiamo;we love each other;Italian not tagged;English not tagged
-Lui ci ha detto questo;He said this to us;Italian not tagged;English not tagged
-Non ci credo;I do not believe it;Italian not tagged;English not tagged
-Ci sono andato;I have been there;Italian not tagged;English not tagged
-C'è un problema;there is a problem;Italian not tagged;English not tagged
-abituarci;to get used to it;Italian not tagged;English not tagged
-Ci siamo;here we are;Italian not tagged;English not tagged
-Ci sono molte cose da vedere.;There are many things to see;Italian not tagged;English not tagged
-sono le cinque meno un quarto;it is quarter to five;Italian not tagged;English not tagged
-meno male che oggi non sono andato a lavorare perché c'è stata una bufera di neve nel pomeriggio!;it's a good thing that I didn't go to work today because there was a snowstorm this afternoon!;Italian not tagged;English not tagged
+sono più alto di te;I am taller than you;Italian tagged high{3};English not tagged
+Ragazzi, cosa volete fare stasera? Ci dispiace ma stasera dobbiamo studiare italiano, non possiamo venire alla festa.;Guys, what do you want to do tonight? We are sorry but tonight we have to study Italian, we can't come to the party.;Italian tagged high{3};English not tagged
+Mi faresti un favore?;Would you do me a favor?;Italian tagged med{2};English not tagged
+tu sei meno alto di me;You are less tall than me;Italian tagged high{3};English not tagged
+sei troppo buono;you are too good;Italian tagged high{3};English not tagged
+Ho perso la mia penna;I have lost my pen;Italian tagged low{1};English not tagged
+Hanno rubato la mia automobile!;They have stolen my car!;Italian tagged high{3};English not tagged
+Un mio amico mi ha detto che...;A friend of mine told me that...;Italian tagged high{3};English not tagged
+Laura è mia sorella;Laura is my sister;Italian tagged low{1};English not tagged
+È colpa sua;It is his/her fault;Italian tagged high{3};English not tagged
+Oh dio mio!;Oh, my god!;Italian tagged high{3};English not tagged
+Vorresti andare a casa mia?;Would you like to come over to my house?;Italian tagged high{3};English not tagged
+Davide la lascia in ufficio;David leaves it in the office;Italian tagged low{1};English not tagged
+Gino, Lei è un bravo ingegnere. Marco, Lei è un bravo architetto. Insieme, voi sarete una gran bella squadra;Gino, you are a good engineer. Marco, you are a good architect. Together, you will make a very good team;Italian tagged med{20};English not tagged
+vorrei;I would like;Italian tagged low{1};English not tagged
+vorresti;you would like;Italian tagged low{1};English not tagged
+Davide è arrivato in ufficio;David has arrived at the office;Italian tagged high{3};English not tagged
+cosa;thing, matter, what;Italian tagged low{1};English not tagged
+Lo conosci?;Do you know him?;Italian tagged low{1};English not tagged
+Il tuo gatto si lava sul mio letto;Your cat cleans himself/itself on my bed;Italian tagged low{1};English not tagged
+Marco si è rotto il braccio;Marco has broken his arm;Italian tagged high{3};English not tagged
+In Italia si pranza intorno all'una;In Italy they eat lunch around 13;Italian tagged low{1};English not tagged
+In Italia si tende ad andare a letto tardi;In Italy, people tend to go to bed late;Italian tagged low{1};English not tagged
+Da questa finestra si vede la banca;From this window, one can see the bank;Italian tagged high{3};English not tagged
+Non si accettano carte di credito;Credit cards are not accepted;Italian tagged high{3};English not tagged
+Loro ci conoscono;They know us;Italian tagged low{1};English not tagged
+Ci amiamo;we love each other;Italian tagged low{1};English not tagged
+Lui ci ha detto questo;He said this to us;Italian tagged low{1};English not tagged
+Non ci credo;I do not believe it;Italian tagged low{1};English not tagged
+Ci sono andato;I have been there;Italian tagged low{1};English not tagged
+C'è un problema;there is a problem;Italian tagged high{34};English not tagged
+abituarci;to get used to it;Italian tagged low{1};English not tagged
+Ci siamo;here we are;Italian tagged low{1};English not tagged
+Ci sono molte cose da vedere.;There are many things to see;Italian tagged low{1};English not tagged
+sono le cinque meno un quarto;it is quarter to five;Italian tagged high{3};English not tagged
+meno male che oggi non sono andato a lavorare perché c'è stata una bufera di neve nel pomeriggio!;it's a good thing that I didn't go to work today because there was a snowstorm this afternoon!;Italian tagged low{1};English not tagged
 quel ragazzo;that boy;Italian not tagged;English not tagged
 questo bambino;this child;Italian not tagged;English not tagged
 il suo orologio;her watch;Italian not tagged;English not tagged

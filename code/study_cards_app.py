@@ -10,6 +10,7 @@ from configparser import ConfigParser
 import config_frame as cfr
 import presnt_frame as prf
 from constants import Const, PopUpType, LnIdx, GuiTc, CrdOrdr, Tag, Fltr
+import logging
 
 
 class StudyCardsApp:
@@ -49,6 +50,12 @@ class StudyCardsApp:
         self.id_list = None  # list of the IDs of all the study sets
 
         self.read_configuration_file()
+        logging.basicConfig(filename='events.log', level=logging.DEBUG,
+                            format='%(asctime)s %(message)s')
+        line = "============================================================"
+        logging.info(line)
+        logging.info("This is the beginning of a new run of the Study Cards application")
+        logging.info(line)
 
     def initialize_study_set(self):
         """
@@ -118,7 +125,7 @@ class StudyCardsApp:
         elif pu_type == PopUpType.INFO:
             tk.messagebox.showinfo(title=pu_title, message=txt)
         else:
-            print("Unexpected value of pu_type argument:", pu_type)
+            logging.error("Unexpected value of pu_type argument: %s", str(pu_type))
         msg.destroy()
 
     def import_term_file(self, in_f_path, in_f_name, w_file_name):
@@ -137,11 +144,10 @@ class StudyCardsApp:
         in_line_list = []  # list of lines read from the import file
         p_line = -1
         try:
-            #in_file_ref = open(in_file_path, "r")
             in_file_ref = open(in_file_path, "r", encoding="utf8")
         except OSError as e:
             wrn_txt = "Couldn't open a file to be imported"
-            print(e, wrn_txt)
+            logging.warning("%s "+wrn_txt, str(e))
             self.display_pop_up(PopUpType.WARNING, wrn_txt)
             return
         try:
@@ -154,7 +160,7 @@ class StudyCardsApp:
             warning_txt = "Found an unexpected separator character '" + Const.F_SEPARATOR + \
                           "' in line " + str(p_line) +\
                           " of the imported file. " + "The file was not imported."
-            print(warning_txt)
+            logging.warning(warning_txt)
             self.display_pop_up(PopUpType.WARNING, warning_txt)
             return
         finally:
@@ -163,15 +169,19 @@ class StudyCardsApp:
         w_file_path = pathlib.Path(Const.FILE_PATH+w_file_name)
         if w_file_path.is_file():
             # work file exists - add here the ability to merge with an imported file
-            print("Work file found. No file importing was performed")
+            txt1 = "Work file "+w_file_name + " was found"
+            txt2 = " No file importing was performed"
+            logging.info(txt1+txt2)
             return
         else:
-            print("Work file not found. Import is attempted")
+            txt = "Work file not found. Import is attempted"
+            logging.info(txt)
             try:
                 w_file_ref = open(w_file_path, "w")
             except OSError as e:
                 err_txt = "couldn't open the work file for writing. Exiting the application."
-                print(e, err_txt)
+                logging.error(str(e)+err_txt)
+
                 self.display_pop_up(PopUpType.ERROR, err_txt)
                 sys.exit()
 
@@ -180,18 +190,21 @@ class StudyCardsApp:
                              d_line[LnIdx.TERM2_IDX].strip() + Const.F_SEPARATOR +
                              self.term1 + " " + Tag.NoTag.d_txt + Const.F_SEPARATOR +
                              self.term2 + " " + Tag.NoTag.d_txt + "\n")
-        self.display_pop_up(PopUpType.INFO, "File was imported")
+        txt = "File was imported"
+        self.display_pop_up(PopUpType.INFO, txt)
+        logging.info(txt)
+
         w_file_ref.close()
 
     def read_work_file(self):
         # read the vocabulary list from the work-file
         try:
-            #w_fl_ref = open(Const.FILE_PATH+self.current_w_file, "r", encoding="utf8")
+            logging.info("Read work file: "+self.current_w_file)
             w_fl_ref = open(Const.FILE_PATH+self.current_w_file, "r")
 
         except OSError:
             disp_txt = "Couldn't open the work file. Exiting the application."
-            print(disp_txt)
+            logging.error(disp_txt)
             self.display_pop_up(PopUpType.ERROR, disp_txt)
             sys.exit()
 
@@ -200,7 +213,7 @@ class StudyCardsApp:
             line_content = r_line.split(Const.F_SEPARATOR)
             self.term_list.append(line_content)
 
-        print("The 1st line from the work file: ", self.term_list[0])
+        logging.info("The 1st line from the work file: " + str(self.term_list[0]))
         w_fl_ref.close()
 
     @staticmethod
