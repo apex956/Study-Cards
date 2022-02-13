@@ -50,8 +50,8 @@ class StudyCardsApp:
         self.id_list = None  # list of the IDs of all the study sets
 
         self.read_configuration_file()
-        logging.basicConfig(filename='events.log', level=logging.DEBUG,
-                            format='%(asctime)s %(message)s')
+        logging.basicConfig(filename='events.log', level=logging.INFO,
+                            format='%(asctime)s %(levelname)s: %(message)s')
         line = "============================================================"
         logging.info(line)
         logging.info("This is the beginning of a new run of the Study Cards application")
@@ -169,12 +169,14 @@ class StudyCardsApp:
         w_file_path = pathlib.Path(Const.FILE_PATH+w_file_name)
         if w_file_path.is_file():
             # work file exists - add here the ability to merge with an imported file
-            txt1 = "Work file "+w_file_name + " was found"
-            txt2 = " No file importing was performed"
-            logging.info(txt1+txt2)
+            txt1 = "The file "+w_file_name + " was found"
+            txt2 = "No file importing was performed"
+            logging.debug(txt1)
+            logging.debug(txt2)
+
             return
         else:
-            txt = "Work file not found. Import is attempted"
+            txt = "Work file was not found. Import is attempted"
             logging.info(txt)
             try:
                 w_file_ref = open(w_file_path, "w")
@@ -213,7 +215,7 @@ class StudyCardsApp:
             line_content = r_line.split(Const.F_SEPARATOR)
             self.term_list.append(line_content)
 
-        logging.info("The 1st line from the work file: " + str(self.term_list[0]))
+        logging.debug("The 1st line from the work file: " + str(self.term_list[0]))
         w_fl_ref.close()
 
     @staticmethod
@@ -345,7 +347,8 @@ class StudyCardsApp:
         sets_config_name = "sets_config.json"
         with open(sets_config_name, "w") as write_file:
             json.dump(self.state_of_study_sets, write_file, indent=4)
-        print("configuration saved to JSON")
+        txt = "study set configuration was saved to JSON file"
+        logging.debug(txt)
 
     def get_study_set_conf_from_file(self):
         sets_config_name = "sets_config.json"
@@ -354,7 +357,7 @@ class StudyCardsApp:
             sets_conf_struct = json.load(read_file)
         except Exception as e:
             wrn_txt = "Couldn't open and read JSON study-sets-configuration file. Using default values"
-            print(e, wrn_txt)
+            logging.warning(str(e) + wrn_txt)
             self.display_pop_up(PopUpType.WARNING, wrn_txt)
             self.use_s_set_default_conf()
             return
@@ -418,8 +421,7 @@ class StudyCardsApp:
             filtered_term_4 = filtered_term_3.replace(" ", "")
             return filtered_term_4
 
-        #print("Checking for duplicates in study set:", self.current_set_title)
-
+        logging.debug("Checking for duplicates in study set:" + self.current_set_title)
         # Create a stripped list of terms
         for line in self.term_list:
             term = line[0]
@@ -429,13 +431,13 @@ class StudyCardsApp:
         for t_idx, term in enumerate(terms):
             for c_idx, c_term in enumerate(terms[t_idx+1:]):
                 if term == c_term:
-                    print("Possible duplicate terms found:")
-                    print("line number", t_idx, self.term_list[t_idx][0])
-                    print("line number", t_idx+1+c_idx, self.term_list[t_idx+1+c_idx][0])
+                    logging.warning("Possible duplicate terms were found:")
+                    logging.warning("line number " + str(t_idx) + ": " + str(self.term_list[t_idx][0]) +
+                                    "  vs.  " + "line number " + str(t_idx + 1 + c_idx) +
+                                    ": " + str(self.term_list[t_idx + 1 + c_idx][0]))
                     duplicates_found = True
         if duplicates_found is False:
-            #print("No duplicate terms found")
-            pass
+            logging.debug("No duplicate terms found")
 
 
 class MainWin:
@@ -485,7 +487,7 @@ class MainWin:
 
     def on_close(self):
         self.handle_card_location()
-        print("Main Window is closing. Writing the configuration to JSON file")
+        logging.info("Main Window is closing. Writing the configuration to JSON file")
         if self._app.allow_to_save_the_state_of_study_sets:
             self._app.save_state_of_study_sets()
         self._window.destroy()
@@ -597,6 +599,7 @@ class SelectionFrame:
         conf_frame.update_size_of_filtered_lists()
         conf_frame.config_frame_obj.place(relx=0.1, rely=0.1)
         self._select_frame.place_forget()
+        logging.info("Study Set: %s " % self._app.current_set_title)
 
     def import_study_set(self):
         study_set_title = self.title_var.get()
@@ -610,7 +613,7 @@ class SelectionFrame:
             wrn_txt = ""
 
         if len(wrn_txt) > 0:
-            print(wrn_txt)
+            logging.warning(wrn_txt)
             self._app.display_pop_up(PopUpType.WARNING, wrn_txt)
             self.clear_entries()
             return
