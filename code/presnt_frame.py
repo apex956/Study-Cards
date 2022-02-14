@@ -1,6 +1,7 @@
 import tkinter as tk
 from constants import Const, LnIdx, GuiTc, Tag, Fltr
 import logging
+from inspect import currentframe, getframeinfo
 
 class PresentationFrame:
     def __init__(self, main_win, window, app):
@@ -138,7 +139,8 @@ class PresentationFrame:
 
         # DEBUG CODE +++++++++
         #print(f"Tag was changed from {old_tag_txt} [{old_tag_number}] to {new_tag_txt}[{new_tag_number}]")
-        #print(f"Tag history is {tag_history}")
+        dbg_module_line = " Module:" + __name__ + " Line:" + str(getframeinfo(currentframe()).lineno)
+        app.logger.debug("Tag history is:" + str(tag_history) + dbg_module_line)
 
         addition_to_d_txt = "{" + str(new_tag_number) + tag_history + "}"
         d_txt += addition_to_d_txt
@@ -267,3 +269,4 @@ class PresentationFrame:
         tag_history_letters2 =tag_history_letters1.replace("2", "M ")
         tag_history_letters3 =tag_history_letters2.replace("3", "G ")
         return outcome, tag_history_letters3
+

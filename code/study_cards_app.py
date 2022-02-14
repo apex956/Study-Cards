@@ -11,6 +11,7 @@ import config_frame as cfr
 import presnt_frame as prf
 from constants import Const, PopUpType, LnIdx, GuiTc, CrdOrdr, Tag, Fltr
 import logging
+import logging.handlers as handlers
 
 
 class StudyCardsApp:
@@ -50,12 +51,19 @@ class StudyCardsApp:
         self.id_list = None  # list of the IDs of all the study sets
 
         self.read_configuration_file()
-        logging.basicConfig(filename='events.log', level=logging.INFO,
-                            format='%(asctime)s %(levelname)s: %(message)s')
+
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
+        logHandler = handlers.RotatingFileHandler('study_cards_app.log', maxBytes=40000, backupCount=2)
+        logHandler.setLevel(logging.DEBUG)  # change the level to DEBUG to log debug messages
+        formatter1 = logging.Formatter('{asctime} {levelname} {message}', style='{')
+        logHandler.setFormatter(formatter1)
+        self.logger.addHandler(logHandler)
+
         line = "============================================================"
-        logging.info(line)
-        logging.info("This is the beginning of a new run of the Study Cards application")
-        logging.info(line)
+        self.logger.info(line)
+        self.logger.info("This is the beginning of a new run of the Study Cards application")
+        self.logger.info(line)
 
     def initialize_study_set(self):
         """
@@ -125,7 +133,7 @@ class StudyCardsApp:
         elif pu_type == PopUpType.INFO:
             tk.messagebox.showinfo(title=pu_title, message=txt)
         else:
-            logging.error("Unexpected value of pu_type argument: %s", str(pu_type))
+            self.logger.error("Unexpected value of pu_type argument: %s", str(pu_type))
         msg.destroy()
 
     def import_term_file(self, in_f_path, in_f_name, w_file_name):
@@ -147,7 +155,7 @@ class StudyCardsApp:
             in_file_ref = open(in_file_path, "r", encoding="utf8")
         except OSError as e:
             wrn_txt = "Couldn't open a file to be imported"
-            logging.warning("%s "+wrn_txt, str(e))
+            self.logger.warning("%s "+wrn_txt, str(e))
             self.display_pop_up(PopUpType.WARNING, wrn_txt)
             return
         try:
@@ -160,7 +168,7 @@ class StudyCardsApp:
             warning_txt = "Found an unexpected separator character '" + Const.F_SEPARATOR + \
                           "' in line " + str(p_line) +\
                           " of the imported file. " + "The file was not imported."
-            logging.warning(warning_txt)
+            self.logger.warning(warning_txt)
             self.display_pop_up(PopUpType.WARNING, warning_txt)
             return
         finally:
@@ -171,18 +179,18 @@ class StudyCardsApp:
             # work file exists - add here the ability to merge with an imported file
             txt1 = "The file "+w_file_name + " was found"
             txt2 = "No file importing was performed"
-            logging.debug(txt1)
-            logging.debug(txt2)
+            self.logger.debug(txt1)
+            self.logger.debug(txt2)
 
             return
         else:
             txt = "Work file was not found. Import is attempted"
-            logging.info(txt)
+            self.logger.info(txt)
             try:
                 w_file_ref = open(w_file_path, "w")
             except OSError as e:
                 err_txt = "couldn't open the work file for writing. Exiting the application."
-                logging.error(str(e)+err_txt)
+                self.logger.error(str(e)+err_txt)
 
                 self.display_pop_up(PopUpType.ERROR, err_txt)
                 sys.exit()
@@ -194,19 +202,19 @@ class StudyCardsApp:
                              self.term2 + " " + Tag.NoTag.d_txt + "\n")
         txt = "File was imported"
         self.display_pop_up(PopUpType.INFO, txt)
-        logging.info(txt)
+        self.logger.info(txt)
 
         w_file_ref.close()
 
     def read_work_file(self):
         # read the vocabulary list from the work-file
         try:
-            logging.info("Read work file: "+self.current_w_file)
+            self.logger.info("Read work file: "+self.current_w_file)
             w_fl_ref = open(Const.FILE_PATH+self.current_w_file, "r")
 
         except OSError:
             disp_txt = "Couldn't open the work file. Exiting the application."
-            logging.error(disp_txt)
+            self.logger.error(disp_txt)
             self.display_pop_up(PopUpType.ERROR, disp_txt)
             sys.exit()
 
@@ -215,7 +223,7 @@ class StudyCardsApp:
             line_content = r_line.split(Const.F_SEPARATOR)
             self.term_list.append(line_content)
 
-        logging.debug("The 1st line from the work file: " + str(self.term_list[0]))
+        self.logger.debug("The 1st line from the work file: " + str(self.term_list[0]))
         w_fl_ref.close()
 
     @staticmethod
@@ -348,7 +356,7 @@ class StudyCardsApp:
         with open(sets_config_name, "w") as write_file:
             json.dump(self.state_of_study_sets, write_file, indent=4)
         txt = "study set configuration was saved to JSON file"
-        logging.debug(txt)
+        self.logger.debug(txt)
 
     def get_study_set_conf_from_file(self):
         sets_config_name = "sets_config.json"
@@ -357,7 +365,7 @@ class StudyCardsApp:
             sets_conf_struct = json.load(read_file)
         except Exception as e:
             wrn_txt = "Couldn't open and read JSON study-sets-configuration file. Using default values"
-            logging.warning(str(e) + wrn_txt)
+            self.logger.warning(str(e) + wrn_txt)
             self.display_pop_up(PopUpType.WARNING, wrn_txt)
             self.use_s_set_default_conf()
             return
@@ -421,7 +429,7 @@ class StudyCardsApp:
             filtered_term_4 = filtered_term_3.replace(" ", "")
             return filtered_term_4
 
-        logging.debug("Checking for duplicates in study set:" + self.current_set_title)
+        self.logger.debug("Checking for duplicates in study set:" + self.current_set_title)
         # Create a stripped list of terms
         for line in self.term_list:
             term = line[0]
@@ -431,13 +439,13 @@ class StudyCardsApp:
         for t_idx, term in enumerate(terms):
             for c_idx, c_term in enumerate(terms[t_idx+1:]):
                 if term == c_term:
-                    logging.warning("Possible duplicate terms were found:")
-                    logging.warning("line number " + str(t_idx) + ": " + str(self.term_list[t_idx][0]) +
+                    self.logger.warning("Possible duplicate terms were found:")
+                    self.logger.warning("line number " + str(t_idx) + ": " + str(self.term_list[t_idx][0]) +
                                     "  vs.  " + "line number " + str(t_idx + 1 + c_idx) +
                                     ": " + str(self.term_list[t_idx + 1 + c_idx][0]))
                     duplicates_found = True
         if duplicates_found is False:
-            logging.debug("No duplicate terms found")
+            self.logger.debug("No duplicate terms found")
 
 
 class MainWin:
@@ -487,7 +495,9 @@ class MainWin:
 
     def on_close(self):
         self.handle_card_location()
-        logging.info("Main Window is closing. Writing the configuration to JSON file")
+        self._app.logger.info("Main Window is closing")
+        self._app.logger.debug("Writing the configuration to JSON file")
+
         if self._app.allow_to_save_the_state_of_study_sets:
             self._app.save_state_of_study_sets()
         self._window.destroy()
@@ -599,7 +609,7 @@ class SelectionFrame:
         conf_frame.update_size_of_filtered_lists()
         conf_frame.config_frame_obj.place(relx=0.1, rely=0.1)
         self._select_frame.place_forget()
-        logging.info("Study Set: %s " % self._app.current_set_title)
+        self._app.logger.info("Study Set: %s " % self._app.current_set_title)
 
     def import_study_set(self):
         study_set_title = self.title_var.get()
@@ -613,7 +623,7 @@ class SelectionFrame:
             wrn_txt = ""
 
         if len(wrn_txt) > 0:
-            logging.warning(wrn_txt)
+            app.logger.warning(wrn_txt)
             self._app.display_pop_up(PopUpType.WARNING, wrn_txt)
             self.clear_entries()
             return
