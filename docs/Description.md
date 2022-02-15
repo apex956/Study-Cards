@@ -1,4 +1,4 @@
-# Description of the Study-Cards application
+# Description of the Study-Cards Application
 
 ## General Structure
 The application has three frames: 
