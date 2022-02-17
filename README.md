@@ -7,3 +7,6 @@ Work in progress
 The repository includes examples of config.ini file, a few import files for Italian vs. English language study, and the corresponding work files
 ## Python Version
 3.9 or higher
+## Operating System
+Tested only on Windows 10
+
