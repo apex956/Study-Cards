@@ -3,6 +3,7 @@ import tkinter as tk
 import tkinter.messagebox
 import pathlib
 import sys
+import os
 import re
 from fileinput import FileInput
 import json
@@ -49,6 +50,7 @@ class StudyCardsApp:
         self.state_of_study_sets = []
         self.allow_to_save_the_state_of_study_sets = False
         self.id_list = None  # list of the IDs of all the study sets
+        self.pop_up_answer = None
 
         self.read_configuration_file()
 
@@ -113,10 +115,9 @@ class StudyCardsApp:
             self.study_set_conf_list.append(study_set_cnf_dir)
 
 
-    @staticmethod
-    def display_pop_up(pu_type, txt):
+    def display_pop_up(self, pu_type, txt):
         """
-        Function displays three types of pop-up messages without showing the root window.
+        Function displays several types of pop-up messages without showing the root window.
         The root window has to be destroyed each time.
         Function has side effect: the main window of the app created later goes to
         background. This problem is fixed with the command: window.attributes('-topmost', 'true')
@@ -132,6 +133,12 @@ class StudyCardsApp:
             tk.messagebox.showerror(title=pu_title, message=txt)
         elif pu_type == PopUpType.INFO:
             tk.messagebox.showinfo(title=pu_title, message=txt)
+        elif pu_type == PopUpType.QUESTION:
+            msg_box = tk.messagebox.askquestion(title=pu_title, message=txt)
+            if msg_box == 'yes':
+                self.pop_up_answer = True
+            else:
+                self.pop_up_answer = False
         else:
             self.logger.error("Unexpected value of pu_type argument: %s", str(pu_type))
         msg.destroy()
@@ -352,14 +359,14 @@ class StudyCardsApp:
                                              "low_filter_list_size": self.low_filter_list_size,
                                              "gen_filter_list_size": self.gen_filter_list_size
                                              })
-        sets_config_name = "sets_config.json"
+        sets_config_name = Const.JSON_F_NAME
         with open(sets_config_name, "w") as write_file:
             json.dump(self.state_of_study_sets, write_file, indent=4)
         txt = "study set configuration was saved to JSON file"
         self.logger.debug(txt)
 
     def get_study_set_conf_from_file(self):
-        sets_config_name = "sets_config.json"
+        sets_config_name = Const.JSON_F_NAME
         try:
             read_file = open(sets_config_name, "r")
             sets_conf_struct = json.load(read_file)
@@ -535,7 +542,7 @@ class SelectionFrame:
 
         list_of_study_sets_frame = tk.LabelFrame(select_frame, text="Select a Study Set", font="Helvetica 14",
                                                  width=460,
-                                                 height=470, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+                                                 height=400, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         list_of_study_sets_frame.place(relx=0.04, rely=0.05)
 
         self.list_of_study_sets = []
@@ -545,7 +552,7 @@ class SelectionFrame:
         lbox_var = tk.StringVar(value=self.list_of_study_sets)
         # tk.Label(list_of_study_sets_frame, text="List of Study Sets", font="Helvetica 14", bg="gray99").place(relx=0.2, rely=0.05)
 
-        self.listbox = tk.Listbox(list_of_study_sets_frame, listvariable=lbox_var, height=13, width=35,
+        self.listbox = tk.Listbox(list_of_study_sets_frame, listvariable=lbox_var, height=15, width=35,
                                   bg=GuiTc.L2_FRAME_BG, font=GuiTc.R_B_FONT, fg="gray20")
         self.listbox.select_set(0)
 
@@ -571,12 +578,16 @@ class SelectionFrame:
         self.f_name_entry = tk.Entry(new_study_set_frame, textvariable=self.f_name_var, font=('calibre', 12, 'normal'))
         self.f_name_entry.place(relx=0.35, rely=0.3)
 
-        tk.Button(list_of_study_sets_frame, text="Go to the selected study set", font=GuiTc.BUTTON_FONT,
-                  command=self.go_to_selected_set_button_clicked).place(relx=0.2, rely=0.8)
+        tk.Button(select_frame, text="Go to the selected study set", font=GuiTc.BUTTON_FONT,
+                  command=self.go_to_selected_set_button_clicked).place(relx=0.1, rely=0.85)
 
         self.file_import_button = tk.Button(new_study_set_frame, text="Import the file",
                                             font=GuiTc.BUTTON_FONT, command=self.import_study_set)
         self.file_import_button.place(relx=0.2, rely=0.8)
+
+        self.remove_button = tk.Button(select_frame, text="Remove the selected study set",
+                                            font=GuiTc.BUTTON_FONT, command=self.remove_study_set)
+        self.remove_button.place(relx=0.6, rely=0.85)
 
     def items_selected(self, event):
         self.selected_index = self.listbox.curselection()
@@ -611,6 +622,67 @@ class SelectionFrame:
         self._select_frame.place_forget()
         self._app.logger.info("Study Set: %s " % self._app.current_set_title)
 
+    def remove_study_set(self):
+        if self.item_selected:
+            index = self.selected_index[0]
+        else:
+            index = 0
+        s_set_cnf = self._app.study_set_conf_list[index]
+        s_set_id = s_set_cnf["study_set_id"]
+        s_set_title = s_set_cnf["study_set_title"]
+
+        self._app.display_pop_up(PopUpType.QUESTION, "Are you sure you want to remove the selected study set?")
+        if self._app.pop_up_answer is True:
+            self._app.logger.info("Remove Study Set: %s " % s_set_title)
+        else:
+            self._app.logger.debug("Do not remove the selected Study Set")
+            return
+        #print("ID to remove: ", s_set_id)
+        self._app.logger.debug("Removing Study Set ID: "+str(s_set_id))
+
+        # Remove the study-set from JSON file
+        self._app.current_set_id = s_set_id
+        self._app.get_study_set_conf_from_file()
+        found_in_json = False
+        for d_idx, s_set_conf in enumerate(self._app.state_of_study_sets):
+            if s_set_conf["ID"] == s_set_id:
+                #print("found record in JSON file")
+                self._app.state_of_study_sets.pop(d_idx)
+                with open(Const.JSON_F_NAME, "w") as write_file:
+                    json.dump(self._app.state_of_study_sets, write_file, indent=4)
+                self._app.get_study_set_conf_from_file()
+                found_in_json = True
+        if not found_in_json:
+            self._app.logger.debug("Did not find the record in the JSON file")
+            return
+
+        # Remove the study-set from config.ini file
+        self._app.read_configuration_file()
+        config_object = self._app.config_object
+        study_sets = config_object["STUDY_SETS_ID_LIST"]
+        id_list = study_sets["id_list"]
+        if id_list.startswith(str(s_set_id)):
+            id_list1 = id_list.replace(str(s_set_id)+",", "")
+        else:
+            id_list1 = id_list.replace("," + str(s_set_id), "")
+        config_object["STUDY_SETS_ID_LIST"] = {"id_list": id_list1}
+        config_object['STUDY_SET_' + str(s_set_id)] = {}
+        config_object.remove_section('STUDY_SET_' + str(s_set_id))
+        with open('config.ini', 'w') as configfile:
+            config_object.write(configfile)
+        self._app.logger.debug("Removed the study set from the config.ini file")
+
+        # Remove from listbox
+        self.listbox.delete(self.listbox.curselection())
+
+        # delete the study-set work-file
+        w_file_path = Const.FILE_PATH+"work_file_" + str(s_set_id) + ".txt"
+        if os.path.exists(w_file_path):
+            self._app.logger.debug("Removed the work file for the study set")
+            os.remove(w_file_path)
+        else:
+            self._app.logger.warning("The work file to be removed was not found")
+
     def import_study_set(self):
         study_set_title = self.title_var.get()
         import_file_name = self.f_name_var.get()
@@ -632,7 +704,7 @@ class SelectionFrame:
         new_set_id = None
         # find an available ID
         self._app.read_configuration_file()
-        for potential_new_id in range(1002, 1100):
+        for potential_new_id in range(1001, 1100):
             if str(potential_new_id) not in self._app.id_list:
                 new_set_id = potential_new_id
                 break

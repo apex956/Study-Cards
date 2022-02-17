@@ -7,6 +7,7 @@ from configparser import ConfigParser
 class Const:
     F_SEPARATOR = ";"  # field separator in import file and in work file
     FILE_PATH = os.path.join('..', 'data', '')  # a relative path in any OS
+    JSON_F_NAME = "sets_config.json"
 
 
 class GuiTc:
@@ -30,6 +31,7 @@ class PopUpType:
     INFO = "Info"
     WARNING = "Warning"
     ERROR = "Error"
+    QUESTION = "Question"
 
 
 class LnIdx:
