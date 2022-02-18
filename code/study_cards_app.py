@@ -106,13 +106,13 @@ class StudyCardsApp:
         # read config of multiple sets
         for s_set_id in self.id_list:
             study_set_cnf = self.config_object["STUDY_SET_"+s_set_id]
-            study_set_cnf_dir = {}
-            study_set_cnf_dir["study_set_id"] = s_set_id
-            study_set_cnf_dir["import_file_request"] = self.str_to_bool(study_set_cnf["import_file_request"])
-            study_set_cnf_dir["import_file_name"] = study_set_cnf["import_file_name"]
-            study_set_cnf_dir["study_set_title"] = study_set_cnf["study_set_title"]
-            study_set_cnf_dir["w_file"] = "work_file_" + s_set_id + ".txt"
-            self.study_set_conf_list.append(study_set_cnf_dir)
+            study_set_cnf_dic = {}
+            study_set_cnf_dic["study_set_id"] = s_set_id
+            study_set_cnf_dic["import_file_request"] = self.str_to_bool(study_set_cnf["import_file_request"])
+            study_set_cnf_dic["import_file_name"] = study_set_cnf["import_file_name"]
+            study_set_cnf_dic["study_set_title"] = study_set_cnf["study_set_title"]
+            study_set_cnf_dic["w_file"] = "work_file_" + s_set_id + ".txt"
+            self.study_set_conf_list.append(study_set_cnf_dic)
 
 
     def display_pop_up(self, pu_type, txt):
