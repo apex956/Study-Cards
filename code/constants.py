@@ -2,9 +2,11 @@ import os
 from enum import Enum, unique
 from collections import namedtuple
 from configparser import ConfigParser
+import logging
 
 
 class Const:
+    LOG_LEVEL = logging.DEBUG  # For production version change the level from DEBUG to INFO
     F_SEPARATOR = ";"  # field separator in import file and in work file
     FILE_PATH = os.path.join('..', 'data', '')  # a relative path in any OS
     JSON_F_NAME = "sets_config.json"

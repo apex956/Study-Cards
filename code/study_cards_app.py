@@ -56,11 +56,11 @@ class StudyCardsApp:
 
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
-        logHandler = handlers.RotatingFileHandler('study_cards_app.log', maxBytes=40000, backupCount=2)
-        logHandler.setLevel(logging.DEBUG)  # change the level to DEBUG to log debug messages
+        log_handler = handlers.RotatingFileHandler('study_cards_app.log', maxBytes=40000, backupCount=2)
+        log_handler.setLevel(Const.LOG_LEVEL)
         formatter1 = logging.Formatter('{asctime} {levelname} {message}', style='{')
-        logHandler.setFormatter(formatter1)
-        self.logger.addHandler(logHandler)
+        log_handler.setFormatter(formatter1)
+        self.logger.addHandler(log_handler)
 
         line = "============================================================"
         self.logger.info(line)
