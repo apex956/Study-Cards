@@ -86,14 +86,14 @@ class StudyCardsApp:
 
     def read_configuration_file(self):
         """
-        The function reads the configuration of all the study sets in the "config.ini" file
+        The function reads the configuration of all the study sets in the main config file
         The configuration of each study set is read into a dictionary.
         All these dictionaries are appended into a list
         :return: None
         """
         self.study_set_conf_list = []
         self.config_object = ConfigParser()
-        self.config_object.read("config.ini")
+        self.config_object.read(Const.CNF_INI_F_NAME)
 
         app_info = self.config_object["APP_INFO"]
         self.term1 = app_info["term1"]
@@ -631,6 +631,12 @@ class SelectionFrame:
         s_set_id = s_set_cnf["study_set_id"]
         s_set_title = s_set_cnf["study_set_title"]
 
+        listbox_size = self.listbox.size()
+        self._app.logger.debug("listbox size: " + str(listbox_size))
+        if listbox_size < 2:
+            self._app.display_pop_up(PopUpType.WARNING, "Cannot remove the last item from the list")
+            return
+
         self._app.display_pop_up(PopUpType.QUESTION, "Are you sure you want to remove the selected study set?")
         if self._app.pop_up_answer is True:
             self._app.logger.info("Remove Study Set: %s " % s_set_title)
@@ -653,8 +659,8 @@ class SelectionFrame:
                 self._app.get_study_set_conf_from_file()
                 found_in_json = True
         if not found_in_json:
-            self._app.logger.debug("Did not find the record in the JSON file")
-            return
+            self._app.logger.debug("Study-set removal: did not find the record in the JSON file")
+            #return
 
         # Remove the study-set from config.ini file
         self._app.read_configuration_file()
@@ -668,7 +674,7 @@ class SelectionFrame:
         config_object["STUDY_SETS_ID_LIST"] = {"id_list": id_list1}
         config_object['STUDY_SET_' + str(s_set_id)] = {}
         config_object.remove_section('STUDY_SET_' + str(s_set_id))
-        with open('config.ini', 'w') as configfile:
+        with open(Const.CNF_INI_F_NAME, 'w') as configfile:
             config_object.write(configfile)
         self._app.logger.debug("Removed the study set from the config.ini file")
 
@@ -695,7 +701,7 @@ class SelectionFrame:
             wrn_txt = ""
 
         if len(wrn_txt) > 0:
-            app.logger.warning(wrn_txt)
+            self._app.logger.warning(wrn_txt)
             self._app.display_pop_up(PopUpType.WARNING, wrn_txt)
             self.clear_entries()
             return
@@ -718,8 +724,11 @@ class SelectionFrame:
         config_object['STUDY_SET_'+str(new_set_id)] = {'study_set_title': study_set_title,
                                                        'import_file_name': import_file_name,
                                                        'import_file_request': 'True'}
-        with open('config.ini', 'w') as configfile:
+        with open(Const.CNF_INI_F_NAME, 'w') as configfile:
             config_object.write(configfile)
+        self._app.logger.info("The file: "+import_file_name + " was imported")
+        self._app.logger.debug("imported file " + import_file_name +
+                               " was written in " + Const.CNF_INI_F_NAME + " file")
 
         self._app.read_configuration_file()  # Should not be called twice. Refactor!
 

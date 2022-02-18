@@ -9,7 +9,8 @@ class Const:
     LOG_LEVEL = logging.DEBUG  # For production version change the level from DEBUG to INFO
     F_SEPARATOR = ";"  # field separator in import file and in work file
     FILE_PATH = os.path.join('..', 'data', '')  # a relative path in any OS
-    JSON_F_NAME = "sets_config.json"
+    JSON_F_NAME = "sets_config.json"  # Name of study sets JSON configuration file
+    CNF_INI_F_NAME = "config.ini"  # Name of the main configuration file
 
 
 class GuiTc:
