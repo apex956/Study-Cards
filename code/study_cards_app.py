@@ -596,8 +596,10 @@ class SelectionFrame:
     def go_to_selected_set_button_clicked(self):
         if self.item_selected:
             index = self.selected_index[0]
+            self.item_selected = False
         else:
             index = 0
+            self._app.logger.debug("No item was selected in the study set list. 1st study set was used")
 
         s_set_cnf = self._app.study_set_conf_list[index]
         self._app.current_w_file = s_set_cnf["w_file"]
@@ -625,8 +627,10 @@ class SelectionFrame:
     def remove_study_set(self):
         if self.item_selected:
             index = self.selected_index[0]
+            self.item_selected = False
         else:
-            index = 0
+            self._app.logger.debug("No item was selected for removal")
+            return
         s_set_cnf = self._app.study_set_conf_list[index]
         s_set_id = s_set_cnf["study_set_id"]
         s_set_title = s_set_cnf["study_set_title"]

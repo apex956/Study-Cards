@@ -1,0 +1,34 @@
+il bisnonno;the great grandfather;Italian not tagged;English not tagged
+famiglia;family;Italian tagged med{2};English not tagged
+il cognato;the brother-in-law;Italian not tagged;English not tagged
+il cugino/ la cugina;the cousin;Italian not tagged;English not tagged
+il figlio / la figlia;the son / daughter;Italian not tagged;English not tagged
+il fratello;the brother;Italian not tagged;English not tagged
+i genitori;the parents;Italian not tagged;English not tagged
+la mamma;the mom;Italian not tagged;English not tagged
+il marito;the husband;Italian not tagged;English not tagged
+la moglie;the wife;Italian not tagged;English not tagged
+il nipote;the nephew;Italian not tagged;English not tagged
+il nonno;the grandfather;Italian not tagged;English not tagged
+i parenti;the relatives;Italian not tagged;English not tagged
+la sorella;the sister;Italian not tagged;English not tagged
+lo zio;the uncle;Italian not tagged;English not tagged
+la zia;the aunt;Italian not tagged;English not tagged
+la bisnonna;the great grandmother;Italian not tagged;English not tagged
+la nipote;the niece;Italian not tagged;English not tagged
+la nipote;the granddaughter;Italian not tagged;English not tagged
+il nipote;the grandson;Italian not tagged;English not tagged
+la cognata;the sister-in-law;Italian not tagged;English not tagged
+la nonna;the grandmother;Italian not tagged;English not tagged
+genitore;parent;Italian not tagged;English not tagged
+i nonni;the grandparents;Italian not tagged;English not tagged
+il genero;the son-in-law;Italian not tagged;English not tagged
+la nuora;the daughter-in-law;Italian not tagged;English not tagged
+la madre;mother;Italian not tagged;English not tagged
+il padre;father;Italian not tagged;English not tagged
+il papà, il babbo;dad, daddy;Italian not tagged;English not tagged
+il padrino;the godfather;Italian not tagged;English not tagged
+suocero;father-in-law;Italian not tagged;English not tagged
+suocera;mother-in-law;Italian not tagged;English not tagged
+i gemelli;the twins;Italian not tagged;English not tagged
+generazione;generation;Italian not tagged;English not tagged

@@ -1,0 +1,6 @@
+Import files:
++++++++++++++++++
+Verbs_set.txt
+Time_set.txt
+adjectives.txt
+Greetings.txt
