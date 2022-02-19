@@ -660,7 +660,6 @@ class SelectionFrame:
                 found_in_json = True
         if not found_in_json:
             self._app.logger.debug("Study-set removal: did not find the record in the JSON file")
-            #return
 
         # Remove the study-set from config.ini file
         self._app.read_configuration_file()
@@ -679,7 +678,9 @@ class SelectionFrame:
         self._app.logger.debug("Removed the study set from the config.ini file")
 
         # Remove from listbox
+        self._app.logger.debug("Before removal from listbox "+"The 1st item in list: " + self.listbox.get(0))
         self.listbox.delete(self.listbox.curselection())
+        self._app.read_configuration_file()
 
         # delete the study-set work-file
         w_file_path = Const.FILE_PATH+"work_file_" + str(s_set_id) + ".txt"
@@ -690,8 +691,8 @@ class SelectionFrame:
             self._app.logger.warning("The work file to be removed was not found")
 
     def import_study_set(self):
-        study_set_title = self.title_var.get()
-        import_file_name = self.f_name_var.get()
+        study_set_title = self.title_var.get().rstrip()
+        import_file_name = self.f_name_var.get().rstrip()
         # Check valid title and file name
         if len(study_set_title.replace(' ', '')) < 3:
             wrn_txt = "Invalid study set title. Should be at least 3 characters"
