@@ -1,5 +1,5 @@
 il bisnonno;the great grandfather;Italian not tagged;English not tagged
-famiglia;family;Italian tagged med{2};English not tagged
+famiglia;family;Italian not tagged;English not tagged
 il cognato;the brother-in-law;Italian not tagged;English not tagged
 il cugino/ la cugina;the cousin;Italian not tagged;English not tagged
 il figlio / la figlia;the son / daughter;Italian not tagged;English not tagged

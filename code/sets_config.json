@@ -1,15 +1,15 @@
 [
     {
-        "ID": "1004",
-        "title": "Food",
-        "no_of_terms": 69,
-        "cnf_front_side": 1,
-        "filter": 0,
+        "ID": "1006",
+        "title": "Family",
+        "no_of_terms": 34,
+        "cnf_front_side": 0,
+        "filter": 5,
         "card_order": 11,
         "last_card": 0,
-        "untagged_filter_list_size": 69,
+        "untagged_filter_list_size": 33,
         "high_filter_list_size": 0,
-        "med_filter_list_size": 0,
+        "med_filter_list_size": 1,
         "low_filter_list_size": 0,
         "gen_filter_list_size": 0
     }
