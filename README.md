@@ -1,6 +1,6 @@
 # Study-Cards
 ## General Description
-The Study Cards application provides a simple way to study subjects such as languages using flash-cards. 
+The Study Cards application provides a simple way to study subjects such as languages using text flash-cards. 
 ## Status
 Work in progress
 ## Comments
