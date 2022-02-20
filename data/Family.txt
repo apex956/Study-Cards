@@ -31,4 +31,4 @@ il padrino ;the godfather
 suocero ;father-in-law
 suocera ;mother-in-law
 i gemelli ;the twins
-generazione ;generation
+generazione ;generation 
