@@ -80,7 +80,7 @@ class Tag:
     LowTag = TagInfo("tagged low", 1, "Poor (P)")
     MedTag = TagInfo("tagged med", 2, "Moderate (M)")
     HighTag = TagInfo("tagged high", 3, "Good (G)")
-    GenTag = TagInfo("tagged minor", 4, "Fairly good")
+    GenTag = TagInfo("tagged minor", 4, "Fairly good (F)")
 
     # value to data text dictionary
     tvdt_dir = {NoTag.val: NoTag.d_txt,

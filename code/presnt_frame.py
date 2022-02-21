@@ -9,7 +9,7 @@ class PresentationFrame:
         self._main_win = main_win
         self._tag_was_changed = False
         self.card_text = []  # The text of both sides of the current card
-        self.max_length_of_tag_history = 5
+        self.max_length_of_tag_history = 6
 
         presentation_frame = tk.LabelFrame(window, text="Flashcards", font="Helvetica 14", width=900,
                                            height=600, bg="gray99",  bd=1, relief=tk.SOLID)
@@ -240,33 +240,31 @@ class PresentationFrame:
     def tag_stability_score(self):
         """
         A somewhat arbitrary set of rules for stability scores
-        Toggling between the "good" and "minor" tags does not affect the stability score
-
         """
         tag_history = self._app.get_tag_dt_txt(line=self._app.act_ln, get_tag_history=True)
-        # remove "no tag" and replace "minor" with "good"
+        # remove "no tag" 
         tag_history1 = tag_history.replace("0", "")
-        tag_history2 = tag_history1.replace("4", "3")
-        if len(tag_history2) < 4:
+        if len(tag_history1) < 4:
             outcome = "Undetermined"
-        elif len(tag_history2) > self.max_length_of_tag_history:
+        elif len(tag_history1) > self.max_length_of_tag_history:
             outcome = "Error!"
         else:
-            if len(tag_history2) == self.max_length_of_tag_history:
-                tag_history3 = tag_history2[:-1]  # never mind the oldest one
+            if len(tag_history1) == self.max_length_of_tag_history:
+                tag_history3 = tag_history1[:-1]  # never mind the oldest one
             else:
-                tag_history3 = tag_history2
-            # if last 4 are the same
+                tag_history3 = tag_history1
+            # if last 5 are the same
             if tag_history3 == len(tag_history3)*tag_history3[0]:
                 outcome = "High"
-            # if last 3 are the same
-            elif tag_history2[0] == tag_history2[1] and tag_history2[0] == tag_history2[2]:
+            # if last 4 are the same
+            elif tag_history1[0] == tag_history1[1] and tag_history1[0] == tag_history1[2]:
                 outcome = "Medium"
             else:
                 outcome = "Low"
 
-        tag_history_letters1 =tag_history2.replace("1", "P ")
+        tag_history_letters1 =tag_history1.replace("1", "P ")
         tag_history_letters2 =tag_history_letters1.replace("2", "M ")
         tag_history_letters3 =tag_history_letters2.replace("3", "G ")
-        return outcome, tag_history_letters3
+        tag_history_letters4 =tag_history_letters3.replace("4", "F ")
+        return outcome, tag_history_letters4
 
