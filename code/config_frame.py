@@ -2,6 +2,7 @@ import tkinter as tk
 from constants import Const,GuiTc, CrdOrdr, Fltr, Tag
 import logging
 
+
 class ConfFrame:
     def __init__(self, main_win, window, app):
         self._app = app
@@ -16,7 +17,7 @@ class ConfFrame:
         self.card_order_v = tk.IntVar()
         self.card_order_v.set(app.card_order)  # set the default radio button
 
-        local_text = CrdOrdr.Alphabetical.txt + " (" +self._app.term1+")"
+        local_text = CrdOrdr.Alphabetical.txt + " (" + self._app.term1+")"
         tk.Radiobutton(card_order_frame, text=local_text, variable=self.card_order_v,
                        value=CrdOrdr.Alphabetical.val, command=self.update_card_order,
                        font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.1)
@@ -44,26 +45,26 @@ class ConfFrame:
         local_txt = Fltr.LOW_FLTR[Fltr.TXT] + " (" + str(self._app.low_filter_list_size) + " cards)"
         self.low_fltr_rb = tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
                        value=Fltr.LOW_FLTR[Fltr.VAL], command=self.update_filter,
-                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG, fg="red")
         self.low_fltr_rb.place(relx=0.0, rely=0.2)
 
         local_txt = Fltr.MED_FLTR[Fltr.TXT] + " (" + str(self._app.med_filter_list_size) + " cards)"
         self.med_fltr_rb = tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
                        value=Fltr.MED_FLTR[Fltr.VAL], command=self.update_filter,
-                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG, fg="orange")
         self.med_fltr_rb.place(relx=0.0, rely=0.35)
 
         local_txt = Fltr.HIGH_FLTR[Fltr.TXT] + " (" + str(self._app.high_filter_list_size) + " cards)"
         self.high_fltr_rb = tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
                        value=Fltr.HIGH_FLTR[Fltr.VAL], command=self.update_filter,
-                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
-        self.high_fltr_rb.place(relx=0.0, rely=0.5)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG, fg="green")
+        self.high_fltr_rb.place(relx=0.0, rely=0.65)
 
         local_txt = Fltr.GEN_FLTR[Fltr.TXT] + " (" + str(self._app.gen_filter_list_size) + " cards)"
         self.gen_fltr_rb = tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
                        value=Fltr.GEN_FLTR[Fltr.VAL], command=self.update_filter,
-                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG)
-        self.gen_fltr_rb.place(relx=0.0, rely=0.65)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG, fg="purple")
+        self.gen_fltr_rb.place(relx=0.0, rely=0.5)
 
         local_txt = Fltr.UNTAGGED_FLTR[Fltr.TXT] + " (" + str(self._app.untagged_filter_list_size) + " cards)"
         self.untagged_rb = tk.Radiobutton(filter_cards_frame, text=local_txt, variable=self._filter_cards,
@@ -87,12 +88,18 @@ class ConfFrame:
 
         self.lang1_var.set(self._app.front_side)
 
+        status_frame = tk.LabelFrame(config_frame, text="Tag Groups Relative Size", font="Helvetica 14",
+                                     width=280, height=100, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+        status_frame.place(relx=0.6, rely=0.5)
+
+        self.stat = tk.Canvas(status_frame, width=250, height=40)
+        self.stat.place(relx=0.05, rely=0.1)
+
         tk.Button(config_frame, text="Display flashcards", font=GuiTc.BUTTON_FONT,
                   command=main_win.flash_cards_button_clicked).place(relx=0.7, rely=0.8)
 
         tk.Button(config_frame, text="Reset flashcards", font=GuiTc.BUTTON_FONT,
                   command=self.reset_cards).place(relx=0.4, rely=0.8)
-
 
         tk.Button(config_frame, text="Back to set selection", font=GuiTc.BUTTON_FONT,
                   command=main_win.set_selection_button_clicked).place(relx=0.1, rely=0.8)
@@ -204,3 +211,41 @@ class ConfFrame:
             self.gen_fltr_rb.config(state=tk.DISABLED)
         else:
             self.gen_fltr_rb.config(state=tk.NORMAL)
+
+        self.update_status_frame()
+
+    def update_status_frame(self):
+        b1 = self._app.high_filter_list_size
+        b2 = self._app.gen_filter_list_size
+        b3 = self._app.med_filter_list_size
+        b4 = self._app.low_filter_list_size
+        #print(b1, b2, b3, b4)
+        b_total = b1 + b2 + b3 + b4
+        total_length_pixels = 250
+        block_start = 0
+        if b_total < 1:
+            block1_size = 1
+            block2_size = 1
+            block3_size = 1
+            block4_size = 1
+        else:
+            block1_size = int(b1 / b_total * total_length_pixels)
+            block2_size = int(b2 / b_total * total_length_pixels)
+            block3_size = int(b3 / b_total * total_length_pixels)
+            block4_size = int(b4 / b_total * total_length_pixels)
+        gap = 1
+        b1l = block_start
+        b1r = block_start + block1_size
+        b2l = b1r + gap
+        b2r = b2l + block2_size
+        b3l = b2r + gap
+        b3r = b3l + block3_size
+        b4l = b3r + gap
+        b4r = b4l + block4_size
+        self.stat.delete("all")
+        self.stat.create_rectangle(b1l, 10, b1r, 50, fill="green")
+        self.stat.create_rectangle(b2l, 10, b2r, 50, fill="purple")
+        self.stat.create_rectangle(b3l, 10, b3r, 50, fill="orange")
+        self.stat.create_rectangle(b4l, 10, b4r, 50, fill="red")
+
+
