@@ -69,7 +69,7 @@ class PresentationFrame:
         tk.Button(presentation_frame, text="Flip side", font=GuiTc.BUTTON_FONT,
                   command=self.flip_button_clicked).place(relx=0.5, rely=0.85)
 
-        tk.Button(presentation_frame, text="Go to config.", font=GuiTc.BUTTON_FONT,
+        tk.Button(presentation_frame, text="Back to config.", font=GuiTc.BUTTON_FONT,
                   command=main_win.config_button_clicked).place(relx=0.8, rely=0.85)
         
         # show the card number sequentially:
@@ -265,7 +265,7 @@ class PresentationFrame:
             else:
                 outcome = "Low"
 
-        tag_history_letters1 =tag_history2.replace("1", "N ")
+        tag_history_letters1 =tag_history2.replace("1", "P ")
         tag_history_letters2 =tag_history_letters1.replace("2", "M ")
         tag_history_letters3 =tag_history_letters2.replace("3", "G ")
         return outcome, tag_history_letters3
