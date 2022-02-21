@@ -48,11 +48,11 @@ class LnIdx:
 class Fltr:
     VAL = 0  # index for value in the tuples below
     TXT = 1  # index for radio button text in the tuples below
-    NO_FLTR = (0, "All")
-    LOW_FLTR = (1, "No knowl. tag")  # level of knowledge of studied terms
-    MED_FLTR = (2, "Medium knowl. tag")
-    HIGH_FLTR = (3, "Good knowl. tag")
-    GEN_FLTR = (4, "Minor issues tag")  # for example: spelling problems
+    NO_FLTR = (0, "All tags")
+    LOW_FLTR = (1, "Poor")  # level of knowledge of studied terms
+    MED_FLTR = (2, "Moderate")
+    HIGH_FLTR = (3, "Good")
+    GEN_FLTR = (4, "Fairly good")  # for example: spelling problems
     UNTAGGED_FLTR = (5, "Untagged")
 
     @classmethod
@@ -76,11 +76,11 @@ class Fltr:
 
 class Tag:
     TagInfo = namedtuple("TagInfo", ["d_txt", "val", "rb_txt"])
-    NoTag = TagInfo("not tagged", 0, "No tags")
-    LowTag = TagInfo("tagged low", 1, "No knowl.(N)")
-    MedTag = TagInfo("tagged med", 2, "Med knowl.(M)")
-    HighTag = TagInfo("tagged high", 3, "Good knowl.(G)")
-    GenTag = TagInfo("tagged minor", 4, "Minor issues")
+    NoTag = TagInfo("not tagged", 0, "No tag")
+    LowTag = TagInfo("tagged low", 1, "Poor (P)")
+    MedTag = TagInfo("tagged med", 2, "Moderate (M)")
+    HighTag = TagInfo("tagged high", 3, "Good (G)")
+    GenTag = TagInfo("tagged minor", 4, "Fairly good")
 
     # value to data text dictionary
     tvdt_dir = {NoTag.val: NoTag.d_txt,

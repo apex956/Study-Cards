@@ -32,7 +32,7 @@ class ConfFrame:
         self._filter_cards = tk.IntVar()
         self._filter_cards.set(app.filter_cards_val)
 
-        filter_cards_frame = tk.LabelFrame(config_frame, text="Show Cards", font="Helvetica 14",
+        filter_cards_frame = tk.LabelFrame(config_frame, text="Group by Knowledge Tags", font="Helvetica 14",
                                            width=280, height=220, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         filter_cards_frame.place(relx=0.6, rely=0.05)
 

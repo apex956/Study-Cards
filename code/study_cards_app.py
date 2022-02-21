@@ -536,7 +536,7 @@ class SelectionFrame:
         select_frame.place(relx=0.1, rely=0.1)
         self._select_frame = select_frame
 
-        new_study_set_frame = tk.LabelFrame(select_frame, text="Add a New Study Set", font="Helvetica 14", width=320,
+        new_study_set_frame = tk.LabelFrame(select_frame, text="Add a Study Set", font="Helvetica 14", width=320,
                                             height=350, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         new_study_set_frame.place(relx=0.6, rely=0.05)
 
@@ -578,14 +578,14 @@ class SelectionFrame:
         self.f_name_entry = tk.Entry(new_study_set_frame, textvariable=self.f_name_var, font=('calibre', 12, 'normal'))
         self.f_name_entry.place(relx=0.35, rely=0.3)
 
-        tk.Button(select_frame, text="Go to the selected study set", font=GuiTc.BUTTON_FONT,
+        tk.Button(select_frame, text="Go to the study set", font=GuiTc.BUTTON_FONT,
                   command=self.go_to_selected_set_button_clicked).place(relx=0.1, rely=0.85)
 
         self.file_import_button = tk.Button(new_study_set_frame, text="Import the file",
                                             font=GuiTc.BUTTON_FONT, command=self.import_study_set)
         self.file_import_button.place(relx=0.2, rely=0.8)
 
-        self.remove_button = tk.Button(select_frame, text="Remove the selected study set",
+        self.remove_button = tk.Button(select_frame, text="Remove the study set",
                                             font=GuiTc.BUTTON_FONT, command=self.remove_study_set)
         self.remove_button.place(relx=0.6, rely=0.85)
 

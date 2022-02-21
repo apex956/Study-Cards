@@ -16,15 +16,15 @@ class PresentationFrame:
 
         self.presentation_frame_obj = presentation_frame
 
-        tagging_frame = tk.LabelFrame(presentation_frame, text="Tagging", font="Helvetica 14", width=185,
+        tagging_frame = tk.LabelFrame(presentation_frame, text="Knowledge Tag", font="Helvetica 14", width=185,
                                       height=190, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         tagging_frame.place(relx=0.75, rely=0.15)
 
-        consistency_frame = tk.LabelFrame(presentation_frame, text="Consistency", font="Helvetica 14", width=185,
+        consistency_frame = tk.LabelFrame(presentation_frame, text="Tag Consistency", font="Helvetica 14", width=185,
                                       height=70, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         consistency_frame.place(relx=0.75, rely=0.5)
 
-        history_frame = tk.LabelFrame(presentation_frame, text="Tagging History", font="Helvetica 14", width=185,
+        history_frame = tk.LabelFrame(presentation_frame, text="Tag History", font="Helvetica 14", width=185,
                                       height=72, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         history_frame.place(relx=0.75, rely=0.65)
 
