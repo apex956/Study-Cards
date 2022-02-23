@@ -54,6 +54,7 @@ class Fltr:
     HIGH_FLTR = (3, "Good")
     GEN_FLTR = (4, "Fairly good")  # for example: spelling problems
     UNTAGGED_FLTR = (5, "Untagged")
+    SPACED = (6, "All tags - spaced repetition")
 
     @classmethod
     def filter_val_to_txt(cls, filter_val):
@@ -69,6 +70,8 @@ class Fltr:
             return cls.GEN_FLTR[cls.TXT]
         elif filter_val == cls.NO_FLTR[cls.VAL]:
             return cls.NO_FLTR[cls.TXT]
+        elif filter_val == cls.SPACED[cls.VAL]:
+            return cls.SPACED[cls.TXT]
         else:
             print("Filter not found!")
             raise ValueError
