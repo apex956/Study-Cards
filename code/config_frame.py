@@ -1,5 +1,5 @@
 import tkinter as tk
-from constants import Const,GuiTc, CrdOrdr, Fltr, Tag
+from constants import Const,GuiTc, CrdOrdr, Fltr, Tag, SpacedRepet
 import logging
 import random
 
@@ -260,17 +260,7 @@ class ConfFrame:
         self.stat.create_rectangle(b4l, 10, b4r, 50, fill="red")
 
     def filter_the_spaced_repetition_list(self, app, card_order):
-        percent_for_n = 100
-        percent_for_p = 90
-        percent_for_m = 50
-        percent_for_f = 33
-        percent_for_g = 25
-
-        counter_n = 0
-        counter_p = 0
-        counter_m = 0
-        counter_f = 0
-        counter_g = 0
+        counter_n = counter_p = counter_m = counter_f = counter_g = 0
 
         def selective_filter(percent, i_idx, i_filtered_sorted_list):
             if random.randrange(100) <= percent:
@@ -294,15 +284,15 @@ class ConfFrame:
         for m_idx in sorted_list:
             tag = app.get_tag_dt_txt(line=m_idx, get_tag_history=False)
             if tag == Tag.NoTag.d_txt:
-                counter_n += selective_filter(percent_for_n, m_idx, filtered_sorted_list)
+                counter_n += selective_filter(SpacedRepet.NO_FLTR_P, m_idx, filtered_sorted_list)
             elif tag == Tag.LowTag.d_txt:
-                counter_p += selective_filter(percent_for_p, m_idx, filtered_sorted_list)
+                counter_p += selective_filter(SpacedRepet.LOW_FLTR_P, m_idx, filtered_sorted_list)
             elif tag == Tag.MedTag.d_txt:
-                counter_m += selective_filter(percent_for_m, m_idx, filtered_sorted_list)
+                counter_m += selective_filter(SpacedRepet.MED_FLTR_P, m_idx, filtered_sorted_list)
             elif tag == Tag.GenTag.d_txt:
-                counter_f += selective_filter(percent_for_f, m_idx, filtered_sorted_list)
+                counter_f += selective_filter(SpacedRepet.GEN_FLTR_P, m_idx, filtered_sorted_list)
             elif tag == Tag.HighTag.d_txt:
-                counter_g += selective_filter(percent_for_g, m_idx, filtered_sorted_list)
+                counter_g += selective_filter(SpacedRepet.HIGH_FLTR, m_idx, filtered_sorted_list)
             else:
                 raise ValueError("No such tagging type")
 

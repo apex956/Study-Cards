@@ -23,6 +23,15 @@ class GuiTc:
     BACK_CARD_COLOR = "lavender"
 
 
+class SpacedRepet:
+    """Percent of cards to be viewed randomly based on tag in spaced repetition mode"""
+    NO_FLTR_P = 100
+    LOW_FLTR_P = 90
+    MED_FLTR_P = 50
+    GEN_FLTR_P = 25
+    HIGH_FLTR = 20
+
+
 class CrdOrdr:
     CardOrder = namedtuple("CardOrder", ["val", "txt"])
     Alphabetical = CardOrder(11, "Alphabetical")
