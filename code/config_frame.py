@@ -12,7 +12,7 @@ class ConfFrame:
         self.config_frame_obj = config_frame
 
         card_order_frame = tk.LabelFrame(config_frame, text="Card Order", font="Helvetica 14", width=205,
-                                         height=170, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+                                         height=140, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         card_order_frame.place(relx=0.1, rely=0.05)
 
         self.card_order_v = tk.IntVar()
@@ -21,7 +21,7 @@ class ConfFrame:
         local_text = CrdOrdr.Alphabetical.txt + " (" + self._app.term1+")"
         tk.Radiobutton(card_order_frame, text=local_text, variable=self.card_order_v,
                        value=CrdOrdr.Alphabetical.val, command=self.update_card_order,
-                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.1)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.0)
 
         tk.Radiobutton(card_order_frame, text=CrdOrdr.Random.txt, variable=self.card_order_v,
                        value=CrdOrdr.Random.val, command=self.update_card_order,
@@ -29,7 +29,7 @@ class ConfFrame:
 
         tk.Radiobutton(card_order_frame, text=CrdOrdr.Original.txt, variable=self.card_order_v,
                        value=CrdOrdr.Original.val, command=self.update_card_order,
-                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.5)
+                       font=GuiTc.R_B_FONT, bg=GuiTc.RB_BG).place(relx=0.0, rely=0.6)
 
         self._filter_cards = tk.IntVar()
         self._filter_cards.set(app.filter_cards_val)

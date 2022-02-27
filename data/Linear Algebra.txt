@@ -1,0 +1,2 @@
+homogeneous linear system ; A system of linear equations A*x = b is homogeneous if b = 0
+nullity of a matrix ; The nullity of a matrix is the dimension of its null space

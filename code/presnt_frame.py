@@ -70,7 +70,7 @@ class PresentationFrame:
                   command=self.flip_button_clicked).place(relx=0.5, rely=0.85)
 
         tk.Button(presentation_frame, text="Back to config.", font=GuiTc.BUTTON_FONT,
-                  command=main_win.config_button_clicked).place(relx=0.8, rely=0.85)
+                  command=main_win.config_button_clicked).place(relx=0.75, rely=0.85)
         
         # show the card number sequentially:
         self.label1 = tk.Label(presentation_frame, text="", font="Helvetica 16")
@@ -139,8 +139,8 @@ class PresentationFrame:
 
         # DEBUG CODE +++++++++
         #print(f"Tag was changed from {old_tag_txt} [{old_tag_number}] to {new_tag_txt}[{new_tag_number}]")
-        dbg_module_line = " Module:" + __name__ + " Line:" + str(getframeinfo(currentframe()).lineno)
-        app.logger.debug("Tag history is:" + str(tag_history) + dbg_module_line)
+        #dbg_module_line = " Module:" + __name__ + " Line:" + str(getframeinfo(currentframe()).lineno)
+        #app.logger.debug("Tag history is:" + str(tag_history) + dbg_module_line)
 
         addition_to_d_txt = "{" + str(new_tag_number) + tag_history + "}"
         d_txt += addition_to_d_txt

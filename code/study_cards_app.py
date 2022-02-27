@@ -20,11 +20,11 @@ class StudyCardsApp:
         self.term_list = []  # list of terms and answers taken from the work file
         self.ab_sort_list = []  # list of indexes of the alphabetically sorted term list
         self.shuffled_list = []  # list of indexes of the shuffled term list
-        self.front_side = 0  # The term side of the card
-        self.back_side = 1  # The answer side of the card
+        self.front_side = 0  # The term side of the cards in the study set
+        self.back_side = 1  # The answer side of the cards in the study set
         self.line_number = 0  # The running index of the lines in the file and in the list of terms
         self.act_ln = 0  # The index of the displayed line
-        self.card_side = self.front_side
+        self.card_side = self.front_side  # The side of a particular card as it flips
         self.filtered_ab_sort_list = []
         self.filtered_shuffled_list = []
         self.filtered_term_list = []
@@ -417,8 +417,12 @@ class StudyCardsApp:
         For now, run this function when a study set is selected.
 
         """
-        skip_words_italian = ["il ", "la ", "le ", "lo ", "gli ", "l'", "i ", "un ", "una "]
         terms = []
+        skip_words_gen_language = []
+        skip_words_italian = ["il ", "la ", "le ", "lo ", "gli ", "l'", "i ", "un ", "una "]
+
+        if self.term1 == "Italian":
+            skip_words_gen_language = skip_words_italian
 
         def strip_term(in_term):
             """
@@ -430,7 +434,7 @@ class StudyCardsApp:
             filtered_term_1 = in_term.lower()
             filtered_term_2 = re.sub('[.,)(?!]', '', filtered_term_1)
             filtered_term_3 = filtered_term_2
-            for skip_word in skip_words_italian:
+            for skip_word in skip_words_gen_language:
                 if filtered_term_2.startswith(skip_word):
                     filtered_term_3 = filtered_term_2[len(skip_word):]
             filtered_term_4 = filtered_term_3.replace(" ", "")
