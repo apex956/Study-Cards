@@ -91,12 +91,17 @@ class PresentationFrame:
         window.bind("<Right>", self.right_arrow_key)
         window.bind("<Left>", self.left_arrow_key)
         window.bind("<Down>", self.down_arrow_key)
+        window.bind("<Up>", self.up_arrow_key)
 
     def space_bar_key(self, event):
         if self._main_win.active_presentation_frame:
             self.flip_button_clicked()
 
     def down_arrow_key(self, event):
+        if self._main_win.active_presentation_frame:
+            self.flip_button_clicked()
+
+    def up_arrow_key(self, event):
         if self._main_win.active_presentation_frame:
             self.flip_button_clicked()
 
