@@ -105,8 +105,9 @@ class ConfFrame:
         tk.Button(config_frame, text="Display flashcards", font=GuiTc.BUTTON_FONT,
                   command=main_win.flash_cards_button_clicked).place(relx=0.7, rely=0.8)
 
-        tk.Button(config_frame, text="Reset flashcards", font=GuiTc.BUTTON_FONT,
-                  command=self.reset_cards).place(relx=0.4, rely=0.8)
+        # The Reset button is disabled for now. Not useful enough.
+        #tk.Button(config_frame, text="Reset flashcards", font=GuiTc.BUTTON_FONT,
+        #          command=self.reset_cards).place(relx=0.4, rely=0.8)
 
         tk.Button(config_frame, text="Back to set selection", font=GuiTc.BUTTON_FONT,
                   command=main_win.set_selection_button_clicked).place(relx=0.1, rely=0.8)

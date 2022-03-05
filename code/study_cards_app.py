@@ -148,7 +148,7 @@ class StudyCardsApp:
         Description: This function creates a work file and copies the content of
         the imported file to a work file. It also adds default tagging.
         This is done only if the work file cannot be found.
-        Note: This function will be used for merging the two files
+        Note: This function will be used for merging files
 
         :param in_f_path: the path to the directory of the imported file and the work file
         :param in_f_name: the name of the imported file
@@ -166,15 +166,26 @@ class StudyCardsApp:
             self.display_pop_up(PopUpType.WARNING, wrn_txt)
             return
         try:
+            too_many_separators = False
+            no_separator = False
             for t_idx, in_line in enumerate(in_file_ref):
                 if in_line.count(Const.F_SEPARATOR) > 1:
-                    p_line = t_idx
+                    too_many_separators = True
+                    p_line = t_idx + 1
+                    raise ValueError
+                elif in_line.count(Const.F_SEPARATOR) < 1:
+                    no_separator = True
+                    p_line = t_idx + 1
                     raise ValueError
                 in_line_list.append(in_line.split(Const.F_SEPARATOR))
         except ValueError:
-            warning_txt = "Found an unexpected separator character '" + Const.F_SEPARATOR + \
-                          "' in line " + str(p_line) +\
-                          " of the imported file. " + "The file was not imported."
+            if too_many_separators:
+                txt1 = "Found an unexpected separator character '"
+            elif no_separator:
+                txt1 = "There is no separator character '"
+            warning_txt = txt1 + Const.F_SEPARATOR + \
+                      "' in line " + str(p_line) +\
+                      " of the imported file. " + "The file was not imported."
             self.logger.warning(warning_txt)
             self.display_pop_up(PopUpType.WARNING, warning_txt)
             return
