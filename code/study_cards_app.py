@@ -1,6 +1,7 @@
 import random
 import tkinter as tk
 import tkinter.messagebox
+import tkinter.filedialog
 import pathlib
 import sys
 import os
@@ -477,7 +478,6 @@ class MainWin:
         window.geometry(str(GuiTc.MW_WIDTH)+'x700')
         window.resizable(False, False)
         window.attributes('-topmost', 'true')
-
         app = StudyCardsApp(window)
 
         ltr_size = 16  # approx number of pixels per letter
@@ -552,12 +552,12 @@ class SelectionFrame:
         self._select_frame = select_frame
 
         new_study_set_frame = tk.LabelFrame(select_frame, text="Add a Study Set", font="Helvetica 14", width=320,
-                                            height=350, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+                                            height=150, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         new_study_set_frame.place(relx=0.6, rely=0.05)
 
-        list_of_study_sets_frame = tk.LabelFrame(select_frame, text="Select a Study Set", font="Helvetica 14",
-                                                 width=460,
-                                                 height=400, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
+        list_of_study_sets_frame = tk.LabelFrame(select_frame, text="Select a Study Set",
+                                                 font="Helvetica 14", width=460,
+                                                 height=430, bg=GuiTc.L2_FRAME_BG, bd=1, relief=tk.SOLID)
         list_of_study_sets_frame.place(relx=0.04, rely=0.05)
 
         self.list_of_study_sets = []
@@ -577,7 +577,7 @@ class SelectionFrame:
 
         # link a scrollbar to a list
         scrollbar = tk.Scrollbar(list_of_study_sets_frame, orient='vertical', command=self.listbox.yview)
-        scrollbar.place(relx=0.05, rely=0.05, height=300)
+        scrollbar.place(relx=0.05, rely=0.05, height=350)
 
         title_label = tk.Label(new_study_set_frame, text='Title', font=('calibre', 12, 'bold'))
         title_label.place(relx=0.05, rely=0.1)
@@ -586,23 +586,20 @@ class SelectionFrame:
         self.title_entry = tk.Entry(new_study_set_frame, textvariable=self.title_var, font=('calibre', 12, 'normal'))
         self.title_entry.place(relx=0.35, rely=0.1)
 
-        f_name_label = tk.Label(new_study_set_frame, text='File Name', font=('calibre', 12, 'bold'))
-        f_name_label.place(relx=0.05, rely=0.3)
+        tk.Button(select_frame, text="Go to the selected study set", font=GuiTc.BUTTON_FONT,
+                  command=self.go_to_selected_set_button_clicked).place(relx=0.04, rely=0.85)
 
-        self.f_name_var = tk.StringVar()
-        self.f_name_entry = tk.Entry(new_study_set_frame, textvariable=self.f_name_var, font=('calibre', 12, 'normal'))
-        self.f_name_entry.place(relx=0.35, rely=0.3)
-
-        tk.Button(select_frame, text="Go to the study set", font=GuiTc.BUTTON_FONT,
-                  command=self.go_to_selected_set_button_clicked).place(relx=0.1, rely=0.85)
-
-        self.file_import_button = tk.Button(new_study_set_frame, text="Import the file",
+        self.file_import_button = tk.Button(new_study_set_frame, text="Import a file",
                                             font=GuiTc.BUTTON_FONT, command=self.import_study_set)
-        self.file_import_button.place(relx=0.2, rely=0.8)
+        self.file_import_button.place(relx=0.3, rely=0.6)
 
-        self.remove_button = tk.Button(select_frame, text="Remove the study set",
-                                            font=GuiTc.BUTTON_FONT, command=self.remove_study_set)
-        self.remove_button.place(relx=0.6, rely=0.85)
+        self.remove_button = tk.Button(select_frame, text="Remove the selected study set",
+                                       font=GuiTc.BUTTON_FONT, command=self.remove_study_set)
+        self.remove_button.place(relx=0.6, rely=0.37)
+
+        self.edit_button = tk.Button(select_frame, text="Edit the selected study set name",
+                                     font=GuiTc.BUTTON_FONT, command=None)
+        self.edit_button.place(relx=0.6, rely=0.5)
 
     def items_selected(self, event):
         self.selected_index = self.listbox.curselection()
@@ -662,7 +659,6 @@ class SelectionFrame:
         else:
             self._app.logger.debug("Do not remove the selected Study Set")
             return
-        #print("ID to remove: ", s_set_id)
         self._app.logger.debug("Removing Study Set ID: "+str(s_set_id))
 
         # Remove the study-set from JSON file
@@ -671,7 +667,6 @@ class SelectionFrame:
         found_in_json = False
         for d_idx, s_set_conf in enumerate(self._app.state_of_study_sets):
             if s_set_conf["ID"] == s_set_id:
-                #print("found record in JSON file")
                 self._app.state_of_study_sets.pop(d_idx)
                 with open(Const.JSON_F_NAME, "w") as write_file:
                     json.dump(self._app.state_of_study_sets, write_file, indent=4)
@@ -711,12 +706,21 @@ class SelectionFrame:
 
     def import_study_set(self):
         study_set_title = self.title_var.get().rstrip()
-        import_file_name = self.f_name_var.get().rstrip()
-        # Check valid title and file name
+
+        # open file path dialog
+        import_file_name_and_path = tk.filedialog.askopenfilename(initialdir=Const.FILE_PATH,
+                                    title="Select file",
+                                    filetypes=(("Text files", "*.txt"), ("all files", "*.*")))
+        split_file_path = os.path.split(import_file_name_and_path)
+        import_file_name = split_file_path[1]
+        import_file_path = os.path.normpath(split_file_path[0])
+        correct_path = os.path.abspath(Const.FILE_PATH)
+
+        # Check valid title and file path
         if len(study_set_title.replace(' ', '')) < 3:
             wrn_txt = "Invalid study set title. Should be at least 3 characters"
-        elif len(import_file_name.replace(' ', '')) < 3:
-            wrn_txt = "Invalid import file name. Should be at least 3 characters"
+        elif import_file_path != correct_path:
+            wrn_txt = "Invalid path for import file"
         else:
             wrn_txt = ""
 
@@ -762,7 +766,8 @@ class SelectionFrame:
     def clear_entries(self):
         # allow a new entry
         self.title_entry.delete(0, tk.END)
-        self.f_name_entry.delete(0, tk.END)
+        #self.f_name_entry.delete(0, tk.END)
+
 
 def main():
     if sys.version_info[0] < 3:
